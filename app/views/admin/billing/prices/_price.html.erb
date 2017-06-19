@@ -3,6 +3,6 @@
     <td><%= price.duration.sub('mons', 'months') %></td>
     <td><%= price.operation_category %></td>
     <td><%= number_to_currency price.price %></td>
-    <td><%= l price.valid_from, format: :date %></td>
-    <td><%= l price.valid_to, format: :date %></td>
+    <td><%= l price.effect_time %></td>
+    <td><%= l price.expire_time %></td>
 </tr>

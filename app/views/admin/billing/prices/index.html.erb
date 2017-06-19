@@ -13,7 +13,7 @@
 <%= render 'search_form', search: @search %>
 
 <% if @prices.present? %>
-    <table class="table table-hover table-bordered table-wrapped">
+    <table class="table table-hover table-bordered table-wrapped prices">
         <thead>
             <tr>
                 <th><%= sort_link(@q, 'zone_id', DNS::Zone.model_name.human) %></th>
