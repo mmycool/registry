@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'admin price create', settings: false do
-  let!(:zone) { create(:zone, id: 1, origin: 'test') }
+  let!(:zone) { create(:zone, id: 1) }
   subject(:price) { Billing::Price.first }
 
   before :example do
