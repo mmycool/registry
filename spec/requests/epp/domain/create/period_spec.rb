@@ -18,7 +18,7 @@ RSpec.describe 'EPP domain:create', settings: false do
                           duration: '3 mons',
                           price: Money.from_amount(1),
                           operation_category: 'create',
-                          valid_from: Time.zone.parse('05.07.2010'),
+                          effect_time: Time.zone.parse('05.07.2010'),
                           zone: zone)
     }
     let(:request_xml) { <<-XML
@@ -64,7 +64,7 @@ RSpec.describe 'EPP domain:create', settings: false do
                           duration: '10 years',
                           price: Money.from_amount(1),
                           operation_category: 'create',
-                          valid_from: Time.zone.parse('05.07.2010'),
+                          effect_time: Time.zone.parse('05.07.2010'),
                           zone: zone)
     }
     let(:request_xml) { <<-XML

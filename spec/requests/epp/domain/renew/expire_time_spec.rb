@@ -9,7 +9,7 @@ RSpec.describe 'EPP domain:renew' do
                         duration: '1 year',
                         price: Money.from_amount(1),
                         operation_category: 'renew',
-                        valid_from: Time.zone.parse('05.07.2010'),
+                        effect_time: Time.zone.parse('05.07.2010'),
                         zone: zone)
   }
 
