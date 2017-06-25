@@ -28,18 +28,18 @@ RSpec.describe 'EPP domain:create', settings: false do
   }
 
   before :example do
-    travel_to Time.zone.parse('05.07.2010')
+    travel_to Time.zone.parse('05.07.2010 08:00:00')
     Setting.days_to_renew_domain_before_expire = 0
     sign_in_to_epp_area(user: user)
   end
 
-  context 'when price is present' do
+  context 'when effective price is present' do
     let!(:price) { create(:price,
                           duration: '1 year',
                           price: Money.from_amount(1),
                           operation_category: 'create',
-                          valid_from: Time.zone.parse('05.07.2010'),
-                          valid_to: Time.zone.parse('05.07.2010'),
+                          effect_time: Time.zone.parse('05.07.2010 00:00'),
+                          expire_time: Time.zone.parse('05.07.2010 08:00:00'),
                           zone: zone)
     }
 
@@ -53,7 +53,16 @@ RSpec.describe 'EPP domain:create', settings: false do
     end
   end
 
-  context 'when price is absent' do
+  context 'when effective price is absent' do
+    let!(:price) { create(:price,
+                          duration: '1 year',
+                          price: Money.from_amount(1),
+                          operation_category: 'create',
+                          effect_time: Time.zone.parse('05.07.2010 00:00'),
+                          expire_time: Time.zone.parse('05.07.2010 07:59:59'),
+                          zone: zone)
+    }
+
     it 'does not create domain' do
       expect { request }.to_not change { Domain.count }
     end

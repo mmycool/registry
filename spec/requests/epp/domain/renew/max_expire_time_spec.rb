@@ -9,7 +9,6 @@ RSpec.describe 'EPP domain:renew' do
                         price: Money.from_amount(1),
                         operation_category: 'renew',
                         valid_from: Time.zone.parse('05.07.2010'),
-                        valid_to: Time.zone.parse('05.07.2010'),
                         zone: zone)
   }
   subject(:response_xml) { Nokogiri::XML(response.body) }

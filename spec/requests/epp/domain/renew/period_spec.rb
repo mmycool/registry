@@ -23,7 +23,6 @@ RSpec.describe 'EPP domain:renew', settings: false do
                           price: Money.from_amount(1),
                           operation_category: 'renew',
                           valid_from: Time.zone.parse('05.07.2010'),
-                          valid_to: Time.zone.parse('05.07.2010'),
                           zone: zone)
     }
     let(:request_xml) { <<-XML
@@ -60,7 +59,6 @@ RSpec.describe 'EPP domain:renew', settings: false do
                           price: Money.from_amount(1),
                           operation_category: 'renew',
                           valid_from: Time.zone.parse('05.07.2010'),
-                          valid_to: Time.zone.parse('05.07.2010'),
                           zone: zone)
     }
     let(:request_xml) { <<-XML
