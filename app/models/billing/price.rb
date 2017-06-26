@@ -14,7 +14,11 @@ module Billing
     alias_attribute :effect_time, :valid_from
     alias_attribute :expire_time, :valid_to
     monetize :price_cents, allow_nil: true, numericality: { greater_than_or_equal_to: 0 }
-    after_initialize :init_values
+
+    attr_accessor :effect_time_date
+    attr_accessor :effect_time_time
+    attr_accessor :expire_time_date
+    attr_accessor :expire_time_time
 
     def self.operation_categories
       %w[create renew]
@@ -69,13 +73,6 @@ module Billing
 
     def to_partial_path
       'price'
-    end
-
-    private
-
-    def init_values
-      return unless new_record?
-      self.valid_from = Time.zone.now.beginning_of_year unless valid_from
     end
   end
 end

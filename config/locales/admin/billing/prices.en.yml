@@ -25,6 +25,11 @@ en:
           expired: Price has been expired
 
         form:
+          to: To
+          validity_help_html: >
+            Price is non-expiring unless expiration date provided
+            <br>
+            00:00:00 and 23:59:59 denote the beginning and end of the day respectively
           create_btn: Create price
           update_btn: Update price
 

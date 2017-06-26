@@ -12,6 +12,10 @@ module Admin
         'effective'
       end
 
+      def self.default_effect_time
+        Time.zone.now.next_year.beginning_of_year
+      end
+
       def index
         @search = OpenStruct.new(search_params)
 
@@ -33,13 +37,18 @@ module Admin
 
       def new
         @price = ::Billing::Price.new
+        @price.effect_time_date = @price.effect_time_time = self.class.default_effect_time
       end
 
       def edit
+        @price.effect_time_date = @price.effect_time_time = @price.effect_time
+        @price.expire_time_date = @price.expire_time_time = @price.expire_time
       end
 
       def create
         @price = ::Billing::Price.new(price_params)
+        @price.effect_time = effect_time
+        @price.expire_time = expire_time
 
         if @price.save
           flash[:notice] = t('.created')
@@ -50,6 +59,9 @@ module Admin
       end
 
       def update
+        @price.effect_time = effect_time
+        @price.expire_time = expire_time
+
         if @price.update_attributes(price_params)
           flash[:notice] = t('.updated')
           redirect_to_index
@@ -77,8 +89,10 @@ module Admin
           operation_category
           duration
           price
-          valid_from
-          valid_to
+          effect_time_date
+          effect_time_time
+          expire_time_date
+          expire_time_time
         ]
 
         params.require(:price).permit(*allowed_params)
@@ -110,6 +124,14 @@ module Admin
 
       def statuses
         ::Billing::Price.statuses.map { |status| [status.capitalize, status] }
+      end
+
+      def effect_time
+        [price_params[:effect_time_date], price_params[:effect_time_time]].join("\s")
+      end
+
+      def expire_time
+        [price_params[:expire_time_date], price_params[:expire_time_time]].join("\s")
       end
     end
   end

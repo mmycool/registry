@@ -7,7 +7,29 @@ RSpec.feature 'New price in admin area', settings: false do
     sign_in_to_admin_area
   end
 
-  scenario 'it creates new price' do
+  def default_effect_time
+    Admin::Billing::PricesController.default_effect_time
+  end
+
+  it 'has default effective date' do
+    travel_to Time.zone.parse('05.07.2010')
+
+    open_list
+    open_form
+
+    expect(find('#price_effect_time_date').value).to eq(l(default_effect_time, format: :date))
+  end
+
+  it 'has default effective time' do
+    travel_to Time.zone.parse('05.07.2010')
+
+    open_list
+    open_form
+
+    expect(find('#price_effect_time_time').value).to eq(l(default_effect_time, format: :time))
+  end
+
+  it 'creates new price' do
     open_list
     open_form
     fill_form
