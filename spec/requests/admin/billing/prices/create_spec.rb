@@ -66,7 +66,7 @@ RSpec.describe 'admin price create', settings: false do
                                                   effect_time_time: '08:00:30',
                                                   expire_time_date: '2010-07-05',
                                                   expire_time_time: '08:00:31')
-    expect(price.expire_time).to eq(Time.zone.parse('2010-07-05 08:00:30'))
+    expect(price.expire_time).to eq(Time.zone.parse('2010-07-05 08:00:31'))
   end
 
   it 'redirects to :index' do
