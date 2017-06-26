@@ -2424,7 +2424,7 @@ CREATE TABLE prices (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     duration interval NOT NULL,
-    operation_category character varying,
+    operation_category character varying NOT NULL,
     zone_id integer NOT NULL
 );
 
@@ -5170,4 +5170,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170606202859');
 INSERT INTO schema_migrations (version) VALUES ('20170626000025');
 
 INSERT INTO schema_migrations (version) VALUES ('20170626001029');
+
+INSERT INTO schema_migrations (version) VALUES ('20170626001255');
 
