@@ -53,6 +53,7 @@ RSpec.describe Setting do
         request_confirmation_on_domain_deletion_enabled
         nameserver_required
         address_processing
+        extended_price_lookup
       ]
 
       expect(described_class.boolean_settings).to eq(settings)
