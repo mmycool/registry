@@ -20,6 +20,6 @@ RSpec.feature 'Expiring price in admin area', settings: false do
   end
 
   def expire
-    click_link_or_button t('admin.billing.prices.edit.expire_btn')
+    click_link_or_button t('admin.billing.prices.expire_btn.label')
   end
 end

@@ -1,3 +1,5 @@
+<% price = Billing::PricePresenter.new(price: @price, view: self) %>
+
 <ol class="breadcrumb">
     <li><%= link_to t('admin.billing.prices.index.title'), admin_prices_path %></li>
 </ol>
@@ -9,10 +11,7 @@
         </div>
 
         <div class="col-sm-2 text-right">
-            <%= link_to(t('.expire_btn'), expire_admin_price_path(@price),
-                        method: :patch,
-                        data: { confirm: t('.expire_btn_confirm') },
-                        class: 'btn btn-danger') %>
+            <%= price.expire_btn %>
         </div>
     </div>
 </div>
