@@ -12,6 +12,7 @@ module Concerns::Billing::Price::Expirable
   end
 
   def expired?
+    return false if expire_time.nil?
     expire_time.past?
   end
 end

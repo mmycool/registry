@@ -51,5 +51,11 @@ RSpec.describe Billing::Price do
 
       specify { expect(expired).to be false }
     end
+
+    context 'when expire time is not defined' do
+      let(:domain) { described_class.new(expire_time: nil) }
+
+      specify { expect(expired).to be false }
+    end
   end
 end
