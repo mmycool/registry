@@ -72,16 +72,13 @@ module Admin
       end
 
       def price_params
-        allowed_params = %i[
-          zone_id
-          operation_category
-          duration
-          price
-          valid_from
-          valid_to
-        ]
-
-        params.require(:price).permit(*allowed_params)
+        params.require(:price).permit(
+          :operation_category,
+          :duration,
+          :price,
+          :valid_from,
+          :valid_to,
+          zone_ids: [])
       end
 
       def search_params

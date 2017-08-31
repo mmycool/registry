@@ -16,7 +16,7 @@
     <table class="table table-hover table-bordered table-wrapped">
         <thead>
             <tr>
-                <th><%= sort_link(@q, 'zone_id', DNS::Zone.model_name.human) %></th>
+                <th><%= DNS::Zone.model_name.human %></th>
                 <th><%= sort_link(@q, 'duration', ::Billing::Price.human_attribute_name(:duration)) %></th>
                 <th><%= sort_link(@q, 'operation_category', ::Billing::Price.human_attribute_name(:operation)) %></th>
                 <th><%= sort_link(@q, 'price', t(:price)) %></th>

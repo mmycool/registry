@@ -68,13 +68,12 @@ RSpec.describe Billing::Price do
     end
   end
 
-  describe 'zone validation', db: false do
+  describe 'zones validation', db: false do
     subject(:price) { described_class.new }
 
     it 'rejects absent' do
-      price.zone = nil
       price.validate
-      expect(price.errors).to have_key(:zone)
+      expect(price.errors).to have_key(:zones)
     end
   end
 

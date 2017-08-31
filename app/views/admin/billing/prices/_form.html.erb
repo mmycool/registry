@@ -2,10 +2,12 @@
     <%= render 'form_errors', target: price %>
 
     <div class="form-group">
-        <%= f.label :zone_id, class: 'col-sm-2 control-label' %>
+        <%= f.label :zone_id, class: 'col-sm-2 control-label', for: nil %>
 
         <div class="col-sm-3">
-            <%= f.collection_select :zone_id, zones, :id, :origin, {}, class: 'form-control', required: true %>
+            <%= f.collection_check_boxes :zone_ids, zones, :id, :origin do |b| %>
+                <div class="checkbox"><%= b.label { b.check_box + b.text } %></div>
+            <% end %>
         </div>
     </div>
 

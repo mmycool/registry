@@ -5,7 +5,10 @@ FactoryGirl.define do
     valid_to Time.zone.parse('05.07.2010')
     duration '1 year'
     operation_category Billing::Price.operation_categories.first
-    zone
+
+    before(:create) do |record|
+      record.zones << build(:zone)
+    end
 
     factory :effective_price do
       expire_time { Time.zone.now + 1.day }

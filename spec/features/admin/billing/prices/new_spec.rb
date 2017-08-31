@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'New price in admin area', settings: false do
-  given!(:zone) { create(:zone, origin: 'test') }
+  given!(:zone) { create(:zone, origin: 'com') }
 
   background do
     sign_in_to_admin_area
@@ -25,7 +25,7 @@ RSpec.feature 'New price in admin area', settings: false do
   end
 
   def fill_form
-    select 'test', from: 'price_zone_id'
+    check 'com'
     select Billing::Price.operation_categories.first, from: 'price_operation_category'
     select '3 months', from: 'price_duration'
     fill_in 'price_price', with: '1'

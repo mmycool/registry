@@ -4,12 +4,13 @@ module Billing
 
     self.auto_html5_validation = false
 
-    belongs_to :zone, class_name: 'DNS::Zone', required: true
     has_many :account_activities
+    has_and_belongs_to_many :zones, class_name: 'DNS::Zone'
 
     validates :price, :valid_from, :operation_category, :duration, presence: true
     validates :operation_category, inclusion: { in: Proc.new { |price| price.class.operation_categories } }
     validates :duration, inclusion: { in: Proc.new { |price| price.class.durations } }
+    validates :zones, presence: true
 
     alias_attribute :effect_time, :valid_from
     alias_attribute :expire_time, :valid_to
