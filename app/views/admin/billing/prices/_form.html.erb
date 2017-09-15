@@ -15,7 +15,9 @@
         <%= f.label :operation_category, class: 'col-sm-2 control-label' %>
 
         <div class="col-sm-3">
-            <%= f.select :operation_category, operation_categories, {}, class: 'form-control', required: true %>
+            <%= f.collection_check_boxes :operation_category, operation_categories, :to_s, :to_s do |b| %>
+                <div class="checkbox"><%= b.label { b.check_box + b.text } %></div>
+            <% end %>
         </div>
     </div>
 

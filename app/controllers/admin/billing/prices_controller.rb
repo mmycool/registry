@@ -72,13 +72,12 @@ module Admin
       end
 
       def price_params
-        params.require(:price).permit(
-          :operation_category,
-          :duration,
-          :price,
-          :valid_from,
-          :valid_to,
-          zone_ids: [])
+        params.require(:price).permit(:duration,
+                                      :price,
+                                      :valid_from,
+                                      :valid_to,
+                                      operation_category: [],
+                                      zone_ids: [])
       end
 
       def search_params
@@ -97,7 +96,7 @@ module Admin
       end
 
       def operation_categories
-        ::Billing::Price::operation_categories
+        EPP::OperationCategory.all
       end
 
       def durations

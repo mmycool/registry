@@ -4,7 +4,7 @@ FactoryGirl.define do
     valid_from Time.zone.parse('05.07.2010')
     valid_to Time.zone.parse('05.07.2010')
     duration '1 year'
-    operation_category Billing::Price.operation_categories.first
+    operation_category EPP::OperationCategory.all.first
 
     before(:create) do |record|
       record.zones << build(:zone)

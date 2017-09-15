@@ -26,7 +26,7 @@ RSpec.feature 'New price in admin area', settings: false do
 
   def fill_form
     check 'com'
-    select Billing::Price.operation_categories.first, from: 'price_operation_category'
+    check EPP::OperationCategory.all.first
     select '3 months', from: 'price_duration'
     fill_in 'price_price', with: '1'
   end

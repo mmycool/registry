@@ -8,7 +8,7 @@ module Billing
     has_and_belongs_to_many :zones, class_name: 'DNS::Zone'
 
     validates :price, :valid_from, :operation_category, :duration, presence: true
-    validates :operation_category, inclusion: { in: Proc.new { |price| price.class.operation_categories } }
+    #validates :operation_category, inclusion: { in: Proc.new { |price| price.class.operation_categories } }
     validates :duration, inclusion: { in: Proc.new { |price| price.class.durations } }
     validates :zones, presence: true
 
@@ -16,10 +16,6 @@ module Billing
     alias_attribute :expire_time, :valid_to
     monetize :price_cents, allow_nil: true, numericality: { greater_than_or_equal_to: 0 }
     after_initialize :init_values
-
-    def self.operation_categories
-      %w[create renew]
-    end
 
     def self.durations
       [
