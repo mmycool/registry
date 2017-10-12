@@ -2372,7 +2372,7 @@ ALTER SEQUENCE prices_id_seq OWNED BY prices.id;
 
 
 --
--- Name: prices_zones; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: prices_zones; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE prices_zones (
@@ -3693,7 +3693,7 @@ ALTER TABLE ONLY settings
 
 
 --
--- Name: unique_price_id_zone_id; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: unique_price_id_zone_id; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY prices_zones
