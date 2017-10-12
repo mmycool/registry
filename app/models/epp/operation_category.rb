@@ -1,7 +1,7 @@
-module EPP
+module Epp
   class OperationCategory
     def self.all
-      %w[create renew transfer update delete]
+      %w[create renew]
     end
   end
 end

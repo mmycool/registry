@@ -9,7 +9,7 @@ module Billing
 
     validates :price, :valid_from, :operation_category, :duration, presence: true
     #validates :operation_category, inclusion: { in: Proc.new { |price| price.class.operation_categories } }
-    validates :duration, inclusion: { in: Proc.new { |price| price.class.durations } }
+    validates :duration, inclusion: { in: proc { |price| price.class.durations } }
     validates :zones, presence: true
 
     alias_attribute :effect_time, :valid_from
