@@ -96,7 +96,7 @@ module Admin
       end
 
       def operation_categories
-        EPP::OperationCategory.all
+        Epp::OperationCategory.all
       end
 
       def durations

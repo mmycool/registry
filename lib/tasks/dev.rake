@@ -59,14 +59,14 @@ namespace :dev do
       domain_counter = 1.step
 
       Billing::Price.durations.each do |duration|
-        Billing::Price.operation_categories.each do |operation_category|
+        Epp::OperationCategory.all.each do |operation_category|
           price = create(:price,
                          price: Money.from_amount(duration.to_i * 10),
                          valid_from: Time.zone.now - rand(1).months,
                          valid_to: Time.zone.now + rand(1).months,
                          duration: duration,
-                         operation_category: operation_category,
-                         zone: zone)
+                         operation_category: [operation_category],
+                         zones: [zone])
 
           next if operation_category == 'renew'
 
