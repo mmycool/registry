@@ -4,10 +4,12 @@ RSpec.feature 'New price in admin area', settings: false do
   given!(:zone) { create(:zone, origin: 'com') }
 
   background do
-    sign_in_to_admin_area
+    login_as create(:admin_user)
   end
 
   scenario 'it creates new price' do
+    visit admin_root_path
+
     open_list
     open_form
     fill_form
