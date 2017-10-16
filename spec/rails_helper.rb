@@ -29,6 +29,7 @@ RSpec.configure do |config|
   config.include AbstractController::Translation, type: :feature
   config.include AbstractController::Translation, type: :mailer
   config.include Requests::EPPHelpers, type: :request
+  config.include Warden::Test::Helpers, type: %i[feature request]
 
   config.define_derived_metadata(file_path: %r[/spec/features/]) do |metadata|
     metadata[:db] = true if metadata[:db].nil?
