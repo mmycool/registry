@@ -40,6 +40,8 @@ module Admin
 
       def create
         @price = ::Billing::Price.new(price_params)
+        @price.duration = @price.duration.reject!(&:empty?)
+        @price.operation_category = @price.operation_category.reject!(&:empty?)
 
         if @price.save
           flash[:notice] = t('.created')
@@ -50,6 +52,9 @@ module Admin
       end
 
       def update
+        params[:price][:duration] = params[:price][:duration].reject!(&:empty?)
+        params[:price][:operation_category] = params[:price][:operation_category].reject!(&:empty?)
+
         if @price.update_attributes(price_params)
           flash[:notice] = t('.updated')
           redirect_to_index
@@ -72,12 +77,12 @@ module Admin
       end
 
       def price_params
-        params.require(:price).permit(:duration,
-                                      :price,
+        params.require(:price).permit(:price,
                                       :valid_from,
                                       :valid_to,
                                       operation_category: [],
-                                      zone_ids: [])
+                                      zone_ids: [],
+                                      duration: [])
       end
 
       def search_params
@@ -100,8 +105,7 @@ module Admin
       end
 
       def durations
-        durations = ::Billing::Price::durations
-        durations.collect { |duration| [duration.sub('mon', 'month'), duration] }
+        ::Billing::Price::durations
       end
 
       def statuses
