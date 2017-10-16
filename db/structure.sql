@@ -2347,7 +2347,7 @@ CREATE TABLE prices (
     updator_str character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    duration interval,
+    duration interval NOT NULL,
     operation_category character varying[] DEFAULT '{}'::character varying[] NOT NULL
 );
 
@@ -5077,4 +5077,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171009080822');
 INSERT INTO schema_migrations (version) VALUES ('20171009082321');
 
 INSERT INTO schema_migrations (version) VALUES ('20171016053749');
+
+INSERT INTO schema_migrations (version) VALUES ('20171016054215');
 
