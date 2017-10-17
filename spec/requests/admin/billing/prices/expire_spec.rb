@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'admin price expire', settings: false do
-  before :example do
-    sign_in_to_admin_area
+  before do
+    login_as create(:admin_user)
   end
 
   it 'expires price' do

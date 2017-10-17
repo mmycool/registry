@@ -5,7 +5,7 @@ RSpec.feature 'Viewing prices in admin area', settings: false do
   given!(:expired_price) { create(:expired_price) }
 
   background do
-    sign_in_to_admin_area
+    login_as create(:admin_user)
   end
 
   describe 'search' do

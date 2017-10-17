@@ -4,7 +4,7 @@ RSpec.feature 'Expiring price in admin area', settings: false do
   given!(:price) { create(:effective_price) }
 
   background do
-    sign_in_to_admin_area
+    login_as create(:admin_user)
   end
 
   scenario 'expires price' do

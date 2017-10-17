@@ -4,8 +4,8 @@ RSpec.describe 'admin price create', settings: false do
   let!(:zone) { create(:zone, id: 1, origin: 'test') }
   subject(:price) { Billing::Price.first }
 
-  before :example do
-    sign_in_to_admin_area
+  before do
+    login_as create(:admin_user)
   end
 
   it 'creates new price' do
