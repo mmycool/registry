@@ -321,7 +321,6 @@ en:
   failed_to_delete_domain: 'Failed to delete domain!'
   email: 'E-mail'
   fax: 'Fax'
-  contact_details: 'Contact details'
   ident: 'Ident'
   ident_type: 'Ident type'
   country: 'Country'
@@ -598,14 +597,12 @@ en:
   acDate: 'Accept date'
   exDate: 'Valid to'
   dequeue: 'Dequeue'
-  are_you_sure_you_want_to_delete_domain: 'Are you sure you want to delete domain %{domain}?'
   keyrelay: 'Keyrelay'
   expiry_relative: 'Expiry relative'
   expiry_absolute: 'Expiry absolute'
   upload_key: 'Upload key'
   legal_document: 'Legal document'
   legal_document_max_size: '(max. 8MB)'
-  delete_domain: 'Delete domain'
   index: 'Index'
   ident: 'Ident'
   email: 'E-mail'
@@ -614,13 +611,8 @@ en:
   country: Country
   period: Period
   birthday_format: 'Insert birthday in format: YYYY-MM-DD'
-  your_session_has_timed_out: 'Your session has timed out. Please log in again.'
-  certificate_loaded: 'Certificate (already loaded)'
-  private_key_loaded: 'Private key (already loaded)'
-  credentials: 'Credentials'
   pki: 'PKI'
   zip: Postcode
-  contact_details: Contact Details
   general: General
   id_card: 'ID Card'
   m_id: 'M-ID'
