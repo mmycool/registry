@@ -9,38 +9,38 @@ RSpec.describe 'admin price update', settings: false do
     price = create(:price)
     create(:zone, id: 2)
 
-    patch admin_price_path(price), price: attributes_for(:price, zone_id: '2')
+    patch admin_price_path(price), price: attributes_for(:price).merge(zone_ids: [2])
     price.reload
 
-    expect(price.zone_id).to eq(2)
+    expect(price.zone_ids).to eq([2])
   end
 
   it 'updates operation category' do
-    price = create(:price, operation_category: Billing::Price.operation_categories.first)
+    price = create(:price, operation_category: ['create'])
 
     patch admin_price_path(price),
-          price: attributes_for(:price, operation_category: Billing::Price.operation_categories.second)
+          price: attributes_for(:price, operation_category: ['update'])
     price.reload
 
-    expect(price.operation_category).to eq(Billing::Price.operation_categories.second)
+    expect(price.operation_category).to eq(['update'])
   end
 
   it 'updates duration in months' do
-    price = create(:price, duration: '3 mons')
+    price = create(:price, duration: ['3 mons'])
 
-    patch admin_price_path(price), price: attributes_for(:price, duration: '6 mons')
+    patch admin_price_path(price), price: attributes_for(:price, duration: ['6 mons'])
     price.reload
 
-    expect(price.duration).to eq('6 mons')
+    expect(price.duration).to eq(['6 mons'])
   end
 
   it 'updates duration in years' do
-    price = create(:price, duration: '1 year')
+    price = create(:price, duration: ['1 year'])
 
-    patch admin_price_path(price), price: attributes_for(:price, duration: '2 years')
+    patch admin_price_path(price), price: attributes_for(:price, duration: ['2 years'])
     price.reload
 
-    expect(price.duration).to eq('2 years')
+    expect(price.duration).to eq(['2 years'])
   end
 
   it 'updates valid_from' do

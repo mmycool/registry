@@ -6,12 +6,12 @@ RSpec.describe 'EPP domain:renew', settings: false do
   let!(:zone) { create(:zone, origin: 'test') }
   let!(:registrar) { create(:registrar_with_unlimited_balance) }
   let!(:price) { create(:price,
-                        duration: '1 year',
+                        duration: ['1 year'],
                         price: Money.from_amount(1),
-                        operation_category: 'renew',
+                        operation_category: ['renew'],
                         valid_from: Time.zone.parse('05.07.2010'),
                         valid_to: Time.zone.parse('05.07.2010'),
-                        zone: zone)
+                        zones: [zone])
   }
   let!(:domain) { create(:domain,
                          registrar: registrar,

@@ -7,12 +7,12 @@ RSpec.describe 'EPP domain:create', settings: false do
   let!(:zone) { create(:zone, origin: 'test') }
   let!(:registrar) { create(:registrar_with_unlimited_balance) }
   let!(:price) { create(:price,
-                        duration: '1 year',
+                        duration: ['1 year'],
                         price: Money.from_amount(1),
-                        operation_category: 'create',
+                        operation_category: ['create'],
                         valid_from: Time.zone.parse('05.07.2010'),
                         valid_to: Time.zone.parse('05.07.2010'),
-                        zone: zone)
+                        zones: [zone])
   }
   let(:request_xml) { <<-XML
     <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -34,7 +34,7 @@ RSpec.describe 'EPP domain:create', settings: false do
   XML
   }
 
-  before :example do
+  before do
     travel_to Time.zone.parse('05.07.2010 10:30')
     Setting.days_to_renew_domain_before_expire = 0
     sign_in_to_epp_area(user: user)

@@ -34,12 +34,12 @@ RSpec.describe 'EPP domain:renew', settings: false do
 
   context 'when price is present' do
     let!(:price) { create(:price,
-                          duration: '1 year',
+                          duration: ['1 year'],
                           price: Money.from_amount(1),
-                          operation_category: 'renew',
+                          operation_category: ['renew'],
                           valid_from: Time.zone.parse('05.07.2010'),
                           valid_to: Time.zone.parse('05.07.2010'),
-                          zone: zone)
+                          zones: [zone])
     }
 
     it 'renews domain for 1 year' do

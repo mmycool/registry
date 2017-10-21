@@ -545,8 +545,7 @@ RSpec.describe Domain do
     expect(d.statuses.count).to eq(1)
     expect(d.statuses.first).to eq(DomainStatus::OK)
 
-    d.period = 2
-    d.save
+    d.touch
 
     d.reload
     expect(d.statuses.count).to eq(1)
@@ -610,28 +609,6 @@ RSpec.describe Domain do
       domain.registrant = nil
       domain.validate
       expect(domain.errors).to have_key(:registrant)
-    end
-  end
-
-  describe 'period validation', db: false do
-    let(:domain) { described_class.new }
-
-    it 'rejects absent' do
-      domain.period = nil
-      domain.validate
-      expect(domain.errors).to have_key(:period)
-    end
-
-    it 'rejects fractional' do
-      domain.period = 1.1
-      domain.validate
-      expect(domain.errors).to have_key(:period)
-    end
-
-    it 'accepts integer' do
-      domain.period = 1
-      domain.validate
-      expect(domain.errors).to_not have_key(:period)
     end
   end
 

@@ -15,14 +15,11 @@ namespace :dev do
     with_random_data = args[:random].present?
 
     def create_domain(name:, registrar:, registrant:, account:, price:, reg_time:)
-      duration = price.duration.sub('mons', 'months').split("\s")
+      duration = price.duration.first.sub('mons', 'months').split("\s")
       period = duration.first.to_i
-      period_unit = duration.second[0]
 
       create(:domain,
              name: name,
-             period: period,
-             period_unit: period_unit,
              registered_at: reg_time,
              valid_from: reg_time,
              expire_time: reg_time + period.send(duration.second.to_sym),
@@ -63,7 +60,7 @@ namespace :dev do
                          price: Money.from_amount(duration.to_i * 10),
                          valid_from: Time.zone.now - rand(1).months,
                          valid_to: Time.zone.now + rand(1).months,
-                         duration: duration,
+                         duration: [duration],
                          operation_category: [operation_category],
                          zones: [zone])
 
@@ -149,8 +146,6 @@ namespace :dev do
 
           create(:domain,
                  name: name,
-                 period: period,
-                 period_unit: 'y',
                  registered_at: Time.zone.now,
                  valid_from: Time.zone.now,
                  expire_time: Time.zone.now + period.years,
@@ -166,9 +161,9 @@ namespace :dev do
                    price: Money.from_amount(rand(10) + 1),
                    valid_from: Time.zone.now.beginning_of_day,
                    valid_to: Time.zone.now + (rand(10) + 1).years,
-                   duration: duration,
-                   operation_category: operation_category,
-                   zone: zone)
+                   duration: [duration],
+                   operation_category: [operation_category],
+                   zones: [zone])
           end
         end
       end

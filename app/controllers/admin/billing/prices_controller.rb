@@ -40,8 +40,8 @@ module Admin
 
       def create
         @price = ::Billing::Price.new(price_params)
-        @price.duration = @price.duration.reject!(&:empty?)
-        @price.operation_category = @price.operation_category.reject!(&:empty?)
+        @price.duration = price_params[:duration].reject(&:empty?)
+        @price.operation_category = price_params[:operation_category].reject(&:empty?)
 
         if @price.save
           flash[:notice] = t('.created')
@@ -52,8 +52,8 @@ module Admin
       end
 
       def update
-        params[:price][:duration] = params[:price][:duration].reject!(&:empty?)
-        params[:price][:operation_category] = params[:price][:operation_category].reject!(&:empty?)
+        params[:price][:duration] = price_params[:duration].reject(&:empty?)
+        params[:price][:operation_category] = price_params[:operation_category].reject(&:empty?)
 
         if @price.update_attributes(price_params)
           flash[:notice] = t('.updated')

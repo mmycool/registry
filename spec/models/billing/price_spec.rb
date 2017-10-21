@@ -5,13 +5,6 @@ RSpec.describe Billing::Price do
   it { is_expected.to alias_attribute(:effect_time, :valid_from) }
   it { is_expected.to alias_attribute(:expire_time, :valid_to) }
 
-  describe '::operation_categories', db: false do
-    it 'returns operation categories' do
-      categories = %w[create renew]
-      expect(described_class.operation_categories).to eq(categories)
-    end
-  end
-
   describe '::durations', db: false do
     it 'returns durations' do
       durations = [
@@ -127,7 +120,7 @@ RSpec.describe Billing::Price do
     end
 
     it 'accepts valid' do
-      price.duration = described_class.durations.first
+      price.duration = [described_class.durations.first]
       price.validate
       expect(price.errors).to_not have_key(:duration)
     end
@@ -149,7 +142,7 @@ RSpec.describe Billing::Price do
     end
 
     it 'accepts valid' do
-      price.operation_category = described_class.operation_categories.first
+      price.operation_category = [Epp::OperationCategory.all.first]
       price.validate
       expect(price.errors).to_not have_key(:operation_category)
     end
@@ -165,15 +158,6 @@ RSpec.describe Billing::Price do
 
     it 'returns operation_category and zone name' do
       expect(price.name).to eq('category zone')
-    end
-  end
-
-  describe '#zone_name', db: false do
-    let(:price) { described_class.new(zone: zone) }
-    let(:zone) { build_stubbed(:zone, origin: 'test') }
-
-    it 'returns zone name' do
-      expect(price.zone_name).to eq('test')
     end
   end
 end

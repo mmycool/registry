@@ -7,6 +7,8 @@ class Epp::Domain < Domain
 
   before_validation :manage_permissions
 
+  attr_accessor :period # For validation
+
   def manage_permissions
     return if is_admin # this bad hack for 109086524, refactor later
     return true if is_transfer || is_renewal
@@ -46,23 +48,6 @@ class Epp::Domain < Domain
   after_destroy :unlink_contacts
   def unlink_contacts
     #TODO: cleanup cache if we think to cache dynamic statuses
-  end
-
-  class << self
-    def new_from_epp(frame, current_user)
-      domain = Epp::Domain.new
-      domain.attributes = domain.attrs_from(frame, current_user)
-      domain.attach_default_contacts
-      domain.registered_at = Time.zone.now
-      domain.valid_from = Time.zone.now
-
-      period = domain.period.to_i
-      plural_period_unit_name = (domain.period_unit == 'm' ? 'months' : 'years').to_sym
-      expire_time = (Time.zone.now.advance(plural_period_unit_name => period) + 1.day).beginning_of_day
-      domain.expire_time = expire_time
-
-      domain
-    end
   end
 
   def epp_code_map # rubocop:disable Metrics/MethodLength
@@ -167,12 +152,6 @@ class Epp::Domain < Domain
     at[:name] = frame.css('name').text if new_record?
     at[:registrar_id] = current_user.registrar.try(:id)
     at[:registered_at] = Time.zone.now if new_record?
-
-    period = frame.css('period').text
-    at[:period] = (period.to_i == 0) ? 1 : period.to_i
-
-    at[:period_unit] = Epp::Domain.parse_period_unit_from_frame(frame) || 'y'
-
     at[:reserved_pw] = frame.css('reserved > pw').text
 
     # at[:statuses] = domain_statuses_attrs(frame, action)
@@ -595,7 +574,6 @@ class Epp::Domain < Domain
     add_epp_error('2105', nil, nil, I18n.t('object_is_not_eligible_for_renewal')) unless renewable?
     return false if errors.any?
 
-    period = period.to_i
     plural_period_unit_name = (unit == 'm' ? 'months' : 'years').to_sym
     renewed_expire_time = valid_to.advance(plural_period_unit_name => period.to_i)
 
@@ -610,8 +588,6 @@ class Epp::Domain < Domain
     self.expire_time = renewed_expire_time
     self.outzone_at = nil
     self.delete_at = nil
-    self.period = period
-    self.period_unit = unit
 
     statuses.delete(DomainStatus::SERVER_HOLD)
     statuses.delete(DomainStatus::EXPIRED)
@@ -877,12 +853,6 @@ class Epp::Domain < Domain
   end
 
   class << self
-    def parse_period_unit_from_frame(parsed_frame)
-      p = parsed_frame.css('period').first
-      return nil unless p
-      p[:unit]
-    end
-
     def parse_legal_document_from_frame(parsed_frame)
       ld = parsed_frame.css('legalDocument').first
       return nil unless ld

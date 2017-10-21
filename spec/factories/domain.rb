@@ -1,8 +1,6 @@
 FactoryGirl.define do
   factory :domain do
     sequence(:name) { |n| "test#{n}.com" }
-    period 1
-    period_unit 'y' # Year
     registrar
     registrant
 

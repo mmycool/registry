@@ -7,12 +7,12 @@ RSpec.describe 'EPP domain:create', settings: false do
   let!(:contact) { create(:contact, code: 'test') }
   let!(:zone) { create(:zone, origin: 'test') }
   let!(:price) { create(:price,
-                        duration: '1 year',
+                        duration: ['1 year'],
                         price: Money.from_amount(1),
-                        operation_category: 'create',
+                        operation_category: ['create'],
                         valid_from: Time.zone.parse('05.07.2010'),
                         valid_to: Time.zone.parse('05.07.2010'),
-                        zone: zone)
+                        zones: [zone])
   }
 
   before :example do

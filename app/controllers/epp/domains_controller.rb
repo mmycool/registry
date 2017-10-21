@@ -18,16 +18,35 @@ class Epp::DomainsController < EppController
     render_epp_response '/epp/domains/info'
   end
 
-  # rubocop: disable Metrics/PerceivedComplexity
-  # rubocop: disable Metrics/CyclomaticComplexity
   def create
     authorize! :create, Epp::Domain
-    @domain = Epp::Domain.new_from_epp(params[:parsed_frame], current_user)
+
+    period_element = params[:parsed_frame].at_css('period')
+
+    if period_element.present?
+      period = period_element.text.to_i
+      period_unit = period_element[:unit]
+    else
+      period = 1
+      period_unit = 'y'
+    end
+
+    @domain = Epp::Domain.new
+    @domain.attributes = @domain.attrs_from(params[:parsed_frame], current_user)
+    @domain.attach_default_contacts
+    @domain.registered_at = Time.zone.now
+    @domain.valid_from = Time.zone.now
+
+    plural_period_unit_name = (period_unit == 'm' ? 'months' : 'years').to_sym
+    expire_time = (Time.zone.now.advance(plural_period_unit_name => period) + 1.day).beginning_of_day
+    @domain.expire_time = expire_time
+
     handle_errors(@domain) and return if @domain.errors.any?
-    @domain.valid?
+    @domain.validate
     @domain.errors.delete(:name_dirty) if @domain.errors[:puny_label].any?
     handle_errors(@domain) and return if @domain.errors.any?
-    handle_errors and return unless balance_ok?('create') # loads pricelist in this method
+
+    handle_errors and return unless balance_ok?('create', period, period_unit)
 
     ActiveRecord::Base.transaction do
       @domain.add_legal_file_to_new(params[:parsed_frame])
@@ -46,8 +65,6 @@ class Epp::DomainsController < EppController
       end
     end
   end
-  # rubocop: enable Metrics/PerceivedComplexity
-  # rubocop: enable Metrics/CyclomaticComplexity
 
   def update
     authorize! :update, @domain, @password
@@ -99,11 +116,17 @@ class Epp::DomainsController < EppController
   def renew
     authorize! :renew, @domain
 
-    period_element = params[:parsed_frame].css('period').text
-    period = (period_element.to_i == 0) ? 1 : period_element.to_i
-    period_unit = Epp::Domain.parse_period_unit_from_frame(params[:parsed_frame]) || 'y'
+    period_element = params[:parsed_frame].at_css('period')
 
-    balance_ok?('renew', period, period_unit) # loading pricelist
+    if period_element.present?
+      period = period_element.text.to_i
+      period_unit = period_element[:unit]
+    else
+      period = 1
+      period_unit = 'y'
+    end
+
+    balance_ok?('renew', period, period_unit)
 
     begin
       ActiveRecord::Base.transaction(isolation: :serializable) do
@@ -258,8 +281,8 @@ class Epp::DomainsController < EppController
     }
   end
 
-  def balance_ok?(operation, period = nil, unit = nil)
-    @domain_pricelist = @domain.pricelist(operation, period.try(:to_i), unit)
+  def balance_ok?(operation, period, period_unit)
+    @domain_pricelist = @domain.pricelist(operation, period.try(:to_i), period_unit)
     if @domain_pricelist.try(:price) # checking if price list is not found
       if current_user.registrar.balance < @domain_pricelist.price.amount
         epp_errors << {

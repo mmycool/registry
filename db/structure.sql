@@ -1006,8 +1006,6 @@ CREATE TABLE domains (
     updated_at timestamp without time zone,
     name_dirty character varying,
     name_puny character varying,
-    period integer,
-    period_unit character varying(1),
     creator_str character varying,
     updator_str character varying,
     legacy_id integer,
@@ -5081,4 +5079,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171016053749');
 INSERT INTO schema_migrations (version) VALUES ('20171016054215');
 
 INSERT INTO schema_migrations (version) VALUES ('20171016061426');
+
+INSERT INTO schema_migrations (version) VALUES ('20171018142436');
 

@@ -56,7 +56,12 @@ module Billing
     end
 
     def self.price_for(zone, operation_category, duration)
-      lists = valid.where(zone: zone, operation_category: operation_category, duration: duration)
+      lists = valid
+                  .joins(:zones)
+                  .where(zones: { id: zone })
+                  .where('? = ANY (operation_category)', operation_category)
+                  .where('? = ANY (duration)', duration)
+
       return lists.first if lists.count == 1
       lists.order(valid_from: :desc).first
     end
@@ -66,7 +71,7 @@ module Billing
     end
 
     def zone_name
-      zone.origin
+      zones.ids
     end
 
     def to_partial_path

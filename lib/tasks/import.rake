@@ -345,8 +345,6 @@ namespace :import do
       updated_at
       name_dirty
       name_puny
-      period
-      period_unit
       creator_str
       updator_str
       legacy_id

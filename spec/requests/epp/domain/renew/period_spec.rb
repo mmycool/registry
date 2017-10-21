@@ -19,12 +19,12 @@ RSpec.describe 'EPP domain:renew', settings: false do
 
   context 'when period is 3 months' do
     let!(:price) { create(:price,
-                          duration: '3 mons',
+                          duration: ['3 mons'],
                           price: Money.from_amount(1),
-                          operation_category: 'renew',
+                          operation_category: ['renew'],
                           valid_from: Time.zone.parse('05.07.2010'),
                           valid_to: Time.zone.parse('05.07.2010'),
-                          zone: zone)
+                          zones: [zone])
     }
     let(:request_xml) { <<-XML
       <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -56,12 +56,12 @@ RSpec.describe 'EPP domain:renew', settings: false do
 
   context 'when period is 10 years' do
     let!(:price) { create(:price,
-                          duration: '10 years',
+                          duration: ['10 years'],
                           price: Money.from_amount(1),
-                          operation_category: 'renew',
+                          operation_category: ['renew'],
                           valid_from: Time.zone.parse('05.07.2010'),
                           valid_to: Time.zone.parse('05.07.2010'),
-                          zone: zone)
+                          zones: [zone])
     }
     let(:request_xml) { <<-XML
       <?xml version="1.0" encoding="UTF-8" standalone="no"?>
