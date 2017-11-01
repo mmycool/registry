@@ -105,6 +105,8 @@ gem 'activerecord-import', '0.7.0' # for inserting dummy data
 gem 'pdfkit', '0.6.2'
 gem 'jquery-ui-rails', '5.0.5'
 
+gem 'directo', github: 'internetee/directo' # Accounting application API
+
 group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
