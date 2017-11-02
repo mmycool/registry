@@ -3,6 +3,7 @@
         <div class="col-md-8">
             <div id="domain-statuses">
                 <%= render 'shared/full_errors', object: f.object %>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :origin %>
@@ -15,6 +16,7 @@
                         <% end %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :ttl %>
@@ -23,6 +25,7 @@
                         <%= f.number_field :ttl, class: 'form-control', required: true %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :refresh %>
@@ -31,6 +34,7 @@
                         <%= f.number_field :refresh, class: 'form-control', required: true %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :retry %>
@@ -39,6 +43,7 @@
                         <%= f.number_field :retry, class: 'form-control', required: true %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :expire %>
@@ -47,6 +52,7 @@
                         <%= f.number_field :expire, class: 'form-control', required: true %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :minimum_ttl %>
@@ -55,6 +61,7 @@
                         <%= f.number_field :minimum_ttl, class: 'form-control', required: true %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :email %>
@@ -63,6 +70,7 @@
                         <%= f.text_field :email, class: 'form-control', required: true %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :master_nameserver %>
@@ -71,6 +79,7 @@
                         <%= f.text_field :master_nameserver, class: 'form-control', required: true %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :ns_records %>
@@ -79,6 +88,7 @@
                         <%= f.text_area :ns_records, class: 'form-control', rows: 8 %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :a_records %>
@@ -87,6 +97,7 @@
                         <%= f.text_area :a_records, class: 'form-control', rows: 8 %>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-4 control-label">
                         <%= f.label :a4_records %>
