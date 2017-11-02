@@ -43,21 +43,17 @@ module Admin
       end
 
       def zone_params
-        allowed_params = %i[
-          origin
-          ttl
-          refresh
-          retry
-          expire
-          minimum_ttl
-          email
-          master_nameserver
-          ns_records
-          a_records
-          a4_records
-        ]
-
-        params.require(:zone).permit(*allowed_params)
+        params.require(:zone).permit(:origin,
+                                     :ttl,
+                                     :refresh,
+                                     :retry,
+                                     :expire,
+                                     :minimum_ttl,
+                                     :email,
+                                     :master_nameserver,
+                                     :ns_records,
+                                     :a_records,
+                                     :a4_records)
       end
 
       def redirect_to_index
