@@ -294,8 +294,6 @@ CREATE TABLE account_activities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     description character varying,
-    creator_str character varying,
-    updator_str character varying,
     activity_type character varying,
     price_id integer
 );
@@ -4997,4 +4995,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171103115033');
 INSERT INTO schema_migrations (version) VALUES ('20171103133622');
 
 INSERT INTO schema_migrations (version) VALUES ('20171103134015');
+
+INSERT INTO schema_migrations (version) VALUES ('20171103134311');
 
