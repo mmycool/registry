@@ -194,17 +194,6 @@
 <ellipse fill="none" stroke="#abc034" cx="2108.31" cy="-179.795" rx="4.00002" ry="4.00002"/>
 <polygon fill="#abc034" stroke="#abc034" points="1644,-29.9614 1634.79,-24.0031 1639.06,-29.2065 1634.11,-28.4515 1634.11,-28.4515 1634.11,-28.4515 1639.06,-29.2065 1633.43,-32.8999 1644,-29.9614 1644,-29.9614"/>
 </g>
-<!-- AccountActivityVersion -->
-<g id="node19" class="node"><title>AccountActivityVersion</title>
-<ellipse fill="none" stroke="black" cx="533.994" cy="-91" rx="96.6831" ry="18"/>
-<text text-anchor="middle" x="533.994" y="-87.3" font-family="Times,serif" font-size="14.00">AccountActivityVersion</text>
-</g>
-<!-- AccountActivityVersion&#45;&gt;VersionAssociation -->
-<g id="edge17" class="edge"><title>AccountActivityVersion&#45;&gt;VersionAssociation</title>
-<path fill="none" stroke="#012c8d" d="M582.86,-72.1386C604.113,-65.1784 629.485,-57.9384 652.994,-54 809.872,-27.7197 1280.27,-21.1409 1478.91,-19.5196"/>
-<ellipse fill="none" stroke="#012c8d" cx="579.023" cy="-73.4182" rx="4.00001" ry="4.00001"/>
-<polygon fill="#012c8d" stroke="#012c8d" points="1479.02,-19.5188 1489.05,-23.9393 1484.02,-19.4791 1489.02,-19.4394 1489.02,-19.4394 1489.02,-19.4394 1484.02,-19.4791 1488.98,-14.9396 1479.02,-19.5188 1479.02,-19.5188"/>
-</g>
 <!-- BankStatementVersion -->
 <g id="node21" class="node"><title>BankStatementVersion</title>
 <ellipse fill="none" stroke="black" cx="612.994" cy="-253" rx="92.8835" ry="18"/>
@@ -1181,13 +1170,6 @@
 <ellipse fill="none" stroke="#727588" cx="1974.79" cy="-286.982" rx="4.00002" ry="4.00002"/>
 <polygon fill="#727588" stroke="#727588" points="1751.84,-114.087 1746.15,-104.713 1747.72,-111.254 1743.6,-108.42 1743.6,-108.42 1743.6,-108.42 1747.72,-111.254 1741.05,-112.128 1751.84,-114.087 1751.84,-114.087"/>
 <text text-anchor="middle" x="1907.99" y="-195.3" font-family="Times,serif" font-size="14.00">versions</text>
-</g>
-<!-- AccountActivity&#45;&gt;AccountActivityVersion -->
-<g id="edge76" class="edge"><title>AccountActivity&#45;&gt;AccountActivityVersion</title>
-<path fill="none" stroke="#5854af" d="M395.664,-173.974C405.443,-158.672 419.875,-139.456 436.994,-127 446.721,-119.923 458.023,-114.15 469.404,-109.484"/>
-<ellipse fill="none" stroke="#5854af" cx="393.348" cy="-177.721" rx="4.00002" ry="4.00002"/>
-<polygon fill="#5854af" stroke="#5854af" points="469.614,-109.404 480.563,-110.022 474.282,-107.612 478.95,-105.821 478.95,-105.821 478.95,-105.821 474.282,-107.612 477.338,-101.619 469.614,-109.404 469.614,-109.404"/>
-<text text-anchor="middle" x="459.994" y="-141.3" font-family="Times,serif" font-size="14.00">versions</text>
 </g>
 <!-- Account&#45;&gt;AccountVersion -->
 <g id="edge77" class="edge"><title>Account&#45;&gt;AccountVersion</title>
