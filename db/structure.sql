@@ -1266,44 +1266,6 @@ ALTER SEQUENCE legal_documents_id_seq OWNED BY legal_documents.id;
 
 
 --
--- Name: log_account_activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE log_account_activities (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object json,
-    object_changes json,
-    created_at timestamp without time zone,
-    session character varying,
-    children json,
-    uuid character varying
-);
-
-
---
--- Name: log_account_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE log_account_activities_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: log_account_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE log_account_activities_id_seq OWNED BY log_account_activities.id;
-
-
---
 -- Name: log_accounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2947,13 +2909,6 @@ ALTER TABLE ONLY legal_documents ALTER COLUMN id SET DEFAULT nextval('legal_docu
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY log_account_activities ALTER COLUMN id SET DEFAULT nextval('log_account_activities_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY log_accounts ALTER COLUMN id SET DEFAULT nextval('log_accounts_id_seq'::regclass);
 
 
@@ -3406,14 +3361,6 @@ ALTER TABLE ONLY keyrelays
 
 ALTER TABLE ONLY legal_documents
     ADD CONSTRAINT legal_documents_pkey PRIMARY KEY (id);
-
-
---
--- Name: log_account_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY log_account_activities
-    ADD CONSTRAINT log_account_activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -3999,20 +3946,6 @@ CREATE INDEX index_legal_documents_on_checksum ON legal_documents USING btree (c
 --
 
 CREATE INDEX index_legal_documents_on_documentable_type_and_documentable_id ON legal_documents USING btree (documentable_type, documentable_id);
-
-
---
--- Name: index_log_account_activities_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_log_account_activities_on_item_type_and_item_id ON log_account_activities USING btree (item_type, item_id);
-
-
---
--- Name: index_log_account_activities_on_whodunnit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_log_account_activities_on_whodunnit ON log_account_activities USING btree (whodunnit);
 
 
 --
@@ -5062,4 +4995,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171102131956');
 INSERT INTO schema_migrations (version) VALUES ('20171103115033');
 
 INSERT INTO schema_migrations (version) VALUES ('20171103133622');
+
+INSERT INTO schema_migrations (version) VALUES ('20171103134015');
 
