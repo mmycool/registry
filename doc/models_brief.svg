@@ -155,17 +155,6 @@
 <ellipse fill="none" stroke="#fe210a" cx="879.59" cy="-123.638" rx="4.00002" ry="4.00002"/>
 <polygon fill="#fe210a" stroke="#fe210a" points="1479.47,-20.1216 1489.54,-24.4637 1484.47,-20.0429 1489.47,-19.9643 1489.47,-19.9643 1489.47,-19.9643 1484.47,-20.0429 1489.4,-15.4648 1479.47,-20.1216 1479.47,-20.1216"/>
 </g>
-<!-- AccountVersion -->
-<g id="node14" class="node"><title>AccountVersion</title>
-<ellipse fill="none" stroke="black" cx="325.994" cy="-145" rx="68.4888" ry="18"/>
-<text text-anchor="middle" x="325.994" y="-141.3" font-family="Times,serif" font-size="14.00">AccountVersion</text>
-</g>
-<!-- AccountVersion&#45;&gt;VersionAssociation -->
-<g id="edge12" class="edge"><title>AccountVersion&#45;&gt;VersionAssociation</title>
-<path fill="none" stroke="#e88904" d="M353.14,-122.696C377.621,-103.941 412.14,-78.7426 427.994,-73 519.437,-39.8784 548.927,-60.0667 645.994,-54 951.684,-34.8944 1315.02,-24.8149 1479.82,-20.9282"/>
-<ellipse fill="none" stroke="#e88904" cx="349.694" cy="-125.352" rx="4.00002" ry="4.00002"/>
-<polygon fill="#e88904" stroke="#e88904" points="1479.91,-20.9262 1490.02,-25.1909 1484.91,-20.8092 1489.91,-20.6922 1489.91,-20.6922 1489.91,-20.6922 1484.91,-20.8092 1489.8,-16.1934 1479.91,-20.9262 1479.91,-20.9262"/>
-</g>
 <!-- MessageVersion -->
 <g id="node16" class="node"><title>MessageVersion</title>
 <ellipse fill="none" stroke="black" cx="1093.99" cy="-253" rx="69.5877" ry="18"/>
@@ -1170,13 +1159,6 @@
 <ellipse fill="none" stroke="#727588" cx="1974.79" cy="-286.982" rx="4.00002" ry="4.00002"/>
 <polygon fill="#727588" stroke="#727588" points="1751.84,-114.087 1746.15,-104.713 1747.72,-111.254 1743.6,-108.42 1743.6,-108.42 1743.6,-108.42 1747.72,-111.254 1741.05,-112.128 1751.84,-114.087 1751.84,-114.087"/>
 <text text-anchor="middle" x="1907.99" y="-195.3" font-family="Times,serif" font-size="14.00">versions</text>
-</g>
-<!-- Account&#45;&gt;AccountVersion -->
-<g id="edge77" class="edge"><title>Account&#45;&gt;AccountVersion</title>
-<path fill="none" stroke="#d4fefc" d="M303.215,-334.893C296.203,-299.666 287.153,-233.951 302.994,-181 303.953,-177.796 305.31,-174.613 306.89,-171.547"/>
-<ellipse fill="none" stroke="#d4fefc" cx="304.035" cy="-338.839" rx="4.00001" ry="4.00001"/>
-<polygon fill="#d4fefc" stroke="#d4fefc" points="306.993,-171.377 315.992,-165.11 309.562,-167.087 312.131,-162.798 312.131,-162.798 312.131,-162.798 309.562,-167.087 308.271,-160.485 306.993,-171.377 306.993,-171.377"/>
-<text text-anchor="middle" x="317.994" y="-249.3" font-family="Times,serif" font-size="14.00">versions</text>
 </g>
 <!-- Account&#45;&gt;AccountActivity -->
 <g id="edge78" class="edge"><title>Account&#45;&gt;AccountActivity</title>

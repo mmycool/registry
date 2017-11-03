@@ -308,28 +308,6 @@
 <ellipse fill="none" stroke="#8b63ca" cx="893.236" cy="-269.495" rx="4" ry="4"/>
 <polygon fill="#8b63ca" stroke="#8b63ca" points="1667.2,-20.0631 1677.26,-24.4266 1672.2,-19.9951 1677.2,-19.927 1677.2,-19.927 1677.2,-19.927 1672.2,-19.9951 1677.14,-15.4275 1667.2,-20.0631 1667.2,-20.0631"/>
 </g>
-<!-- AccountVersion -->
-<g id="node14" class="node"><title>AccountVersion</title>
-<path fill="none" stroke="black" d="M361,-273.5C361,-273.5 467,-273.5 467,-273.5 473,-273.5 479,-279.5 479,-285.5 479,-285.5 479,-442.5 479,-442.5 479,-448.5 473,-454.5 467,-454.5 467,-454.5 361,-454.5 361,-454.5 355,-454.5 349,-448.5 349,-442.5 349,-442.5 349,-285.5 349,-285.5 349,-279.5 355,-273.5 361,-273.5"/>
-<text text-anchor="middle" x="414" y="-439.3" font-family="Times,serif" font-size="14.00">AccountVersion</text>
-<polyline fill="none" stroke="black" points="349,-431.5 479,-431.5 "/>
-<text text-anchor="start" x="357" y="-416.3" font-family="Times,serif" font-size="14.00">id :integer</text>
-<text text-anchor="start" x="357" y="-401.3" font-family="Times,serif" font-size="14.00">item_type :string</text>
-<text text-anchor="start" x="357" y="-386.3" font-family="Times,serif" font-size="14.00">item_id :integer</text>
-<text text-anchor="start" x="357" y="-371.3" font-family="Times,serif" font-size="14.00">event :string</text>
-<text text-anchor="start" x="357" y="-356.3" font-family="Times,serif" font-size="14.00">whodunnit :string</text>
-<text text-anchor="start" x="357" y="-341.3" font-family="Times,serif" font-size="14.00">object :json</text>
-<text text-anchor="start" x="357" y="-326.3" font-family="Times,serif" font-size="14.00">object_changes :json</text>
-<text text-anchor="start" x="357" y="-311.3" font-family="Times,serif" font-size="14.00">created_at :datetime</text>
-<text text-anchor="start" x="357" y="-296.3" font-family="Times,serif" font-size="14.00">session :string</text>
-<text text-anchor="start" x="357" y="-281.3" font-family="Times,serif" font-size="14.00">children :json</text>
-</g>
-<!-- AccountVersion&#45;&gt;VersionAssociation -->
-<g id="edge12" class="edge"><title>AccountVersion&#45;&gt;VersionAssociation</title>
-<path fill="none" stroke="#3eeac6" d="M421.2,-265.123C431.471,-200.199 455.971,-118.802 514,-73 559.141,-37.37 1389.61,-23.6481 1667.37,-20.0433"/>
-<ellipse fill="none" stroke="#3eeac6" cx="420.555" cy="-269.403" rx="4.00001" ry="4.00001"/>
-<polygon fill="#3eeac6" stroke="#3eeac6" points="1667.41,-20.0428 1677.47,-24.4139 1672.41,-19.9786 1677.41,-19.9143 1677.41,-19.9143 1677.41,-19.9143 1672.41,-19.9786 1677.35,-15.4146 1667.41,-20.0428 1667.41,-20.0428"/>
-</g>
 <!-- MessageVersion -->
 <g id="node16" class="node"><title>MessageVersion</title>
 <path fill="none" stroke="black" d="M1120,-733.5C1120,-733.5 1226,-733.5 1226,-733.5 1232,-733.5 1238,-739.5 1238,-745.5 1238,-745.5 1238,-902.5 1238,-902.5 1238,-908.5 1232,-914.5 1226,-914.5 1226,-914.5 1120,-914.5 1120,-914.5 1114,-914.5 1108,-908.5 1108,-902.5 1108,-902.5 1108,-745.5 1108,-745.5 1108,-739.5 1114,-733.5 1120,-733.5"/>
@@ -1876,13 +1854,6 @@
 <ellipse fill="none" stroke="#5e4961" cx="2208.88" cy="-1161.97" rx="4.00001" ry="4.00001"/>
 <polygon fill="#5e4961" stroke="#5e4961" points="2018.14,-263.693 2018.22,-252.727 2016.12,-259.118 2014.1,-254.543 2014.1,-254.543 2014.1,-254.543 2016.12,-259.118 2009.99,-256.36 2018.14,-263.693 2018.14,-263.693"/>
 <text text-anchor="middle" x="2152" y="-590.3" font-family="Times,serif" font-size="14.00">versions</text>
-</g>
-<!-- Account&#45;&gt;AccountVersion -->
-<g id="edge77" class="edge"><title>Account&#45;&gt;AccountVersion</title>
-<path fill="none" stroke="#93f29a" d="M295.853,-1620.28C292.924,-1353.38 287.945,-579.601 327,-473 331.044,-461.961 336.711,-451.204 343.234,-441.023"/>
-<ellipse fill="none" stroke="#93f29a" cx="295.899" cy="-1624.41" rx="4" ry="4"/>
-<polygon fill="#93f29a" stroke="#93f29a" points="343.311,-440.908 352.63,-435.127 346.104,-436.761 348.897,-432.613 348.897,-432.613 348.897,-432.613 346.104,-436.761 345.165,-430.1 343.311,-440.908 343.311,-440.908"/>
-<text text-anchor="middle" x="325" y="-820.3" font-family="Times,serif" font-size="14.00">versions</text>
 </g>
 <!-- Account&#45;&gt;AccountActivity -->
 <g id="edge78" class="edge"><title>Account&#45;&gt;AccountActivity</title>
