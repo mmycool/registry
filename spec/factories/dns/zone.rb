@@ -8,5 +8,6 @@ FactoryBot.define do
     minimum_ttl 1
     email 'test.test'
     master_nameserver 'test.test'
+    accounting_product_code 'test'
   end
 end

@@ -5,6 +5,7 @@ module DNS
     validates :origin, :ttl, :refresh, :retry, :expire, :minimum_ttl, :email, :master_nameserver, presence: true
     validates :ttl, :refresh, :retry, :expire, :minimum_ttl, numericality: { only_integer: true }
     validates :origin, uniqueness: true
+    validates :accounting_product_code, presence: true
 
     before_destroy do
       !used?

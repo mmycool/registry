@@ -2754,7 +2754,8 @@ CREATE TABLE zones (
     updator_str character varying,
     ns_records text,
     a_records text,
-    a4_records text
+    a4_records text,
+    accounting_product_code character varying NOT NULL
 );
 
 
@@ -5058,4 +5059,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171025113808');
 INSERT INTO schema_migrations (version) VALUES ('20171025153841');
 
 INSERT INTO schema_migrations (version) VALUES ('20171101151418');
+
+INSERT INTO schema_migrations (version) VALUES ('20171102131956');
 

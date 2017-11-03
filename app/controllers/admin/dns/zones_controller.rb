@@ -53,7 +53,8 @@ module Admin
                                      :master_nameserver,
                                      :ns_records,
                                      :a_records,
-                                     :a4_records)
+                                     :a4_records,
+                                     :accounting_product_code)
       end
 
       def redirect_to_index

@@ -17,6 +17,7 @@ class NewZoneTest < ActionDispatch::IntegrationTest
     fill_in 'zone_minimum_ttl', with: '1'
     fill_in 'zone_email', with: 'test@test.com'
     fill_in 'zone_master_nameserver', with: 'test.test'
+    fill_in 'zone_accounting_product_code', with: 'test'
     click_link_or_button t('admin.dns.zones.form.create_btn')
 
     assert_text t('admin.dns.zones.create.created')
