@@ -89,7 +89,6 @@ class BankTransaction < ActiveRecord::Base
       account: registrar.cash_account,
       invoice: invoice,
       sum: invoice.sum_without_vat,
-      currency: currency,
       description: description,
       activity_type: AccountActivity::ADD_CREDIT
     )

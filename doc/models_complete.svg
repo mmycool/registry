@@ -748,7 +748,6 @@
 <text text-anchor="start" x="344.5" y="-646.3" font-family="Times,serif" font-size="14.00">account_id :integer</text>
 <text text-anchor="start" x="344.5" y="-631.3" font-family="Times,serif" font-size="14.00">invoice_id :integer</text>
 <text text-anchor="start" x="344.5" y="-616.3" font-family="Times,serif" font-size="14.00">sum :decimal</text>
-<text text-anchor="start" x="344.5" y="-601.3" font-family="Times,serif" font-size="14.00">currency :string</text>
 <text text-anchor="start" x="344.5" y="-586.3" font-family="Times,serif" font-size="14.00">bank_transaction_id :integer</text>
 <text text-anchor="start" x="344.5" y="-571.3" font-family="Times,serif" font-size="14.00">created_at :datetime</text>
 <text text-anchor="start" x="344.5" y="-556.3" font-family="Times,serif" font-size="14.00">updated_at :datetime</text>

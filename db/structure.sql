@@ -290,7 +290,6 @@ CREATE TABLE account_activities (
     account_id integer NOT NULL,
     invoice_id integer,
     sum numeric(10,2),
-    currency character varying,
     bank_transaction_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -5061,4 +5060,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171025153841');
 INSERT INTO schema_migrations (version) VALUES ('20171101151418');
 
 INSERT INTO schema_migrations (version) VALUES ('20171102131956');
+
+INSERT INTO schema_migrations (version) VALUES ('20171103115033');
 

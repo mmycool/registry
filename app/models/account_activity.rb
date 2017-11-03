@@ -7,6 +7,8 @@ class AccountActivity < ActiveRecord::Base
   belongs_to :invoice
   belongs_to :price, class_name: 'Billing::Price'
 
+  delegate :currency, to: :account
+
   CREATE = 'create'
   RENEW = 'renew'
   ADD_CREDIT = 'add_credit'

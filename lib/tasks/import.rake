@@ -115,7 +115,6 @@ namespace :import do
       lr = Legacy::Registrar.find(x.legacy_id)
       x.cash_account.account_activities << AccountActivity.new({
         sum: lr.account_balance,
-        currency: 'EUR',
         description: 'Transfer from legacy system'
       })
 
