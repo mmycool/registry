@@ -129,10 +129,6 @@ class Registrar < ActiveRecord::Base
     cash_account.account_activities.create!(args)
   end
 
-  def credit!(args)
-    cash_account.account_activities.create!(args)
-  end
-
   def domain_transfers
     at = DomainTransfer.arel_table
     DomainTransfer.where(
