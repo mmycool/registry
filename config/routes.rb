@@ -110,17 +110,6 @@ Rails.application.routes.draw do
 
     end
 
-    # resources :invoices do
-      # member do
-        # get 'download_pdf'
-        # match 'forward', via: [:post, :get]
-        # patch 'cancel'
-      # end
-    # end
-
-    # resources :deposits
-    # resources :account_activities
-
     resources :domain_update_confirms
     resources :domain_delete_confirms
 
