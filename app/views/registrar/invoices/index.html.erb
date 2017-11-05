@@ -58,9 +58,7 @@
                         <span class="glyphicon glyphicon-search"></span>
                         &nbsp;
                     </button>
-                    <button class="btn btn-default js-reset-form">
-                        <%= t(:clear_fields) %>
-                    </button>
+                    <%= link_to t(:clear_fields), registrar_invoices_path, class: 'btn btn-default' %>
                 </div>
             </div>
         <% end %>
@@ -124,9 +122,3 @@
         <%= paginate @invoices %>
     </div>
 </div>
-<script>
-    $(".js-reset-form").on("click", function (e) {
-        e.preventDefault();
-        return window.location = " <%= registrar_invoices_path %>";
-    });
-</script>
