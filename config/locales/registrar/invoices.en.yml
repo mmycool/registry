@@ -1,0 +1,11 @@
+en:
+  registrar:
+    invoices:
+      search_form:
+        minimum_invoice_no: Mininum invoice no
+        maximum_invoice_no: Maximum invoice no
+        due_date_from: Due date from
+        due_date_until: Due date until
+        minimum_total: Minimum total
+        maximum_total: Maximum total
+        reset_btn: Reset
