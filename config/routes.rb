@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :deposits
+    resources :deposits, only: %i[new create]
     resources :account_activities
 
     devise_scope :user do
