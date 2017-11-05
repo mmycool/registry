@@ -634,7 +634,6 @@ en:
   new_contact: 'New contact'
   add_deposit: 'Add deposit'
   amount: 'Amount'
-  please_pay_the_following_invoice: 'Please pay the following invoice'
   invoice_no: 'Invoice no. %{no}'
   invoice_number: Invoice no.
   seller: 'Seller'

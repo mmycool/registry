@@ -11,7 +11,7 @@ class Registrar
       @invoice = @deposit.issue_prepayment_invoice
 
       if @invoice && @invoice.persisted?
-        flash[:notice] = t(:please_pay_the_following_invoice)
+        flash[:notice] = t('.created')
         redirect_to [:registrar, @invoice]
       else
         flash.now[:alert] = t(:failed_to_create_record)
