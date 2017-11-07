@@ -1758,44 +1758,6 @@ ALTER SEQUENCE log_invoice_items_id_seq OWNED BY log_invoice_items.id;
 
 
 --
--- Name: log_invoices; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE log_invoices (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object json,
-    object_changes json,
-    created_at timestamp without time zone,
-    session character varying,
-    children json,
-    uuid character varying
-);
-
-
---
--- Name: log_invoices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE log_invoices_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: log_invoices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE log_invoices_id_seq OWNED BY log_invoices.id;
-
-
---
 -- Name: log_keyrelays; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2956,13 +2918,6 @@ ALTER TABLE ONLY log_invoice_items ALTER COLUMN id SET DEFAULT nextval('log_invo
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY log_invoices ALTER COLUMN id SET DEFAULT nextval('log_invoices_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY log_keyrelays ALTER COLUMN id SET DEFAULT nextval('log_keyrelays_id_seq'::regclass);
 
 
@@ -3414,14 +3369,6 @@ ALTER TABLE ONLY log_domains
 
 ALTER TABLE ONLY log_invoice_items
     ADD CONSTRAINT log_invoice_items_pkey PRIMARY KEY (id);
-
-
---
--- Name: log_invoices_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY log_invoices
-    ADD CONSTRAINT log_invoices_pkey PRIMARY KEY (id);
 
 
 --
@@ -4069,20 +4016,6 @@ CREATE INDEX index_log_invoice_items_on_item_type_and_item_id ON log_invoice_ite
 --
 
 CREATE INDEX index_log_invoice_items_on_whodunnit ON log_invoice_items USING btree (whodunnit);
-
-
---
--- Name: index_log_invoices_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_log_invoices_on_item_type_and_item_id ON log_invoices USING btree (item_type, item_id);
-
-
---
--- Name: index_log_invoices_on_whodunnit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_log_invoices_on_whodunnit ON log_invoices USING btree (whodunnit);
 
 
 --
@@ -4938,4 +4871,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171107140514');
 INSERT INTO schema_migrations (version) VALUES ('20171107141250');
 
 INSERT INTO schema_migrations (version) VALUES ('20171107155955');
+
+INSERT INTO schema_migrations (version) VALUES ('20171107170056');
 
