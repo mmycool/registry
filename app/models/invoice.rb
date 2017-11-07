@@ -1,5 +1,4 @@
 class Invoice < ActiveRecord::Base
-  include Versions
   belongs_to :seller, class_name: 'Registrar'
   belongs_to :buyer, class_name: 'Registrar'
   has_one  :account_activity
@@ -106,7 +105,7 @@ class Invoice < ActiveRecord::Base
   def buyer_country
     Country.new(buyer_country_code)
   end
-  
+
 # order is used for directo/banklink description
   def order
     "Order nr. #{number}"

@@ -293,17 +293,6 @@
 <ellipse fill="none" stroke="#b450f5" cx="1260.71" cy="-286.217" rx="4.00002" ry="4.00002"/>
 <polygon fill="#b450f5" stroke="#b450f5" points="1527.73,-39.1799 1538.67,-38.5368 1532.16,-36.8642 1536.59,-34.5485 1536.59,-34.5485 1536.59,-34.5485 1532.16,-36.8642 1534.5,-30.5602 1527.73,-39.1799 1527.73,-39.1799"/>
 </g>
-<!-- InvoiceVersion -->
-<g id="node33" class="node"><title>InvoiceVersion</title>
-<ellipse fill="none" stroke="black" cx="64.9942" cy="-199" rx="64.9885" ry="18"/>
-<text text-anchor="middle" x="64.9942" y="-195.3" font-family="Times,serif" font-size="14.00">InvoiceVersion</text>
-</g>
-<!-- InvoiceVersion&#45;&gt;VersionAssociation -->
-<g id="edge31" class="edge"><title>InvoiceVersion&#45;&gt;VersionAssociation</title>
-<path fill="none" stroke="#9bb829" d="M80.7111,-174.318C101.726,-144.865 141.958,-95.7035 189.994,-73 268.321,-35.9803 297.535,-59.5043 383.994,-54 792.322,-28.0047 1281.05,-21.2767 1479.09,-19.5678"/>
-<ellipse fill="none" stroke="#9bb829" cx="78.3278" cy="-177.721" rx="4.00002" ry="4.00002"/>
-<polygon fill="#9bb829" stroke="#9bb829" points="1479.15,-19.5674 1489.19,-23.983 1484.15,-19.5253 1489.15,-19.4832 1489.15,-19.4832 1489.15,-19.4832 1484.15,-19.5253 1489.12,-14.9834 1479.15,-19.5674 1479.15,-19.5674"/>
-</g>
 <!-- ApiUser -->
 <g id="node34" class="node"><title>ApiUser</title>
 <ellipse fill="none" stroke="black" cx="632.994" cy="-415" rx="40.0939" ry="18"/>
@@ -1206,20 +1195,6 @@
 <g id="node59" class="node"><title>Object</title>
 <polygon fill="none" stroke="black" points="4392.99,-541 4338.99,-541 4338.99,-505 4392.99,-505 4392.99,-541"/>
 <text text-anchor="middle" x="4365.99" y="-519.3" font-family="Times,serif" font-size="14.00">Object</text>
-</g>
-<!-- Invoice&#45;&gt;InvoiceVersion -->
-<g id="edge133" class="edge"><title>Invoice&#45;&gt;InvoiceVersion</title>
-<path fill="none" stroke="#905c67" d="M181.443,-288.276C173.054,-282.956 164.022,-276.948 155.994,-271 136.24,-256.364 133.349,-250.16 113.994,-235 108.465,-230.669 102.462,-226.2 96.6163,-221.965"/>
-<ellipse fill="none" stroke="#905c67" cx="184.91" cy="-290.444" rx="4.00002" ry="4.00002"/>
-<polygon fill="#905c67" stroke="#905c67" points="96.3693,-221.788 90.855,-212.31 92.3029,-218.879 88.2365,-215.969 88.2365,-215.969 88.2365,-215.969 92.3029,-218.879 85.618,-219.629 96.3693,-221.788 96.3693,-221.788"/>
-<text text-anchor="middle" x="178.994" y="-249.3" font-family="Times,serif" font-size="14.00">versions</text>
-</g>
-<!-- Invoice&#45;&gt;InvoiceVersion -->
-<g id="edge146" class="edge"><title>Invoice&#45;&gt;InvoiceVersion</title>
-<path fill="none" stroke="#b28f10" d="M166.966,-301.493C128.43,-296.531 76.6703,-287.049 63.9942,-271 54.4024,-258.856 54.4578,-241.55 57.0057,-227.064"/>
-<ellipse fill="none" stroke="#b28f10" cx="171" cy="-301.992" rx="4.00001" ry="4.00001"/>
-<polygon fill="#b28f10" stroke="#b28f10" points="57.0432,-226.894 63.5933,-218.099 58.1212,-222.012 59.1991,-217.129 59.1991,-217.129 59.1991,-217.129 58.1212,-222.012 54.8049,-216.159 57.0432,-226.894 57.0432,-226.894"/>
-<text text-anchor="middle" x="86.9942" y="-249.3" font-family="Times,serif" font-size="14.00">versions</text>
 </g>
 <!-- Invoice&#45;&gt;AccountActivity -->
 <g id="edge135" class="edge"><title>Invoice&#45;&gt;AccountActivity</title>
