@@ -1119,7 +1119,6 @@ CREATE TABLE invoices (
     id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    invoice_type character varying NOT NULL,
     due_date timestamp without time zone NOT NULL,
     payment_term character varying,
     currency character varying NOT NULL,
@@ -4937,4 +4936,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171107134248');
 INSERT INTO schema_migrations (version) VALUES ('20171107140514');
 
 INSERT INTO schema_migrations (version) VALUES ('20171107141250');
+
+INSERT INTO schema_migrations (version) VALUES ('20171107155955');
 
