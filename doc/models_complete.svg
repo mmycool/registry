@@ -490,28 +490,6 @@
 <ellipse fill="none" stroke="#ce0737" cx="691.403" cy="-269.474" rx="4.00001" ry="4.00001"/>
 <polygon fill="#ce0737" stroke="#ce0737" points="1666.93,-19.3043 1676.95,-23.756 1671.93,-19.2802 1676.93,-19.256 1676.93,-19.256 1676.93,-19.256 1671.93,-19.2802 1676.91,-14.7561 1666.93,-19.3043 1666.93,-19.3043"/>
 </g>
-<!-- InvoiceItemVersion -->
-<g id="node27" class="node"><title>InvoiceItemVersion</title>
-<path fill="none" stroke="black" d="M193,-73.5C193,-73.5 299,-73.5 299,-73.5 305,-73.5 311,-79.5 311,-85.5 311,-85.5 311,-242.5 311,-242.5 311,-248.5 305,-254.5 299,-254.5 299,-254.5 193,-254.5 193,-254.5 187,-254.5 181,-248.5 181,-242.5 181,-242.5 181,-85.5 181,-85.5 181,-79.5 187,-73.5 193,-73.5"/>
-<text text-anchor="middle" x="246" y="-239.3" font-family="Times,serif" font-size="14.00">InvoiceItemVersion</text>
-<polyline fill="none" stroke="black" points="181,-231.5 311,-231.5 "/>
-<text text-anchor="start" x="189" y="-216.3" font-family="Times,serif" font-size="14.00">id :integer</text>
-<text text-anchor="start" x="189" y="-201.3" font-family="Times,serif" font-size="14.00">item_type :string</text>
-<text text-anchor="start" x="189" y="-186.3" font-family="Times,serif" font-size="14.00">item_id :integer</text>
-<text text-anchor="start" x="189" y="-171.3" font-family="Times,serif" font-size="14.00">event :string</text>
-<text text-anchor="start" x="189" y="-156.3" font-family="Times,serif" font-size="14.00">whodunnit :string</text>
-<text text-anchor="start" x="189" y="-141.3" font-family="Times,serif" font-size="14.00">object :json</text>
-<text text-anchor="start" x="189" y="-126.3" font-family="Times,serif" font-size="14.00">object_changes :json</text>
-<text text-anchor="start" x="189" y="-111.3" font-family="Times,serif" font-size="14.00">created_at :datetime</text>
-<text text-anchor="start" x="189" y="-96.3" font-family="Times,serif" font-size="14.00">session :string</text>
-<text text-anchor="start" x="189" y="-81.3" font-family="Times,serif" font-size="14.00">children :json</text>
-</g>
-<!-- InvoiceItemVersion&#45;&gt;VersionAssociation -->
-<g id="edge25" class="edge"><title>InvoiceItemVersion&#45;&gt;VersionAssociation</title>
-<path fill="none" stroke="#8e7a3b" d="M318.021,-108.747C350.476,-87.4596 390.364,-65.4228 430,-54 547.849,-20.0369 1387.23,-18.3559 1666.73,-18.7535"/>
-<ellipse fill="none" stroke="#8e7a3b" cx="314.542" cy="-111.059" rx="4.00002" ry="4.00002"/>
-<polygon fill="#8e7a3b" stroke="#8e7a3b" points="1666.83,-18.7536 1676.82,-23.2692 1671.83,-18.7614 1676.83,-18.7692 1676.83,-18.7692 1676.83,-18.7692 1671.83,-18.7614 1676.84,-14.2692 1666.83,-18.7536 1666.83,-18.7536"/>
-</g>
 <!-- LegalDocumentVersion -->
 <g id="node28" class="node"><title>LegalDocumentVersion</title>
 <path fill="none" stroke="black" d="M2314.5,-73.5C2314.5,-73.5 2437.5,-73.5 2437.5,-73.5 2443.5,-73.5 2449.5,-79.5 2449.5,-85.5 2449.5,-85.5 2449.5,-242.5 2449.5,-242.5 2449.5,-248.5 2443.5,-254.5 2437.5,-254.5 2437.5,-254.5 2314.5,-254.5 2314.5,-254.5 2308.5,-254.5 2302.5,-248.5 2302.5,-242.5 2302.5,-242.5 2302.5,-85.5 2302.5,-85.5 2302.5,-79.5 2308.5,-73.5 2314.5,-73.5"/>
@@ -1865,13 +1843,6 @@
 <text text-anchor="start" x="156.5" y="-541.3" font-family="Times,serif" font-size="14.00">updated_at :datetime</text>
 <text text-anchor="start" x="156.5" y="-526.3" font-family="Times,serif" font-size="14.00">creator_str :string</text>
 <text text-anchor="start" x="156.5" y="-511.3" font-family="Times,serif" font-size="14.00">updator_str :string</text>
-</g>
-<!-- InvoiceItem&#45;&gt;InvoiceItemVersion -->
-<g id="edge99" class="edge"><title>InvoiceItem&#45;&gt;InvoiceItemVersion</title>
-<path fill="none" stroke="#86ac1d" d="M221.325,-495.026C226.482,-426.048 233.363,-334.018 238.548,-264.667"/>
-<ellipse fill="none" stroke="#86ac1d" cx="221.007" cy="-499.288" rx="4" ry="4"/>
-<polygon fill="#86ac1d" stroke="#86ac1d" points="238.555,-264.577 243.788,-254.94 238.928,-259.591 239.301,-254.605 239.301,-254.605 239.301,-254.605 238.928,-259.591 234.813,-254.269 238.555,-264.577 238.555,-264.577"/>
-<text text-anchor="middle" x="261" y="-360.3" font-family="Times,serif" font-size="14.00">versions</text>
 </g>
 <!-- Nameserver&#45;&gt;NameserverVersion -->
 <g id="edge100" class="edge"><title>Nameserver&#45;&gt;NameserverVersion</title>

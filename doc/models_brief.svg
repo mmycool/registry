@@ -249,17 +249,6 @@
 <ellipse fill="none" stroke="#c9a889" cx="619.016" cy="-125.166" rx="4.00002" ry="4.00002"/>
 <polygon fill="#c9a889" stroke="#c9a889" points="1479.09,-18.9077 1489.1,-23.3951 1484.09,-18.9014 1489.09,-18.8951 1489.09,-18.8951 1489.09,-18.8951 1484.09,-18.9014 1489.09,-14.3951 1479.09,-18.9077 1479.09,-18.9077"/>
 </g>
-<!-- InvoiceItemVersion -->
-<g id="node27" class="node"><title>InvoiceItemVersion</title>
-<ellipse fill="none" stroke="black" cx="279.994" cy="-91" rx="81.4863" ry="18"/>
-<text text-anchor="middle" x="279.994" y="-87.3" font-family="Times,serif" font-size="14.00">InvoiceItemVersion</text>
-</g>
-<!-- InvoiceItemVersion&#45;&gt;VersionAssociation -->
-<g id="edge25" class="edge"><title>InvoiceItemVersion&#45;&gt;VersionAssociation</title>
-<path fill="none" stroke="#991443" d="M325.035,-72.1766C344.926,-65.1504 368.79,-57.8494 390.994,-54 599.57,-17.8396 1240.6,-17.2688 1478.71,-18.3789"/>
-<ellipse fill="none" stroke="#991443" cx="321.1" cy="-73.595" rx="4.00001" ry="4.00001"/>
-<polygon fill="#991443" stroke="#991443" points="1479.06,-18.3805 1489.04,-22.9294 1484.06,-18.405 1489.06,-18.4294 1489.06,-18.4294 1489.06,-18.4294 1484.06,-18.405 1489.08,-13.9295 1479.06,-18.3805 1479.06,-18.3805"/>
-</g>
 <!-- LegalDocumentVersion -->
 <g id="node28" class="node"><title>LegalDocumentVersion</title>
 <ellipse fill="none" stroke="black" cx="2119.99" cy="-91" rx="95.5831" ry="18"/>
@@ -1164,13 +1153,6 @@
 <g id="node55" class="node"><title>InvoiceItem</title>
 <ellipse fill="none" stroke="black" cx="201.994" cy="-199" rx="53.8905" ry="18"/>
 <text text-anchor="middle" x="201.994" y="-195.3" font-family="Times,serif" font-size="14.00">InvoiceItem</text>
-</g>
-<!-- InvoiceItem&#45;&gt;InvoiceItemVersion -->
-<g id="edge99" class="edge"><title>InvoiceItem&#45;&gt;InvoiceItemVersion</title>
-<path fill="none" stroke="#075c12" d="M196.089,-172.935C194.103,-158.393 194.252,-140.368 202.994,-127 207.458,-120.173 213.61,-114.661 220.508,-110.215"/>
-<ellipse fill="none" stroke="#075c12" cx="196.789" cy="-177.089" rx="4.00001" ry="4.00001"/>
-<polygon fill="#075c12" stroke="#075c12" points="220.849,-110.024 231.772,-109.059 225.21,-107.579 229.572,-105.134 229.572,-105.134 229.572,-105.134 225.21,-107.579 227.371,-101.209 220.849,-110.024 220.849,-110.024"/>
-<text text-anchor="middle" x="225.994" y="-141.3" font-family="Times,serif" font-size="14.00">versions</text>
 </g>
 <!-- Nameserver&#45;&gt;NameserverVersion -->
 <g id="edge100" class="edge"><title>Nameserver&#45;&gt;NameserverVersion</title>
