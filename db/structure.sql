@@ -1160,7 +1160,7 @@ CREATE TABLE invoices (
     number integer,
     cancelled_at timestamp without time zone,
     sum_cache numeric(10,2),
-    in_directo boolean DEFAULT false
+    exported boolean DEFAULT false
 );
 
 
@@ -4932,4 +4932,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171103134311');
 INSERT INTO schema_migrations (version) VALUES ('20171103134737');
 
 INSERT INTO schema_migrations (version) VALUES ('20171103134947');
+
+INSERT INTO schema_migrations (version) VALUES ('20171107134248');
 

@@ -3,7 +3,7 @@ class Directo < ActiveRecord::Base
   belongs_to :item, polymorphic: true
 
   def self.send_receipts
-    new_trans = Invoice.where(invoice_type: "DEB", in_directo: false).where(cancelled_at: nil)
+    new_trans = Invoice.where(invoice_type: "DEB", exported: false).where(cancelled_at: nil)
     total     = new_trans.count
     counter   = 0
     Rails.logger.info("[DIRECTO] Will try to send #{total} invoices")
@@ -54,7 +54,7 @@ class Directo < ActiveRecord::Base
     Nokogiri::XML(xml).css("Result").each do |res|
       obj = mappers[res.attributes["docid"].value.to_i]
       obj.directo_records.create!(response: res.as_json.to_h, invoice_number: obj.number)
-      obj.update_columns(in_directo: true)
+      obj.update_columns(exported: true)
       Rails.logger.info("[DIRECTO] Invoice #{res.attributes["docid"].value} was pushed and return is #{res.as_json.to_h.inspect}")
     end
   end
