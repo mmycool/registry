@@ -18,10 +18,6 @@ describe Invoice do
         "Vat prc is missing"
       ])
     end
-
-    it 'should not have any versions' do
-      @invoice.versions.should == []
-    end
   end
 
   context 'with valid attributes' do
