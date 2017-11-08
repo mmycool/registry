@@ -30,31 +30,7 @@ class Invoice < ActiveRecord::Base
             :seller_iban, :buyer_name, :invoice_items, :vat_prc, presence: true
 
   before_create :set_invoice_number, :check_vat
-
   before_save   :check_vat
-
-  def set_invoice_number
-    last_no = Invoice.order(number: :desc).where('number IS NOT NULL').limit(1).pluck(:number).first
-
-    if last_no && last_no >= Setting.invoice_number_min.to_i
-      self.number = last_no + 1
-    else
-      self.number = Setting.invoice_number_min.to_i
-    end
-
-    return if number <= Setting.invoice_number_max.to_i
-
-    errors.add(:base, I18n.t('failed_to_generate_invoice_invoice_number_limit_reached'))
-    logger.error('INVOICE NUMBER LIMIT REACHED, COULD NOT GENERATE INVOICE')
-    false
-  end
-
-  def check_vat
-    if buyer.country_code != 'EE' && buyer.vat_no.present?
-      self.vat_prc = 0
-    end
-  end
-
   before_save -> { self.sum_cache = sum }
 
   class << self
@@ -75,6 +51,28 @@ class Invoice < ActiveRecord::Base
       count = invoices.update_all(cancelled_at: Time.zone.now)
 
       STDOUT << "#{Time.zone.now.utc} - Successfully cancelled #{count} overdue invoices\n" unless Rails.env.test?
+    end
+  end
+
+  def set_invoice_number
+    last_no = Invoice.order(number: :desc).where('number IS NOT NULL').limit(1).pluck(:number).first
+
+    if last_no && last_no >= Setting.invoice_number_min.to_i
+      self.number = last_no + 1
+    else
+      self.number = Setting.invoice_number_min.to_i
+    end
+
+    return if number <= Setting.invoice_number_max.to_i
+
+    errors.add(:base, I18n.t('failed_to_generate_invoice_invoice_number_limit_reached'))
+    logger.error('INVOICE NUMBER LIMIT REACHED, COULD NOT GENERATE INVOICE')
+    false
+  end
+
+  def check_vat
+    if buyer.country_code != 'EE' && buyer.vat_no.present?
+      self.vat_prc = 0
     end
   end
 
