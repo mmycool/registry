@@ -25,23 +25,6 @@ describe Invoice do
       @invoice = create(:invoice)
     end
 
-    it 'should be valid' do
-      @invoice.valid?
-      @invoice.errors.full_messages.should match_array([])
-    end
-
-    it 'should be valid twice' do
-      @invoice = create(:invoice)
-      @invoice.valid?
-      @invoice.errors.full_messages.should match_array([])
-    end
-
-    it 'should be valid twice' do
-      @invoice = create(:invoice)
-      @invoice.valid?
-      @invoice.errors.full_messages.should match_array([])
-    end
-
     it 'should return correct addresses' do
       @invoice = create(:invoice)
       @invoice.seller_address.should == 'Paldiski mnt. 123, Tallinn'
