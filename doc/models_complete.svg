@@ -1837,7 +1837,7 @@
 <text text-anchor="start" x="156.5" y="-631.3" font-family="Times,serif" font-size="14.00">invoice_id :integer</text>
 <text text-anchor="start" x="156.5" y="-616.3" font-family="Times,serif" font-size="14.00">description :string</text>
 <text text-anchor="start" x="156.5" y="-601.3" font-family="Times,serif" font-size="14.00">unit :string</text>
-<text text-anchor="start" x="156.5" y="-586.3" font-family="Times,serif" font-size="14.00">amount :integer</text>
+<text text-anchor="start" x="156.5" y="-586.3" font-family="Times,serif" font-size="14.00">quantity :integer</text>
 <text text-anchor="start" x="156.5" y="-571.3" font-family="Times,serif" font-size="14.00">price :decimal</text>
 <text text-anchor="start" x="156.5" y="-556.3" font-family="Times,serif" font-size="14.00">created_at :datetime</text>
 <text text-anchor="start" x="156.5" y="-541.3" font-family="Times,serif" font-size="14.00">updated_at :datetime</text>

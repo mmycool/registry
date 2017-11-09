@@ -633,7 +633,6 @@ en:
   domain_not_found: 'Domain was not found'
   new_contact: 'New contact'
   add_deposit: 'Add deposit'
-  amount: 'Amount'
   invoice_no: 'Invoice no. %{no}'
   invoice_number: Invoice no.
   seller: 'Seller'
