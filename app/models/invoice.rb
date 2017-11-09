@@ -35,22 +35,13 @@ class Invoice < ActiveRecord::Base
 
   class << self
     def cancel_overdue_invoices
-      STDOUT << "#{Time.zone.now.utc} - Cancelling overdue invoices\n" unless Rails.env.test?
-
       cr_at = Time.zone.now - Setting.days_to_keep_overdue_invoices_active.days
+
       invoices = Invoice.unbinded.where(
         'due_date < ? AND cancelled_at IS NULL', cr_at
       )
 
-      unless Rails.env.test?
-        invoices.each do |m|
-          STDOUT << "#{Time.zone.now.utc} Invoice.cancel_overdue_invoices: ##{m.id}\n"
-        end
-      end
-
-      count = invoices.update_all(cancelled_at: Time.zone.now)
-
-      STDOUT << "#{Time.zone.now.utc} - Successfully cancelled #{count} overdue invoices\n" unless Rails.env.test?
+      invoices.update_all(cancelled_at: Time.zone.now)
     end
   end
 
