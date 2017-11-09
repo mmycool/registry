@@ -1080,7 +1080,7 @@ ALTER SEQUENCE epp_sessions_id_seq OWNED BY epp_sessions.id;
 
 CREATE TABLE invoice_items (
     id integer NOT NULL,
-    invoice_id integer,
+    invoice_id integer NOT NULL,
     description character varying NOT NULL,
     unit character varying,
     amount integer,
@@ -4820,4 +4820,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171107172703');
 INSERT INTO schema_migrations (version) VALUES ('20171109095225');
 
 INSERT INTO schema_migrations (version) VALUES ('20171109165012');
+
+INSERT INTO schema_migrations (version) VALUES ('20171109165726');
 
