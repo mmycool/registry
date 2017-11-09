@@ -183,7 +183,6 @@ Layout/FirstParameterIndentation:
     - 'app/models/bank_link.rb'
     - 'app/models/contact.rb'
     - 'app/models/depp/domain.rb'
-    - 'app/models/directo.rb'
     - 'app/models/domain_cron.rb'
     - 'app/models/epp/contact.rb'
     - 'app/models/epp/domain.rb'
@@ -245,7 +244,6 @@ Layout/IndentationWidth:
 # Cop supports --auto-correct.
 Layout/LeadingCommentSpace:
   Exclude:
-    - 'app/models/directo.rb'
     - 'app/models/domain_cron.rb'
     - 'app/models/domain_status.rb'
     - 'app/models/epp/domain.rb'
@@ -308,7 +306,6 @@ Layout/MultilineOperationIndentation:
   Exclude:
     - 'app/controllers/epp_controller.rb'
     - 'app/controllers/registrant/domains_controller.rb'
-    - 'app/models/directo.rb'
     - 'lib/tasks/convert.rake'
     - 'lib/tasks/documents.rake'
 
@@ -326,7 +323,6 @@ Layout/SpaceAfterComma:
   Exclude:
     - 'app/api/repp/domain_v1.rb'
     - 'app/controllers/epp_controller.rb'
-    - 'app/models/directo.rb'
     - 'app/models/dnskey.rb'
     - 'app/models/domain_mail_model.rb'
     - 'app/views/epp/contacts/_disclosure_policy.xml.builder'
@@ -355,7 +351,6 @@ Layout/SpaceBeforeBlockBraces:
     - 'app/api/repp/domain_v1.rb'
     - 'app/models/bank_link.rb'
     - 'app/models/contact.rb'
-    - 'app/models/directo.rb'
     - 'app/models/invoice.rb'
     - 'app/models/legal_document.rb'
     - 'app/models/soap/arireg.rb'
@@ -417,7 +412,6 @@ Layout/SpaceInsideHashLiteralBraces:
     - 'app/helpers/application_helper.rb'
     - 'app/models/contact.rb'
     - 'app/models/depp/domain.rb'
-    - 'app/models/directo.rb'
     - 'app/models/domain_mail_model.rb'
     - 'app/models/epp/contact.rb'
     - 'app/models/epp/domain.rb'
@@ -652,7 +646,6 @@ Performance/Sample:
 Performance/StringReplacement:
   Exclude:
     - 'app/controllers/registrar/invoices_controller.rb'
-    - 'app/models/directo.rb'
     - 'app/models/dnskey.rb'
 
 # Offense count: 1
@@ -905,7 +898,6 @@ Style/MethodDefParentheses:
     - 'app/models/blocked_domain.rb'
     - 'app/models/contact.rb'
     - 'app/models/counter.rb'
-    - 'app/models/directo.rb'
     - 'app/models/epp/contact.rb'
     - 'app/models/epp/domain.rb'
     - 'app/models/nameserver.rb'
@@ -1059,7 +1051,6 @@ Style/PerlBackrefs:
 # SupportedStyles: short, verbose
 Style/PreferredHashMethods:
   Exclude:
-    - 'app/models/directo.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -1172,7 +1163,6 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Exclude:
     - 'app/models/contact.rb'
-    - 'app/models/directo.rb'
 
 # Offense count: 110
 # Cop supports --auto-correct.
@@ -1209,7 +1199,6 @@ Style/TrailingCommaInLiteral:
     - 'app/models/billing/price.rb'
     - 'app/models/depp/contact.rb'
     - 'app/models/depp/domain.rb'
-    - 'app/models/directo.rb'
     - 'app/models/epp/domain.rb'
     - 'app/presenters/domain_presenter.rb'
     - 'lib/tasks/dev.rake'

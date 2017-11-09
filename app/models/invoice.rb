@@ -3,7 +3,6 @@ class Invoice < ActiveRecord::Base
   belongs_to :buyer, class_name: 'Registrar'
   has_one  :account_activity
   has_many :invoice_items
-  has_many :directo_records, as: :item, class_name: 'Directo'
 
   accepts_nested_attributes_for :invoice_items
 
@@ -105,7 +104,7 @@ class Invoice < ActiveRecord::Base
     Country.new(buyer_country_code)
   end
 
-# order is used for directo/banklink description
+  # order is used for banklink description
   def order
     "Order nr. #{number}"
   end
