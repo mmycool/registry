@@ -6,6 +6,9 @@ require 'capybara/minitest'
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
+
+  ActiveRecord::Migration.check_pending!
+  fixtures :all
 end
 
 class ActionDispatch::IntegrationTest
