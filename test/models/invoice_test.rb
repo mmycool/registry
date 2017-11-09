@@ -59,4 +59,9 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice = invoices(:paid)
     assert invoice.paid?
   end
+
+  def test_date
+    invoice = invoices(:valid)
+    assert_equal Time.zone.parse('2010-07-05'), invoice.date
+  end
 end

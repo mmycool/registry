@@ -54,6 +54,10 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def date
+    created_at
+  end
+
   def set_invoice_number
     last_no = Invoice.order(number: :desc).where('number IS NOT NULL').limit(1).pluck(:number).first
 
