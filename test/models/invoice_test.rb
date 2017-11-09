@@ -31,10 +31,10 @@ class InvoiceTest < ActiveSupport::TestCase
     assert invoice.errors.added?(:buyer_name, :blank)
   end
 
-  def test_requires_vat
-    invoice = Invoice.new(vat_prc: nil)
+  def test_requires_vat_rate
+    invoice = Invoice.new(vat_rate: nil)
     invoice.validate
-    assert invoice.errors.added?(:vat_prc, :blank)
+    assert invoice.errors.added?(:vat_rate, :blank)
   end
 
   def test_seller_address

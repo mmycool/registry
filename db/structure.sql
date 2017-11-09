@@ -1122,7 +1122,7 @@ CREATE TABLE invoices (
     currency character varying NOT NULL,
     description character varying,
     reference_no character varying,
-    vat_prc numeric(10,2) NOT NULL,
+    vat_rate numeric(10,2) NOT NULL,
     paid_at timestamp without time zone,
     seller_id integer,
     seller_name character varying NOT NULL,
@@ -4808,4 +4808,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171107170127');
 INSERT INTO schema_migrations (version) VALUES ('20171107172544');
 
 INSERT INTO schema_migrations (version) VALUES ('20171107172703');
+
+INSERT INTO schema_migrations (version) VALUES ('20171109095225');
 
