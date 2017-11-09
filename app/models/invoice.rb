@@ -7,9 +7,6 @@ class Invoice < ActiveRecord::Base
 
   accepts_nested_attributes_for :invoice_items
 
-  scope :unbinded, lambda {
-    where('id NOT IN (SELECT invoice_id FROM account_activities where invoice_id IS NOT NULL)')
-  }
   scope :all_columns,                    ->{select("invoices.*")}
   scope :sort_due_date_column,           ->{all_columns.select("CASE WHEN invoices.cancelled_at is not null THEN
                                                                 (invoices.cancelled_at + interval '100 year') ELSE
@@ -34,14 +31,27 @@ class Invoice < ActiveRecord::Base
   before_save -> { self.sum_cache = sum }
 
   class << self
-    def cancel_overdue_invoices
-      cr_at = Time.zone.now - Setting.days_to_keep_overdue_invoices_active.days
+    def cancel_overdue
+      overdue_to_be_cancelled.update_all(cancelled_at: Time.zone.now)
+    end
 
-      invoices = Invoice.unbinded.where(
-        'due_date < ? AND cancelled_at IS NULL', cr_at
-      )
+    def unbound
+      where('id NOT IN (SELECT invoice_id FROM account_activities WHERE invoice_id IS NOT NULL)')
+    end
 
-      invoices.update_all(cancelled_at: Time.zone.now)
+    private
+
+    def days_to_keep_overdue_invoices_active
+      Setting.days_to_keep_overdue_invoices_active.to_i
+    end
+
+    def overdue_to_be_cancelled
+      to_be_cancelled_from = days_to_keep_overdue_invoices_active.days.ago
+      not_cancelled.unbound.where('due_date < ?', to_be_cancelled_from)
+    end
+
+    def not_cancelled
+      where('cancelled_at IS NULL')
     end
   end
 

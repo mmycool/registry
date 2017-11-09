@@ -46,11 +46,12 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   def test_cancels_overdue
-    Setting.days_to_keep_overdue_invoices_active = 35
+    travel_to Time.zone.parse('2010-07-07')
+    Setting.days_to_keep_overdue_invoices_active = 1
 
-    create(:invoice, created_at: Time.zone.now - 35.days, due_date: Time.zone.now - 30.days)
-    Invoice.cancel_overdue_invoices
+    Invoice.cancel_overdue
 
-    assert_equal 1, Invoice.where(cancelled_at: nil).count
+    assert invoices(:overdue).cancelled?
+    refute invoices(:outstanding).cancelled?
   end
 end
