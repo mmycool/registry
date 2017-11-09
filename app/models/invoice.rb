@@ -161,4 +161,12 @@ class Invoice < ActiveRecord::Base
   def sum
     (sum_without_vat + vat).round(2)
   end
+
+  def paid?
+    return false if account_activity.nil?
+    return false if account_activity.bank_transaction.nil?
+    return false if account_activity.bank_transaction.sum.nil?
+
+    account_activity.bank_transaction.sum == self.sum_cache
+  end
 end

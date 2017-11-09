@@ -54,4 +54,9 @@ class InvoiceTest < ActiveSupport::TestCase
     assert invoices(:overdue).cancelled?
     refute invoices(:outstanding).cancelled?
   end
+
+  def test_paid
+    invoice = invoices(:paid)
+    assert invoice.paid?
+  end
 end
