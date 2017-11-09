@@ -4258,6 +4258,14 @@ ALTER TABLE ONLY account_activities
 
 
 --
+-- Name: invoice_item_invoice_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY invoice_items
+    ADD CONSTRAINT invoice_item_invoice_id_fk FOREIGN KEY (invoice_id) REFERENCES invoices(id);
+
+
+--
 -- Name: user_registrar_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4810,4 +4818,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171107172544');
 INSERT INTO schema_migrations (version) VALUES ('20171107172703');
 
 INSERT INTO schema_migrations (version) VALUES ('20171109095225');
+
+INSERT INTO schema_migrations (version) VALUES ('20171109165012');
 
