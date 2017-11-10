@@ -1,0 +1,47 @@
+<h4><%= t(:items) %></h4>
+
+<hr/>
+
+<div class="table-responsive">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th class="col-xs-4"><%= t(:description) %></th>
+                <th class="col-xs-2"><%= t(:unit) %></th>
+                <th class="col-xs-2"><%= InvoiceItem.human_attribute_name :quantity %></th>
+                <th class="col-xs-2"><%= t(:price) %></th>
+                <th class="col-xs-2"><%= t(:total) %></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @invoice.items.each do |x| %>
+                <tr>
+                    <td><%= t(x.description) %></td>
+                    <td><%= x.unit %></td>
+                    <td><%= x.quantity %></td>
+                    <td><%= currency(x.price) %></td>
+                    <td><%= currency(x.item_sum_without_vat) %></td>
+                </tr>
+            <% end %>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th colspan="3"></th>
+                <th><%= t(:total_without_vat) %></th>
+                <td><%= currency(@invoice.sum_without_vat) %></td>
+            </tr>
+            <tr>
+                <th class="no-border" colspan="3"></th>
+                <th><%= t('vat', rate: (@invoice.vat_rate * 100).round) %></th>
+                <td><%= currency(@invoice.vat) %></td>
+            </tr>
+            <tr>
+                <th class="no-border" colspan="3"></th>
+                <th><%= t(:total) %></th>
+                <td><%= currency(@invoice.sum) %></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
