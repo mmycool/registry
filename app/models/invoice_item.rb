@@ -5,7 +5,7 @@ class InvoiceItem < ActiveRecord::Base
   validates :quantity, presence: true
   validates :unit, presence: true
 
-  def item_sum_without_vat
-    (quantity * price).round(2)
+  def amount
+    quantity * price
   end
 end

@@ -154,7 +154,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def sum_without_vat
-    (items.map(&:item_sum_without_vat).sum).round(2)
+    (items.map(&:amount).sum).round(2)
   end
 
   def vat
