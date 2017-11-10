@@ -12,4 +12,10 @@ class InvoiceItemTest < ActiveSupport::TestCase
     item.validate
     assert item.errors.added?(:quantity, :blank)
   end
+
+  def test_requires_unit
+    item = InvoiceItem.new(unit: nil)
+    item.validate
+    assert item.errors.added?(:unit, :blank)
+  end
 end
