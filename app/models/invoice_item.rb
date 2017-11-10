@@ -4,6 +4,7 @@ class InvoiceItem < ActiveRecord::Base
   validates :description, presence: true
   validates :quantity, presence: true
   validates :unit, presence: true
+  validates :price, presence: true
 
   def amount
     quantity * price

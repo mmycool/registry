@@ -23,6 +23,12 @@ class InvoiceItemTest < ActiveSupport::TestCase
     assert item.errors.added?(:unit, :blank)
   end
 
+  def test_requires_price
+    item = InvoiceItem.new(price: nil)
+    item.validate
+    assert item.errors.added?(:price, :blank)
+  end
+
   def test_calculates_amount
     assert_equal 10, @item.amount
   end
