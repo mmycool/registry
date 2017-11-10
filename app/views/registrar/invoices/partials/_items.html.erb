@@ -17,7 +17,7 @@
         <tbody>
             <% @invoice.items.each do |x| %>
                 <tr>
-                    <td><%= t(x.description) %></td>
+                    <td><%= x.description %></td>
                     <td><%= x.unit %></td>
                     <td><%= x.quantity %></td>
                     <td><%= currency(x.price) %></td>

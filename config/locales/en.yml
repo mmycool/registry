@@ -636,7 +636,6 @@ en:
   invoice_no: 'Invoice no. %{no}'
   invoice_number: Invoice no.
   seller: 'Seller'
-  prepayment: 'Prepayment'
   vat: 'VAT (%{rate}%)'
   unpaid: 'Unpaid'
   your_current_account_balance_is: 'Your current account balance is %{balance} %{currency}'
