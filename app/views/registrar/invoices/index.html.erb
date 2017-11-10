@@ -4,7 +4,7 @@
 <% end %>
 <%= render 'shared/title', name: t(:your_account) %>
 <%= t(:your_current_account_balance_is,
-      balance: currency(current_user.registrar.cash_account.balance),
+      balance: number_to_currency(current_user.registrar.cash_account.balance),
       currency: current_user.registrar.cash_account.currency) %>
 <h1>
     <%= t(:invoices) %>
@@ -54,7 +54,7 @@
                             <%= l(x.due_date, format: :date_long) %>
                         </td>
                         <td>
-                            <%= currency(x.sum) %>
+                            <%= number_to_currency x.sum %>
                         </td>
                     </tr>
                 <% end %>

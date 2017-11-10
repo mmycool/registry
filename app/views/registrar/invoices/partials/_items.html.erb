@@ -20,7 +20,7 @@
                     <td><%= invoice_item.description %></td>
                     <td><%= invoice_item.unit %></td>
                     <td><%= invoice_item.quantity %></td>
-                    <td><%= currency(invoice_item.price) %></td>
+                    <td><%= number_to_currency invoice_item.price %></td>
                     <td><%= number_to_currency invoice_item.amount %></td>
                 </tr>
             <% end %>
@@ -35,12 +35,12 @@
             <tr>
                 <th class="no-border" colspan="3"></th>
                 <th><%= t('vat', rate: (@invoice.vat_rate * 100).round) %></th>
-                <td><%= currency(@invoice.vat) %></td>
+                <td><%= number_to_currency @invoice.vat %></td>
             </tr>
             <tr>
                 <th class="no-border" colspan="3"></th>
                 <th><%= t(:total) %></th>
-                <td><%= currency(@invoice.sum) %></td>
+                <td><%= number_to_currency @invoice.sum %></td>
             </tr>
         </tfoot>
     </table>
