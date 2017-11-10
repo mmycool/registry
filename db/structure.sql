@@ -1082,7 +1082,7 @@ CREATE TABLE invoice_items (
     id integer NOT NULL,
     invoice_id integer NOT NULL,
     description character varying NOT NULL,
-    unit character varying,
+    unit character varying NOT NULL,
     quantity integer NOT NULL,
     price numeric(10,2),
     created_at timestamp without time zone,
@@ -4826,4 +4826,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171109165726');
 INSERT INTO schema_migrations (version) VALUES ('20171109170326');
 
 INSERT INTO schema_migrations (version) VALUES ('20171109172012');
+
+INSERT INTO schema_migrations (version) VALUES ('20171110103538');
 
