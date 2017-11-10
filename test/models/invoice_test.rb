@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class InvoiceTest < ActiveSupport::TestCase
+  def setup
+    @invoice = invoices(:valid)
+  end
+
   def test_requires_due_date
     invoice = Invoice.new(due_date: nil)
     invoice.validate
@@ -61,8 +65,7 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   def test_date
-    invoice = invoices(:valid)
-    assert_equal Time.zone.parse('2010-07-05'), invoice.date
+    assert_equal Time.zone.parse('2010-07-05'), @invoice.date
   end
 
   def test_sum_without_vat
