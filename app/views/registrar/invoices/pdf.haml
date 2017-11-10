@@ -239,7 +239,7 @@
                 %tr
                   %th{colspan: 3}
                   %th= t(:total_without_vat)
-                  %td= "#{currency(@invoice.sum_without_vat)} #{@invoice.currency}"
+                  %td= number_to_currency @invoice.subtotal
                 %tr
                   %th.no-border{colspan: 3}
                   %th= t('vat', rate: (@invoice.vat_rate * 100).round)

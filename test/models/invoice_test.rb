@@ -68,12 +68,12 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_equal Time.zone.parse('2010-07-05'), @invoice.date
   end
 
-  def test_sum_without_vat
+  def test_calculates_subtotal
     item = InvoiceItem.new
 
     item.stub(:amount, 1) do
       invoice = Invoice.new(invoice_items: [item, item])
-      assert_equal 2, invoice.sum_without_vat
+      assert_equal 2, invoice.subtotal
     end
   end
 end
