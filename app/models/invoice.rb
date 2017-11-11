@@ -25,6 +25,7 @@ class Invoice < ActiveRecord::Base
   validates :due_date, :currency, :seller_name,
             :seller_iban, :buyer_name, :invoice_items, :vat_rate, presence: true
 
+  after_initialize :apply_defaults
   before_create :set_invoice_number, :check_vat
   before_save   :check_vat
   before_save :calculate_total
@@ -45,7 +46,7 @@ class Invoice < ActiveRecord::Base
     end
 
     def overdue_to_be_cancelled
-      to_be_cancelled_from = days_to_keep_overdue_invoices_active.days.ago
+      to_be_cancelled_from = Time.zone.today - days_to_keep_overdue_invoices_active.days
       not_cancelled.unbound.where('due_date < ?', to_be_cancelled_from)
     end
 
@@ -112,7 +113,7 @@ class Invoice < ActiveRecord::Base
   def order
     "Order nr. #{number}"
   end
-  
+
   def pdf(html)
     kit = PDFKit.new(html)
     kit.to_pdf
@@ -173,5 +174,13 @@ class Invoice < ActiveRecord::Base
 
   def calculate_total
     self.total = subtotal + vat_amount
+  end
+
+  def apply_defaults
+    self.due_date = default_due_date unless due_date
+  end
+
+  def default_due_date
+    Time.zone.today + Setting.days_to_keep_invoices_active.days
   end
 end

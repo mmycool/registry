@@ -5,12 +5,6 @@ class InvoiceTest < ActiveSupport::TestCase
     @invoice = invoices(:valid)
   end
 
-  def test_requires_due_date
-    invoice = Invoice.new(due_date: nil)
-    invoice.validate
-    assert invoice.errors.added?(:due_date, :blank)
-  end
-
   def test_requires_currency
     invoice = Invoice.new(currency: nil)
     invoice.validate
@@ -50,7 +44,7 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   def test_cancels_overdue
-    travel_to Time.zone.parse('2010-07-07')
+    travel_to Time.zone.parse('2010-07-05')
     Setting.days_to_keep_overdue_invoices_active = 1
 
     Invoice.cancel_overdue
@@ -65,7 +59,7 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   def test_date
-    assert_equal Time.zone.parse('2010-07-05'), @invoice.date
+    assert_equal Date.parse('2010-07-05'), @invoice.date
   end
 
   def test_calculates_subtotal
@@ -88,5 +82,22 @@ class InvoiceTest < ActiveSupport::TestCase
 
     invoice.save!
     assert_equal 24, invoice.total
+  end
+
+  def test_applies_default_due_date_to_new
+    travel_to Time.zone.parse('2010-07-05')
+    Setting.days_to_keep_invoices_active = 5
+    invoice = Invoice.new
+
+    assert_equal Date.parse('2010-07-10'), invoice.due_date
+  end
+
+  def test_does_not_apply_default_due_date_to_persisted
+    assert_equal Date.parse('2010-07-06'), @invoice.due_date
+  end
+
+  def test_overrides_default_due_date
+    invoice = Invoice.new(due_date: Date.parse('2010-07-07'))
+    assert_equal Date.parse('2010-07-07'), invoice.due_date
   end
 end

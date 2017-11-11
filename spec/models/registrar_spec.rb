@@ -108,7 +108,6 @@ describe Registrar do
       @registrar.invoices.count.should == 1
       invoice = @registrar.invoices.first
       invoice.total.should == BigDecimal.new('240.0')
-      invoice.due_date.should be_within(0.1).of((Time.zone.now + 30.days).end_of_day)
       invoice.description.should == 'add some money'
     end
 
