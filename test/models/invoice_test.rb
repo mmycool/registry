@@ -78,20 +78,15 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   def test_calculates_vat_amount
-    item = InvoiceItem.new
-
-    item.stub(:amount, 5) do
-      invoice = Invoice.new(vat_rate: 0.2, invoice_items: [item, item])
-      assert_equal 2, invoice.vat_amount
-    end
+    assert_equal 4, @invoice.vat_amount
   end
 
   def test_calculates_total
-    item = InvoiceItem.new
+    invoice = Invoice.new(invoices(:valid).attributes.except('id'))
+    invoice.invoice_items.build(invoice_items(:valid).attributes.except('id'))
+    invoice.invoice_items.build(invoice_items(:valid).attributes.except('id'))
 
-    item.stub(:amount, 5) do
-      invoice = Invoice.new(vat_rate: 0.2, invoice_items: [item, item])
-      assert_equal 12, invoice.total
-    end
+    invoice.save!
+    assert_equal 24, invoice.total
   end
 end

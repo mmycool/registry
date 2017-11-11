@@ -27,7 +27,7 @@ class Invoice < ActiveRecord::Base
 
   before_create :set_invoice_number, :check_vat
   before_save   :check_vat
-  before_save -> { self.sum_cache = total }
+  before_save :calculate_total
 
   class << self
     def cancel_overdue
@@ -161,15 +161,17 @@ class Invoice < ActiveRecord::Base
     subtotal * vat_rate
   end
 
-  def total
-    subtotal + vat_amount
-  end
-
   def paid?
     return false if account_activity.nil?
     return false if account_activity.bank_transaction.nil?
     return false if account_activity.bank_transaction.sum.nil?
 
-    account_activity.bank_transaction.sum == self.sum_cache
+    account_activity.bank_transaction.sum == self.total
+  end
+
+  private
+
+  def calculate_total
+    self.total = subtotal + vat_amount
   end
 end
