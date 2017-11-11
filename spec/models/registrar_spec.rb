@@ -106,10 +106,10 @@ describe Registrar do
       create(:registrar, name: 'EIS', reg_no: '90010019')
       @registrar.issue_prepayment_invoice(200, 'add some money')
       @registrar.invoices.count.should == 1
-      i = @registrar.invoices.first
-      i.sum.should == BigDecimal.new('240.0')
-      i.due_date.should be_within(0.1).of((Time.zone.now + 30.days).end_of_day)
-      i.description.should == 'add some money'
+      invoice = @registrar.invoices.first
+      invoice.total.should == BigDecimal.new('240.0')
+      invoice.due_date.should be_within(0.1).of((Time.zone.now + 30.days).end_of_day)
+      invoice.description.should == 'add some money'
     end
 
     it 'should not allaw to use CID as code for leagcy reasons' do

@@ -47,7 +47,7 @@ class BankTransaction < ActiveRecord::Base
     return if invoice.binded?
     return if invoice.cancelled?
 
-    return if invoice.sum != sum
+    return if invoice.total != sum
     create_activity(registrar, invoice)
   end
   # rubocop: enable Metrics/PerceivedComplexity
@@ -76,7 +76,7 @@ class BankTransaction < ActiveRecord::Base
       return
     end
 
-    if invoice.sum != sum
+    if invoice.total != sum
       errors.add(:base, I18n.t('invoice_and_transaction_sums_do_not_match'))
       return
     end

@@ -35,12 +35,12 @@
             <tr>
                 <th class="no-border" colspan="3"></th>
                 <th><%= t('vat', rate: (@invoice.vat_rate * 100).round) %></th>
-                <td><%= number_to_currency @invoice.vat %></td>
+                <td><%= number_to_currency @invoice.vat_amount %></td>
             </tr>
             <tr>
                 <th class="no-border" colspan="3"></th>
                 <th><%= t(:total) %></th>
-                <td><%= number_to_currency @invoice.sum %></td>
+                <td><%= number_to_currency @invoice.total %></td>
             </tr>
         </tfoot>
     </table>

@@ -76,4 +76,22 @@ class InvoiceTest < ActiveSupport::TestCase
       assert_equal 2, invoice.subtotal
     end
   end
+
+  def test_calculates_vat_amount
+    item = InvoiceItem.new
+
+    item.stub(:amount, 5) do
+      invoice = Invoice.new(vat_rate: 0.2, invoice_items: [item, item])
+      assert_equal 2, invoice.vat_amount
+    end
+  end
+
+  def test_calculates_total
+    item = InvoiceItem.new
+
+    item.stub(:amount, 5) do
+      invoice = Invoice.new(vat_rate: 0.2, invoice_items: [item, item])
+      assert_equal 12, invoice.total
+    end
+  end
 end
