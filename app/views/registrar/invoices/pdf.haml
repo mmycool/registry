@@ -159,7 +159,7 @@
             - if @invoice.cancelled?
               %dd= t(:cancelled)
             - else
-              %dd= l(@invoice.due_date, format: :date_long)
+              %dd= l @invoice.due_date
 
             %dt= t(:receipt_date)
             - if @invoice.binded?
