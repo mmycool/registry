@@ -1153,7 +1153,7 @@ CREATE TABLE invoices (
     buyer_email character varying,
     number integer,
     cancelled_at timestamp without time zone,
-    sum_cache numeric(10,2),
+    total numeric(10,2),
     exported boolean DEFAULT false NOT NULL
 );
 
@@ -4830,4 +4830,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171109172012');
 INSERT INTO schema_migrations (version) VALUES ('20171110103538');
 
 INSERT INTO schema_migrations (version) VALUES ('20171110171504');
+
+INSERT INTO schema_migrations (version) VALUES ('20171111124805');
 
