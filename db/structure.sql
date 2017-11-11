@@ -409,7 +409,8 @@ CREATE TABLE bank_transactions (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     creator_str character varying,
-    updator_str character varying
+    updator_str character varying,
+    in_directo boolean DEFAULT false
 );
 
 
@@ -4804,8 +4805,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171103134947');
 INSERT INTO schema_migrations (version) VALUES ('20171107134248');
 
 INSERT INTO schema_migrations (version) VALUES ('20171107140514');
-
-INSERT INTO schema_migrations (version) VALUES ('20171107141250');
 
 INSERT INTO schema_migrations (version) VALUES ('20171107155955');
 
