@@ -2313,7 +2313,8 @@ CREATE TABLE registrars (
     legacy_id integer,
     reference_no character varying,
     test_registrar boolean DEFAULT false,
-    vat_rate numeric(3,2)
+    vat_rate numeric(3,2),
+    vat_country character varying
 );
 
 
@@ -4837,4 +4838,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171111130108');
 INSERT INTO schema_migrations (version) VALUES ('20171111191117');
 
 INSERT INTO schema_migrations (version) VALUES ('20171112230729');
+
+INSERT INTO schema_migrations (version) VALUES ('20171112231421');
 
