@@ -1,22 +1,23 @@
 DEFAULTS: &DEFAULTS
-  created_at: <%= Time.zone.parse '2010-07-05' %>
-  due_date: <%= Time.zone.parse '2010-08-05' %>
+  created_at: <%= Date.parse '2010-07-05' %>
+  due_date: <%= Date.parse '2010-07-06' %>
+  invoice_type: DEB
   currency: EUR
   seller_name: John Doe
   seller_iban: 1234
   buyer_name: Jane Doe
-  vat_rate: 1
+  vat_prc: 0.2
 
 valid:
   <<: *DEFAULTS
 
 exported:
   <<: *DEFAULTS
-  exported: true
+  in_directo: true
 
 cancelled:
   <<: *DEFAULTS
-  cancelled_at: 2010-07-05
+  cancelled_at: <%= Date.parse '2010-07-05' %>
 
 paid:
   <<: *DEFAULTS
@@ -24,9 +25,8 @@ paid:
 
 outstanding:
   <<: *DEFAULTS
-  due_date: <%= Time.zone.parse '2010-07-06' %>
+  due_date: <%= Date.parse '2010-07-04' %>
 
 overdue:
   <<: *DEFAULTS
-  due_date: <%= Time.zone.parse '2010-07-05' %>
-
+  due_date: <%= Date.parse '2010-07-03' %>
