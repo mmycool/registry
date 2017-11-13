@@ -100,4 +100,9 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice = Invoice.new(due_date: Date.parse('2010-07-07'))
     assert_equal Date.parse('2010-07-07'), invoice.due_date
   end
+
+  def test_cancelled
+    invoice = invoices(:cancelled)
+    assert invoice.cancelled?
+  end
 end
