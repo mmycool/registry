@@ -5,7 +5,7 @@ class RegistrarsControllerTest < ActionDispatch::IntegrationTest
     login_as create(:admin_user)
   end
 
-  def test_creates_new_registrar
+  def test_creates_new_registrar_with_required_attributes
     assert_difference -> { Registrar.count } do
       post admin_registrars_path, registrar: attributes_for(:registrar)
     end
