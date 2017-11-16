@@ -610,7 +610,6 @@ en:
   invoice_no: 'Invoice no. %{no}'
   invoice_number: Invoice no.
   seller: 'Seller'
-  vat: 'VAT (%{rate}%)'
   unpaid: 'Unpaid'
   your_current_account_balance_is: 'Your current account balance is %{balance} %{currency}'
   billing: 'Billing'
