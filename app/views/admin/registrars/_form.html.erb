@@ -14,7 +14,7 @@
                             <%= f.label :name %>
                         </div>
                         <div class="col-md-7">
-                            <%= f.text_field :name, class: 'form-control', autofocus: true %>
+                            <%= f.text_field :name, required: true, autofocus: true, class: 'form-control' %>
                         </div>
                     </div>
 
@@ -23,7 +23,7 @@
                             <%= f.label :reg_no %>
                         </div>
                         <div class="col-md-7">
-                            <%= f.text_field(:reg_no, class: 'form-control') %>
+                            <%= f.text_field :reg_no, required: true, class: 'form-control' %>
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                             <%= f.label :email %>
                         </div>
                         <div class="col-md-7">
-                            <%= f.email_field :email, class: 'form-control' %>
+                            <%= f.email_field :email, required: true, class: 'form-control' %>
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                             <%= f.label :code %>
                         </div>
                         <div class="col-md-7">
-                            <%= f.text_field(:code, class: 'form-control', disabled: !f.object.new_record?) %>
+                            <%= f.text_field :code, required: f.object.new_record?, class: 'form-control', disabled: !f.object.new_record? %>
                         </div>
                     </div>
 
