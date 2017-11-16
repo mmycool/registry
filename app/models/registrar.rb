@@ -76,7 +76,7 @@ class Registrar < ActiveRecord::Base
       payment_term: 'prepayment',
       description: description,
       currency: 'EUR',
-      vat_rate: Setting.registry_vat_prc,
+      vat_rate: Registry.instance.vat_rate,
       seller_name: Setting.registry_juridical_name,
       seller_reg_no: Setting.registry_reg_no,
       seller_iban: Setting.registry_iban,
