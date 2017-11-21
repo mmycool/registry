@@ -55,7 +55,6 @@ class Registrar
     def id
       @user = ApiUser.find_by_idc_data_and_allowed(request.env['SSL_CLIENT_S_DN'], request.ip)
 
-
       if @user
         sign_in(@user, event: :authentication)
         redirect_to registrar_root_url
@@ -92,7 +91,7 @@ class Registrar
         @user = find_user_by_idc_and_allowed(response.user_id_code)
       else
         @user = find_user_by_idc(response.user_id_code)
-      end  
+      end
 
       if @user.persisted?
         session[:user_id_code] = response.user_id_code
