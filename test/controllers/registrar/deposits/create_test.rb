@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DepositsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    login_as create(:api_user)
+    login_as users(:api)
   end
 
   def test_creates_new_invoice
