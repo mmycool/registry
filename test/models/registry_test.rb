@@ -2,7 +2,11 @@ require 'test_helper'
 
 class RegistryTest < ActiveSupport::TestCase
   def setup
-    @registry = Registry.instance
+    @registry = Registry.send(:new)
+  end
+
+  def test_implements_singleton
+    assert_equal Registry.instance.object_id, Registry.instance.object_id
   end
 
   def test_vat_rate
