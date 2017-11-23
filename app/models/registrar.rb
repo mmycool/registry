@@ -16,11 +16,14 @@ class Registrar < ActiveRecord::Base
   validates :name, :reg_no, :country_code, :email, :code, presence: true
   validates :name, :reg_no, :reference_no, :code, uniqueness: true
   validates :accounting_customer_code, presence: true
+  validates :language, presence: true
   validates :vat_rate, :vat_no, absence: true, if: :local_vat_payer?
   validates :vat_rate, presence: true, if: 'foreign_vat_payer? && vat_no.blank?'
   validates :vat_rate, absence: true, if: 'foreign_vat_payer? && vat_no?'
   validates :vat_rate, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 99 }, allow_nil: true
   validate :forbidden_codes
+
+  after_initialize :set_defaults
 
   before_save do
     self.vat_rate = vat_rate / 100.0 if vat_rate
@@ -169,6 +172,10 @@ class Registrar < ActiveRecord::Base
   end
 
   private
+
+  def set_defaults
+    self.language = Setting.default_language unless language
+  end
 
   def local_vat_payer?
     country == Registry.instance.legal_address_country
