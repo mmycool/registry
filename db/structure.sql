@@ -2312,8 +2312,8 @@ CREATE TABLE registrars (
     legacy_id integer,
     reference_no character varying,
     test_registrar boolean DEFAULT false,
-    language character varying NOT NULL,
-    vat_rate numeric(4,3)
+    vat_rate numeric(4,3),
+    language character varying NOT NULL
 );
 
 
