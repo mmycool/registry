@@ -18,3 +18,10 @@ complete:
   email: info@example.com
   billing_email: billing@example.com
   vat_no: US12345
+
+foreign_vat_payer_with_rate:
+  <<: *DEFAULTS
+  name: 3
+  reg_no: 3
+  code: 3
+  vat_rate: 0.2

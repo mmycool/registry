@@ -5,6 +5,8 @@ require 'minitest/mock'
 require 'capybara/rails'
 require 'capybara/minitest'
 
+Setting.registry_country_code = 'US'
+
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 

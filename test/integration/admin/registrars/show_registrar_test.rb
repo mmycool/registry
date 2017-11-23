@@ -12,4 +12,12 @@ class ShowRegistrarTest < ActionDispatch::IntegrationTest
   def test_accounting_customer_code
     assert_text 'ACCOUNT001'
   end
+
+  def test_vat_number
+    assert_text 'US12345'
+  end
+
+  def test_vat_rate
+    assert_text number_to_percentage(@registrar.vat_rate, precision: 1)
+  end
 end
