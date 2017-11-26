@@ -9,3 +9,7 @@ en:
         minimum_total: Minimum total
         maximum_total: Maximum total
         reset_btn: Reset
+
+      partials:
+        details:
+          prepayment: Prepayment

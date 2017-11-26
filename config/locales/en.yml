@@ -615,7 +615,6 @@ en:
   pay_by_bank_link: 'Pay by bank link'
   issue_date: 'Issue date'
   due_date: 'Due date'
-  payment_term: 'Payment term'
   iban: 'IBAN'
   bank: 'Bank'
   swift: 'Swift'

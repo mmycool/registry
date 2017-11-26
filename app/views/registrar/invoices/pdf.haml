@@ -172,8 +172,8 @@
             %dt= t(:issuer)
             %dd= @invoice.seller_contact_name
 
-            %dt= t(:payment_term)
-            %dd= t(@invoice.payment_term)
+            %dt= Invoice.human_attribute_name :payment_term
+            %dd= t '.prepayment'
           
             %dt= t(:invoice_number)
             %dd= @invoice.number

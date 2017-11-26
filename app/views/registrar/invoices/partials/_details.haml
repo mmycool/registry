@@ -22,8 +22,8 @@
   - else
     %dd{class: 'text-danger'}= t(:unpaid)
 
-  %dt= t(:payment_term)
-  %dd= t(@invoice.payment_term)
+  %dt= Invoice.human_attribute_name :payment_term
+  %dd= t '.prepayment'
 
   %dt= t(:invoice_number)
   %dd= @invoice.number

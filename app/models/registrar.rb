@@ -88,7 +88,6 @@ class Registrar < ActiveRecord::Base
   # rubocop:disable Metrics/AbcSize
   def issue_prepayment_invoice(amount, description = nil)
     invoices.create(
-      payment_term: 'prepayment',
       description: description,
       currency: 'EUR',
       vat_rate: Registry.instance.vat_rate,
