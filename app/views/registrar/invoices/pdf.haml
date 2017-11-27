@@ -179,7 +179,7 @@
             %dd= @invoice.number
 
             - if @invoice.description.present?
-              %dt= t(:description)
+              %dt= Invoice.human_attribute_name :description
               %dd=@invoice.description
                 
             %dt= t(:reference_no)
@@ -222,11 +222,11 @@
             %table.table.table-hover.table-condensed
               %thead
                 %tr
-                  %th{class: 'col-xs-4'}= t(:description)
-                  %th{class: 'col-xs-2'}= t(:unit)
+                  %th{class: 'col-xs-4'}= InvoiceItem.human_attribute_name :description
+                  %th{class: 'col-xs-2'}= InvoiceItem.human_attribute_name :unit
                   %th{class: 'col-xs-1'}= InvoiceItem.human_attribute_name :quantity
-                  %th{class: 'col-xs-3'}= t(:price)
-                  %th{class: 'col-xs-2'}= t(:total)
+                  %th{class: 'col-xs-3'}= InvoiceItem.human_attribute_name :price
+                  %th{class: 'col-xs-2'}= t '.total'
               %tbody
                 - @invoice.items.each do |x|
                   %tr
@@ -246,7 +246,7 @@
                   %td= number_to_currency @invoice.vat_amount
                 %tr
                   %th.no-border{colspan: 3}
-                  %th= t(:total)
+                  %th= Invoice.human_attribute_name :total
                   %td= number_to_currency @invoice.total
 
       #footer

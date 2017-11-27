@@ -621,7 +621,6 @@ en:
   issuer: 'Issuer'
   items: 'Items'
   buyer: 'Buyer'
-  unit: 'Unit'
   price: 'Price'
   total: 'Total'
   paid_at: 'Paid at'

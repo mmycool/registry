@@ -13,6 +13,9 @@ en:
       partials:
         details:
           prepayment: Prepayment
+        items:
+          total: Total
 
       pdf:
         prepayment: Prepayment
+        total: Total
