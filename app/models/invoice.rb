@@ -1,5 +1,4 @@
 class Invoice < ActiveRecord::Base
-  belongs_to :seller, class_name: 'Registrar'
   belongs_to :buyer, class_name: 'Registrar'
   has_one  :account_activity
   has_many :invoice_items

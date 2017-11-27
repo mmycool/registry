@@ -1123,7 +1123,6 @@ CREATE TABLE invoices (
     reference_no character varying,
     vat_rate numeric(4,3),
     paid_at timestamp without time zone,
-    seller_id integer,
     seller_name character varying NOT NULL,
     seller_reg_no character varying,
     seller_iban character varying NOT NULL,
@@ -3738,13 +3737,6 @@ CREATE INDEX index_invoices_on_buyer_id ON invoices USING btree (buyer_id);
 
 
 --
--- Name: index_invoices_on_seller_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_invoices_on_seller_id ON invoices USING btree (seller_id);
-
-
---
 -- Name: index_keyrelays_on_accepter_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -4860,4 +4852,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171127014039');
 INSERT INTO schema_migrations (version) VALUES ('20171127014555');
 
 INSERT INTO schema_migrations (version) VALUES ('20171127040635');
+
+INSERT INTO schema_migrations (version) VALUES ('20171127042240');
 

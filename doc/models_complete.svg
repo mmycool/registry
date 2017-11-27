@@ -1622,7 +1622,6 @@
 <text text-anchor="start" x="121.5" y="-1451.3" font-family="Times,serif" font-size="14.00">reference_no :string</text>
 <text text-anchor="start" x="121.5" y="-1436.3" font-family="Times,serif" font-size="14.00">vat_rate :decimal</text>
 <text text-anchor="start" x="121.5" y="-1421.3" font-family="Times,serif" font-size="14.00">paid_at :datetime</text>
-<text text-anchor="start" x="121.5" y="-1406.3" font-family="Times,serif" font-size="14.00">seller_id :integer</text>
 <text text-anchor="start" x="121.5" y="-1391.3" font-family="Times,serif" font-size="14.00">seller_name :string</text>
 <text text-anchor="start" x="121.5" y="-1376.3" font-family="Times,serif" font-size="14.00">seller_reg_no :string</text>
 <text text-anchor="start" x="121.5" y="-1361.3" font-family="Times,serif" font-size="14.00">seller_iban :string</text>
