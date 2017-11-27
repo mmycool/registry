@@ -5,6 +5,10 @@ class InvoiceTest < ActiveSupport::TestCase
     @invoice = invoices(:valid)
   end
 
+  def test_valid
+    assert @invoice.valid?
+  end
+
   def test_requires_currency
     invoice = Invoice.new(currency: nil)
     invoice.validate
@@ -29,10 +33,22 @@ class InvoiceTest < ActiveSupport::TestCase
     assert invoice.errors.added?(:buyer_name, :blank)
   end
 
-  def test_requires_vat_rate
-    invoice = Invoice.new(vat_rate: nil)
-    invoice.validate
-    assert invoice.errors.added?(:vat_rate, :blank)
+  def test_allows_absent_vat_rate
+    @invoice.vat_rate = nil
+    @invoice.validate
+    assert @invoice.valid?
+  end
+
+  def test_rejects_negative_vat_rate
+    @invoice.vat_rate = -1
+    @invoice.validate
+    assert @invoice.invalid?
+  end
+
+  def test_rejects_vat_rate_greater_than_max
+    @invoice.vat_rate = 100
+    @invoice.validate
+    assert @invoice.invalid?
   end
 
   def test_seller_address
@@ -63,16 +79,11 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   def test_calculates_subtotal
-    item = InvoiceItem.new
-
-    item.stub(:amount, 1) do
-      invoice = Invoice.new(invoice_items: [item, item])
-      assert_equal 2, invoice.subtotal
-    end
+    assert_equal 20, @invoice.subtotal
   end
 
   def test_calculates_vat_amount
-    assert_equal 4, @invoice.vat_amount
+    assert_equal 0, @invoice.vat_amount
   end
 
   def test_calculates_total
@@ -81,7 +92,7 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice.invoice_items.build(invoice_items(:valid).attributes.except('id'))
 
     invoice.save!
-    assert_equal 24, invoice.total
+    assert_equal 20, invoice.total
   end
 
   def test_applies_default_due_date_to_new

@@ -13,7 +13,7 @@ class ShowRegistrarTest < ActionDispatch::IntegrationTest
     assert_text 'ACCOUNT001'
   end
 
-  def test_vat_number
+  def test_vat_no
     assert_text 'US12345'
   end
 

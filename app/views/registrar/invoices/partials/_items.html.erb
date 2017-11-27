@@ -26,17 +26,22 @@
             <% end %>
         </tbody>
 
-        <tfoot>
+        <tfoot class="total">
             <tr>
                 <th colspan="3"></th>
                 <th><%= Invoice.human_attribute_name :subtotal %></th>
                 <td><%= number_to_currency @invoice.subtotal %></td>
             </tr>
-            <tr>
-                <th class="no-border" colspan="3"></th>
-                <th><%= Invoice.human_attribute_name :vat_amount_with_rate, rate: (@invoice.vat_rate * 100).round %></th>
-                <td><%= number_to_currency @invoice.vat_amount %></td>
-            </tr>
+
+            <% if @invoice.vat_rate? %>
+                <tr>
+                    <th class="no-border" colspan="3"></th>
+                    <th><%= Invoice.human_attribute_name :vat_amount_with_rate,
+                                                         rate: number_to_percentage(@invoice.vat_rate * 100, precision: 1) %></th>
+                    <td><%= number_to_currency @invoice.vat_amount %></td>
+                </tr>
+            <% end %>
+
             <tr>
                 <th class="no-border" colspan="3"></th>
                 <th><%= Invoice.human_attribute_name :total %></th>

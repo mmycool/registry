@@ -5,8 +5,8 @@ DEFAULTS: &DEFAULTS
   seller_name: John Doe
   seller_iban: 1234
   buyer_name: Jane Doe
-  vat_rate: 0.2
   total: 20
+  buyer: valid
 
 valid:
   <<: *DEFAULTS
@@ -30,3 +30,11 @@ outstanding:
 overdue:
   <<: *DEFAULTS
   due_date: <%= Date.parse '2010-07-03' %>
+
+with_vat:
+  <<: *DEFAULTS
+  vat_rate: 0.2
+
+without_vat:
+  <<: *DEFAULTS
+  vat_rate: null

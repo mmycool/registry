@@ -1,3 +1,21 @@
+class VATRateType < ActiveRecord::Type::Value
+  def type_cast_from_user(value)
+    if value.blank?
+      nil
+    else
+      super
+    end
+  end
+
+  def type_cast_from_database(value)
+    BigDecimal.new(value) * 100 if value
+  end
+
+  def type_cast_for_database(value)
+    BigDecimal.new(value) / 100 if value
+  end
+end
+
 class Registrar < ActiveRecord::Base
   include Versions # version/registrar_version.rb
 
@@ -23,15 +41,8 @@ class Registrar < ActiveRecord::Base
   validates :vat_rate, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 99 }, allow_nil: true
   validate :forbidden_codes
 
+  attribute :vat_rate, VATRateType.new
   after_initialize :set_defaults
-
-  before_save do
-    self.vat_rate = vat_rate / 100.0 if vat_rate
-  end
-
-  after_find do |registrar|
-    registrar.vat_rate = registrar.vat_rate * 100 if registrar.vat_rate
-  end
 
   def forbidden_codes
     return true unless ['CID'].include? code
@@ -87,10 +98,20 @@ class Registrar < ActiveRecord::Base
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def issue_prepayment_invoice(amount, description = nil)
+    vat_rate = if local_vat_payer?
+                 Registry.instance.vat_rate
+               else
+                 if vat_no.blank?
+                   self.vat_rate
+                 else
+                   nil
+                 end
+               end
+
     invoices.create(
       description: description,
       currency: 'EUR',
-      vat_rate: Registry.instance.vat_rate,
+      vat_rate: vat_rate,
       seller_name: Setting.registry_juridical_name,
       seller_reg_no: Setting.registry_reg_no,
       seller_iban: Setting.registry_iban,

@@ -22,11 +22,11 @@ class Invoice < ActiveRecord::Base
   validates :billing_email, email_format: { message: :invalid }, allow_blank: true
 
   validates :due_date, :currency, :seller_name,
-            :seller_iban, :buyer_name, :invoice_items, :vat_rate, presence: true
+            :seller_iban, :buyer_name, :invoice_items, presence: true
+  validates :vat_rate, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 99 }, allow_nil: true
 
   after_initialize :apply_defaults
-  before_create :set_invoice_number, :check_vat
-  before_save   :check_vat
+  before_create :set_invoice_number
   before_save :calculate_total
 
   class << self
@@ -72,12 +72,6 @@ class Invoice < ActiveRecord::Base
     errors.add(:base, I18n.t('failed_to_generate_invoice_invoice_number_limit_reached'))
     logger.error('INVOICE NUMBER LIMIT REACHED, COULD NOT GENERATE INVOICE')
     false
-  end
-
-  def check_vat
-    if buyer.country_code != 'EE' && buyer.vat_no.present?
-      self.vat_rate = 0
-    end
   end
 
   def binded?
@@ -158,6 +152,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def vat_amount
+    return 0 unless vat_rate
     subtotal * vat_rate
   end
 
