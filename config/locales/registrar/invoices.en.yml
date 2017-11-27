@@ -13,3 +13,6 @@ en:
       partials:
         details:
           prepayment: Prepayment
+
+      pdf:
+        prepayment: Prepayment

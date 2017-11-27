@@ -624,7 +624,6 @@ en:
   unit: 'Unit'
   price: 'Price'
   total: 'Total'
-  total_without_vat: 'Total without VAT'
   paid_at: 'Paid at'
   invoice: 'Invoice'
   bank_statements: 'Bank statements'
