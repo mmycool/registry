@@ -799,12 +799,8 @@ ALTER SEQUENCE depricated_versions_id_seq OWNED BY depricated_versions.id;
 
 CREATE TABLE directo_connections (
     id integer NOT NULL,
-    item_id integer,
-    item_type character varying,
     response json,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    invoice_number character varying,
     request text
 );
 
@@ -3597,13 +3593,6 @@ CREATE INDEX index_delegation_signers_on_domain_id ON delegation_signers USING b
 
 
 --
--- Name: index_directo_connections_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_directo_connections_on_item_type_and_item_id ON directo_connections USING btree (item_type, item_id);
-
-
---
 -- Name: index_dnskeys_on_delegation_signer_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -4856,4 +4845,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171127040635');
 INSERT INTO schema_migrations (version) VALUES ('20171127042240');
 
 INSERT INTO schema_migrations (version) VALUES ('20171128041201');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128041909');
 
