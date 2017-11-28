@@ -87,7 +87,6 @@ UncommunicativeVariableName:
   - Depp::User#initialize
   - Depp::User#request
   - Depp::User#validate_existance_in_server
-  - Directo#self.send_monthly_invoices
   - DNS::Zone#self.generate_zonefile
   - Dnskey#bin_to_hex
   - Dnskey#generate_ds_key_tag
@@ -287,10 +286,6 @@ DuplicateMethodCall:
   - Depp::Keyrelay#keyrelay
   - Depp::User#repp_request
   - Depp::User#validate_existance_in_server
-  - Directo#self.dump_result_to_db
-  - Directo#self.load_price
-  - Directo#self.send_monthly_invoices
-  - Directo#self.send_receipts
   - DNS::Zone#self.generate_zonefile
   - Dnskey#generate_digest
   - Domain#manage_automatic_statuses
@@ -534,7 +529,6 @@ IrresponsibleModule:
   - Depp::Domain
   - Depp::Keyrelay
   - Depp::User
-  - Directo
   - DNS::Zone
   - DNS
   - Dnskey
@@ -611,7 +605,6 @@ NilCheck:
   - Registrar::ApplicationHelper#env_style
   - UserEvents#cr_id
   - Depp::Contact#handle_errors
-  - Directo#self.send_receipts
   - DomainMailModel#format
   - LegalDocument#val_body_length
   - Soap::Arireg#body
@@ -767,8 +760,6 @@ TooManyStatements:
   - Depp::Domain#transfer
   - Depp::User#repp_request
   - Depp::User#validate_existance_in_server
-  - Directo#self.send_monthly_invoices
-  - Directo#self.send_receipts
   - DNS::Zone#self.generate_zonefile
   - Dnskey#generate_digest
   - Dnskey#generate_ds_key_tag
@@ -1020,8 +1011,6 @@ NestedIterators:
   - Contact#to_csv
   - Depp::Contact#extract_info_disclosure
   - Depp::Domain#create_nameservers_hash
-  - Directo#self.send_monthly_invoices
-  - Directo#self.send_receipts
   - Domain#name_in_wire_format
   - Domain#self.to_csv
   - Epp::Domain#nameservers_from
@@ -1046,7 +1035,6 @@ PrimaDonnaMethod:
 BooleanParameter:
   exclude:
   - ApplicationMailer#delivery_off?
-  - Directo#self.send_monthly_invoices
   - Epp::Contact#attrs_from
   - Epp::Domain#update
 ControlParameter:
@@ -1055,7 +1043,6 @@ ControlParameter:
   - Ability#initialize
   - EppErrors#find_epp_code_and_value
   - Depp::Contact#extension_xml
-  - Directo#self.send_monthly_invoices
   - Domain#registrant_delete_confirmable?
   - Domain#registrant_update_confirmable?
   - Epp::Contact#attrs_from
