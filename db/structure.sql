@@ -794,10 +794,10 @@ ALTER SEQUENCE depricated_versions_id_seq OWNED BY depricated_versions.id;
 
 
 --
--- Name: directos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: directo_connections; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE directos (
+CREATE TABLE directo_connections (
     id integer NOT NULL,
     item_id integer,
     item_type character varying,
@@ -810,10 +810,10 @@ CREATE TABLE directos (
 
 
 --
--- Name: directos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: directo_connections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE directos_id_seq
+CREATE SEQUENCE directo_connections_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -822,10 +822,10 @@ CREATE SEQUENCE directos_id_seq
 
 
 --
--- Name: directos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: directo_connections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE directos_id_seq OWNED BY directos.id;
+ALTER SEQUENCE directo_connections_id_seq OWNED BY directo_connections.id;
 
 
 --
@@ -2707,7 +2707,7 @@ ALTER TABLE ONLY depricated_versions ALTER COLUMN id SET DEFAULT nextval('depric
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY directos ALTER COLUMN id SET DEFAULT nextval('directos_id_seq'::regclass);
+ALTER TABLE ONLY directo_connections ALTER COLUMN id SET DEFAULT nextval('directo_connections_id_seq'::regclass);
 
 
 --
@@ -3130,11 +3130,11 @@ ALTER TABLE ONLY depricated_versions
 
 
 --
--- Name: directos_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: directo_connections_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY directos
-    ADD CONSTRAINT directos_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY directo_connections
+    ADD CONSTRAINT directo_connections_pkey PRIMARY KEY (id);
 
 
 --
@@ -3597,10 +3597,10 @@ CREATE INDEX index_delegation_signers_on_domain_id ON delegation_signers USING b
 
 
 --
--- Name: index_directos_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_directo_connections_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_directos_on_item_type_and_item_id ON directos USING btree (item_type, item_id);
+CREATE INDEX index_directo_connections_on_item_type_and_item_id ON directo_connections USING btree (item_type, item_id);
 
 
 --
@@ -4854,4 +4854,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171127014555');
 INSERT INTO schema_migrations (version) VALUES ('20171127040635');
 
 INSERT INTO schema_migrations (version) VALUES ('20171127042240');
+
+INSERT INTO schema_migrations (version) VALUES ('20171128041201');
 
