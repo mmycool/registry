@@ -9,6 +9,9 @@ en:
         active: Active
         api_users: API users
 
+        preferences:
+          header: Preferences
+
       billing:
         header: Billing
 
