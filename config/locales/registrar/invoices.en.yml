@@ -1,6 +1,9 @@
 en:
   registrar:
     invoices:
+      index:
+        reset_btn: Reset
+
       search_form:
         minimum_invoice_no: Mininum invoice no
         maximum_invoice_no: Maximum invoice no

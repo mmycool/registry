@@ -161,15 +161,6 @@ class Registrar < ActiveRecord::Base
     cash_account.account_activities.create!(args)
   end
 
-  def domain_transfers
-    at = DomainTransfer.arel_table
-    DomainTransfer.where(
-      at[:transfer_to_id].eq(id).or(
-        at[:transfer_from_id].eq(id)
-      )
-    )
-  end
-
   def address
     [street, city, state, zip].reject(&:blank?).compact.join(', ')
   end

@@ -1,18 +1,35 @@
 class DomainTransfer < ActiveRecord::Base
-  include Versions # version/domain_transfer_version.rb
   belongs_to :domain
 
-  belongs_to :transfer_from, class_name: 'Registrar'
-  belongs_to :transfer_to, class_name: 'Registrar'
+  belongs_to :old_registrar, class_name: 'Registrar'
+  belongs_to :new_registrar, class_name: 'Registrar'
 
   PENDING = 'pending'
   CLIENT_APPROVED = 'clientApproved'
-  CLIENT_CANCELLED = 'clientCancelled'
   CLIENT_REJECTED = 'clientRejected'
   SERVER_APPROVED = 'serverApproved'
-  SERVER_CANCELLED = 'serverCancelled'
 
   before_create :set_wait_until
+
+  class << self
+    def request(domain, new_registrar)
+      domain_transfer = create!(
+        transfer_requested_at: Time.zone.now,
+        domain: domain,
+        old_registrar: domain.registrar,
+        new_registrar: new_registrar
+      )
+
+      domain_transfer.approve if approve_automatically?
+    end
+
+    private
+
+    def approve_automatically?
+      Setting.transfer_wait_time.zero?
+    end
+  end
+
   def set_wait_until
     wait_time = Setting.transfer_wait_time
     return if wait_time == 0
@@ -20,6 +37,7 @@ class DomainTransfer < ActiveRecord::Base
   end
 
   before_create :set_status
+
   def set_status
     if Setting.transfer_wait_time > 0
       self.status = PENDING unless status
@@ -39,23 +57,29 @@ class DomainTransfer < ActiveRecord::Base
     status == PENDING
   end
 
-  def approve_as_client
+  def approve
     transaction do
-      self.status = DomainTransfer::CLIENT_APPROVED
-      self.transferred_at = Time.zone.now
-      save
+      self.status = SERVER_APPROVED
+      save!
 
-      domain.generate_auth_info
-      domain.registrar = transfer_to
-      domain.save(validate: false)
+      notify_old_registrar
+      domain.transfer(new_registrar)
     end
   end
 
-  def notify_losing_registrar(contacts, registrant)
-    transfer_from.messages.create!(
-      body: I18n.t('domain_transfer_was_approved', contacts: contacts, registrant: registrant),
+  private
+
+  def notify_old_registrar
+    old_contacts_codes = domain.contacts.pluck(:code).sort.uniq.join(', ')
+    old_registrant_code = domain.registrant.code
+
+    old_registrar.messages.create!(
+      body: I18n.t('messages.texts.domain_transfer',
+                   domain_name: domain.name,
+                   old_contacts_codes: old_contacts_codes,
+                   old_registrant_code: old_registrant_code),
       attached_obj_id: id,
-      attached_obj_type: self.class.to_s
+      attached_obj_type: self.class.name
     )
   end
 end

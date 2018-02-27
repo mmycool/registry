@@ -338,7 +338,7 @@ namespace :import do
       registered_at
       valid_from
       valid_to
-      auth_info
+      transfer_code
       created_at
       updated_at
       name_dirty

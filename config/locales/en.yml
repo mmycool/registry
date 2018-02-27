@@ -22,10 +22,9 @@ en:
       longer: "%a, %e. %b %Y, %H:%M"
       long: "%A, %e. %B %Y, %H:%M"
       short: "%d.%m.%y, %H:%M"
-      shorts: "%d.%m.%y, %H:%M:%S"
       date: "%Y-%m-%d"
       date_long: "%d. %B %Y"
-      ydate: "%Y.%m.%d"
+      filename: "%Y-%m-%d_%H.%M"
   date:
     formats:
       default: "%Y-%m-%d"
@@ -79,7 +78,7 @@ en:
             period:
               not_a_number: 'Period is not a number'
               not_an_integer: 'Period must be an integer'
-            auth_info:
+            transfer_code:
               wrong_pw: 'Authorization error'
             domain_statuses:
               invalid: 'Statuses are invalid'
@@ -96,11 +95,6 @@ en:
 
         domain:
           <<: *epp_domain_ar_attributes
-
-        domain_transfer:
-          attributes:
-            base:
-              transfer_can_be_approved_only_by_current_registrar: 'Transfer can be approved only by current domain registrar'
 
         nameserver:
           attributes:
@@ -219,20 +213,12 @@ en:
       blank: 'is missing'
       epp_domain_reserved: 'Domain name is reserved'
       epp_obj_does_not_exist: 'Object does not exist'
-      epp_command_failed: 'Command failed'
       epp_authorization_error: 'Authorization error'
-      epp_authentication_error: 'Authentication error'
       epp_id_taken: 'Contact id already exists'
       epp_domain_not_found: 'Domain not found'
       epp_exp_dates_do_not_match: 'Given and current expire dates do not match'
-      epp_registrant_not_found: 'Registrant not found'
-      epp_command_syntax_error: 'Command syntax error'
       required_parameter_missing: 'Required parameter missing: %{key}'
-      attr_missing: 'Required parameter missing: %{key}'
-      repeating_postal_info: 'Only one of each postal info types may be provided'
-      invalid_type: 'PostalInfo type is invalid'
       unimplemented_command: 'Unimplemented command'
-      domain_exists_but_belongs_to_other_registrar: 'Domain exists but belongs to other registrar'
       required_ident_attribute_missing: "Required ident attribute missing: %{key}"
       invalid_iso31661_alpha2: does not conform to ISO 3166-1 alpha-2 standard
       invalid_iso8601_date: has invalid date format YYYY-MM-DD (ISO 8601)
@@ -310,47 +296,22 @@ en:
   add_another: 'Add another'
   domain_updated: 'Domain updated!'
   failed_to_update_domain: 'Failed to update domain'
-  failed_to_create_contact: 'Failed to create contact'
-  contact_deleted: 'Contact deleted'
-  failed_to_delete_contact: 'Failed to delete contact'
   edit_contact: 'Edit contact'
   failed_to_update_contact: 'Failed to update contact'
   contact_updated: 'Contact updated'
   search: 'Search'
   reg_no: 'Reg. no'
   status: 'Status'
-  eedirekt: 'EEDirekt'
   contact: 'Contact'
   credit_balance: 'Credit balance'
   starting_balance: 'Starting balance'
   destroyed: 'Destroyed'
 
-  domain_transfer_requested: 'Domain transfer requested!'
-  domain_transfer_approved: 'Domain transfer approved!'
-  failed_to_approve_domain_transfer: 'Failed to approve domain transfer'
   approve: 'Approve'
   domain_already_belongs_to_the_querying_registrar: 'Domain already belongs to the querying registrar'
-  other_registrar_has_already_requested_to_transfer_this_domain: 'Other registrar has already requested to transfer this domain.'
-  transfer_domain: 'Transfer domain'
-  failed_to_request_domain_transfer: 'Failed to request domain transfer' #not used atm
-  domain_transfer: 'Domain transfer'
-  request_domain_transfer: 'Request domain transfer'
-  domain_valid_to: 'Domain valid to'
-  accept_time: 'Accept time'
-  transfer_from: 'Transfer from'
-  transferred_at: 'Transferred at'
-  domain_transfers_list: 'Domain transfers list'
-  domain_transfers: 'Domain transfers'
 
-  password_invalid: 'Password invalid!'
-  domain_was_not_found: 'Domain was not found!'
-  domain_list: 'Domain list'
-  create_new_domain: 'Create new domain'
   welcome: 'Welcome!'
   edit_statuses: 'Edit statuses'
-  contact_list: 'Contact list'
-  create_new_contact: 'Create new contact'
-  domain_pw: 'Domain password'
   history: 'History'
 
   new_registrar: 'New registrar'
@@ -362,14 +323,11 @@ en:
 
   users: 'Users'
   user_details: 'User details'
-  edit_user: 'Edit user'
   back_to_user: 'Back to user'
 
   certificate_signing_req: 'Certificate signing request'
   csr: 'CSR'
   crt: 'CRT'
-  api_user_details: 'API user details'
-  edit_api_user: 'Edit API user'
   back_to_api_user: 'Back to API user'
 
   dnskey: 'DNS key'
@@ -390,16 +348,12 @@ en:
 
   transfer_requested: 'Transfer requested.'
   message_was_not_found: 'Message was not found'
-  host_obj_is_not_allowed: 'hostObj object is not allowed'
   zonefile: 'Zonefile'
   only_one_parameter_allowed: 'Only one parameter allowed: %{param_1} or %{param_2}'
   exactly_one_parameter_required: 'Exactly one parameter required: %{params}'
-  required_parameter_missing_choice: 'Required parameter missing: %{param_1} or %{param_2}'
   ds_data_with_key_allowed: 'Allow DS data with key'
   key_data_allowed: 'Allow key data'
   ds_digest_type: 'DS digest type'
-  background_jobs: Background jobs
-  domains_history: Domains history
   role: 'Role'
   user: 'User'
   customer_service: 'Customer service'
@@ -418,8 +372,6 @@ en:
   admin_contacts_max_count: 'Admin contacts maximum count'
   tech_contacts_min_count: 'Tech contacts minimum count'
   tech_contacts_max_count: 'Tech contacts maximum count'
-  action_failed_due_to_server_error: 'Action failed due to server error'
-  pending_transfer_was_not_found: 'Pending transfer was not found'
   transfer_can_be_rejected_only_by_current_registrar: 'Transfer can be rejected only by current registrar'
   request_command: 'Request command'
   request_object: 'Request object'
@@ -439,7 +391,6 @@ en:
   attribute_is_invalid: 'Attribute is invalid: %{attribute}'
   request_successful: 'Request successful'
   choose: 'Choose...'
-  clear_fields: 'Clear fields'
   created_before: 'Created before'
   created_after: 'Created after'
   billing_address: 'Billing address'
@@ -474,9 +425,6 @@ en:
   sim_error: 'SIM application error'
   internal_error: 'Internal error'
   client_side_status_editing_error: 'Parameter value policy error. Client-side object status management not supported'
-  switch_to: Switch to
-  admin_menu: Admin
-  domain_transfer_was_approved: 'Domain transfer was approved, associated contacts were: %{contacts} and registrant was %{registrant}'
   business_registry_service_not_available: "Business Registry service Ärireg is not available"
 
   # DEPP
@@ -498,12 +446,9 @@ en:
               blank: "Password can't be blank"
 
   username: 'Username'
-  password: 'Password'
-  authinfo_pw: 'AuthInfo pw'
   log_in: 'Log in'
   domains: 'Domains'
   register: 'Register'
-  check: 'Check'
   contacts: 'Contacts'
   domain_info: 'Domain info'
   domain_details: 'Domain details'
@@ -546,9 +491,7 @@ en:
   new: New
   renew_domain: 'Renew domain'
   cur_exp_date: 'curExpDate'
-  transfer: 'Transfer'
   query: 'Query'
-  transfer_domain: 'Transfer domain'
   reject: 'Reject'
   approve: 'Approve'
   contact_info: 'Contact info'
@@ -556,7 +499,6 @@ en:
   address: 'Address'
   street: 'Street'
   city: 'City'
-  messages: 'Messages (%{count})'
   message: 'Message'
   message_no: 'Message #%{id}'
   queue_date: 'Queue date'
@@ -771,7 +713,6 @@ en:
   parameter_value_range_error: 'Parameter value range error: %{key}'
   payment_received: 'Payment received'
   api_user_not_found: 'API user not found'
-  domain_already_belongs_to_the_querying_registrar: 'Domain already belongs to the querying registrar'
   notes: Notes
   active_price_for_this_operation_is: 'Active price for this operation is %{price}'
   active_price_missing_for_this_operation: 'Active price missing for this operation!'
@@ -791,7 +732,6 @@ en:
   manage: Manage
   pending_epp: Pending epp
   id: ID
-  hidden: '[hidden]'
   created_at_from: 'Created at from'
   created_at_until: 'Created at until'
   is_registrant: 'Is registrant'
@@ -802,9 +742,6 @@ en:
   contact_is_not_valid: 'Contact %{value} is not valid, please fix the invalid contact'
   welcome_to_eis_registrar_portal: 'Welcome to EIS Registrar portal'
   interfaces: 'Interfaces'
-  list_format_is_in_yaml: 'List format is in YAML'
-  if_auth_info_is_left_empty_it_will_be_auto_generated: 'If auth info is left empty, it will be auto generated.'
-  each_domain_name_must_end_with_colon_sign: 'Each domain name must end with colon (:) sign.'
   next: 'Next'
   previous: 'Previous'
   personal_domain_verification_url: 'Personal domain verification url'
