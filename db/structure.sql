@@ -794,7 +794,7 @@ ALTER SEQUENCE depricated_versions_id_seq OWNED BY depricated_versions.id;
 
 
 --
--- Name: directo_connections; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: directo_connections; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE directo_connections (
@@ -3076,7 +3076,7 @@ ALTER TABLE ONLY depricated_versions
 
 
 --
--- Name: directo_connections_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: directo_connections_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY directo_connections
@@ -3396,7 +3396,7 @@ ALTER TABLE ONLY settings
 
 
 --
--- Name: unique_contact_code; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: unique_contact_code; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY contacts
@@ -3404,7 +3404,7 @@ ALTER TABLE ONLY contacts
 
 
 --
--- Name: unique_session_id; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: unique_session_id; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY epp_sessions
