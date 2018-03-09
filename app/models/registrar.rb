@@ -161,6 +161,10 @@ class Registrar < ActiveRecord::Base
     cash_account.account_activities.create!(args)
   end
 
+  def credit!(args)
+    cash_account.account_activities.create!(args)
+  end
+
   def address
     [street, city, state, zip].reject(&:blank?).compact.join(', ')
   end
