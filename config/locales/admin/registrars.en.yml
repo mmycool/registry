@@ -28,8 +28,5 @@ en:
         create_btn: Create registrar
         update_btn: Update registrar
 
-        billing:
-          header: Billing
-
         preferences:
           header: Preferences
