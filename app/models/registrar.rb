@@ -111,7 +111,7 @@ class Registrar < ActiveRecord::Base
     invoices.create(
       description: description,
       currency: 'EUR',
-      vat_rate: vat_rate,
+      vat_rate: Setting.registry_vat_prc,
       seller_name: Setting.registry_juridical_name,
       seller_reg_no: Setting.registry_reg_no,
       seller_iban: Setting.registry_iban,
