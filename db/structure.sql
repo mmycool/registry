@@ -1983,6 +1983,7 @@ CREATE TABLE registrars (
     code character varying,
     website character varying,
     accounting_customer_code character varying NOT NULL,
+    vat boolean,
     legacy_id integer,
     reference_no character varying,
     test_registrar boolean DEFAULT false,
@@ -4353,8 +4354,6 @@ INSERT INTO schema_migrations (version) VALUES ('20171111124805');
 INSERT INTO schema_migrations (version) VALUES ('20171111130108');
 
 INSERT INTO schema_migrations (version) VALUES ('20171111191117');
-
-INSERT INTO schema_migrations (version) VALUES ('20171116114948');
 
 INSERT INTO schema_migrations (version) VALUES ('20171120093221');
 
