@@ -199,6 +199,7 @@ en:
         alg: 'Algorithm'
         public_key: 'Public key'
       registrar:
+        billing_email: 'Billing e-mail'
         phone: 'Contact phone'
         email: 'Contact e-mail'
         state: 'State / Province'
@@ -766,7 +767,3 @@ en:
         delimiter: " "
         precision: 2
         unit: €
-
-  attributes:
-    vat_no: VAT number
-    vat_rate: VAT rate
