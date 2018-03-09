@@ -16,12 +16,4 @@ class ShowRegistrarTest < ActionDispatch::IntegrationTest
   def test_language
     assert_text 'Language English'
   end
-
-  def test_vat_no
-    assert_text 'US12345'
-  end
-
-  def test_vat_rate
-    assert_text number_to_percentage(@registrar.vat_rate, precision: 1)
-  end
 end
