@@ -116,6 +116,28 @@ class EppDomainTransferRequestTest < ActionDispatch::IntegrationTest
     assert_equal '2201', Nokogiri::XML(response.body).at_css('result')[:code]
   end
 
+  def test_bypass_domain_validation
+    request_xml = <<-XML
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="https://epp.tld.ee/schema/epp-ee-1.0.xsd">
+        <command>
+          <transfer op="request">
+            <domain:transfer xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
+              <domain:name>invalid.test</domain:name>
+              <domain:authInfo>
+                <domain:pw>1438d6</domain:pw>
+              </domain:authInfo>
+            </domain:transfer>
+          </transfer>
+        </command>
+      </epp>
+    XML
+
+    post '/epp/command/transfer', { frame: request_xml }, 'HTTP_COOKIE' => 'session=api_goodnames'
+    assert_equal '1000', Nokogiri::XML(response.body).at_css('result')[:code]
+    assert_equal 1, Nokogiri::XML(response.body).css('result').size
+  end
+
   private
 
   def request_xml
