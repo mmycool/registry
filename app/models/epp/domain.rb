@@ -18,23 +18,19 @@ class Epp::Domain < Domain
 
   after_validation :validate_contacts
   def validate_contacts
-    return true if is_renewal || is_transfer
+    return true if is_transfer
 
     ok = true
     active_admins = admin_domain_contacts.select { |x| !x.marked_for_destruction? }
     active_techs = tech_domain_contacts.select { |x| !x.marked_for_destruction? }
 
-    # bullet workaround
-    ac = active_admins.map { |x| Contact.find(x.contact_id) }
-    tc = active_techs.map { |x| Contact.find(x.contact_id) }
-
-    # validate registrant here as well
-    ([registrant] + ac + tc).each do |x|
+    ([registrant] + active_admins + active_techs).each do |x|
       unless x.valid?
         add_epp_error('2304', nil, nil, I18n.t(:contact_is_not_valid, value: x.code))
         ok = false
       end
     end
+
     ok
   end
 
