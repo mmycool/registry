@@ -24,9 +24,9 @@ class Epp::Domain < Domain
     active_admins = admin_domain_contacts.select { |x| !x.marked_for_destruction? }
     active_techs = tech_domain_contacts.select { |x| !x.marked_for_destruction? }
 
-    ([registrant] + active_admins + active_techs).each do |x|
-      unless x.valid?
-        add_epp_error('2304', nil, nil, I18n.t(:contact_is_not_valid, value: x.code))
+    ([registrant] + active_admins + active_techs).each do |contact|
+      unless contact.valid?
+        add_epp_error('2304', nil, nil, I18n.t(:contact_is_not_valid, value: contact.code))
         ok = false
       end
     end
