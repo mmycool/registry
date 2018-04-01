@@ -380,18 +380,6 @@ class Domain < ActiveRecord::Base
     Billing::Price.price_for(zone, operation_category, duration)
   end
 
-  ### VALIDATIONS ###
-
-  def validate_nameserver_ips
-    nameservers.to_a.reject(&:marked_for_destruction?).each do |ns|
-      next unless ns.hostname.end_with?(".#{name}")
-      next if ns.ipv4.present? || ns.ipv6.present?
-
-      errors.add(:nameservers, :invalid) if errors[:nameservers].blank?
-      ns.errors.add(:ipv4, :blank)
-    end
-  end
-
   # used for highlighting form tabs
   def parent_valid?
     assoc_errors = errors.keys.select { |x| x.match(/\./) }
@@ -675,6 +663,16 @@ class Domain < ActiveRecord::Base
   def statuses_uniqueness
     return if statuses.uniq == statuses
     errors.add(:statuses, :taken)
+  end
+
+  def validate_nameserver_ips
+    nameservers.to_a.reject(&:marked_for_destruction?).each do |ns|
+      next unless ns.hostname.end_with?(".#{name}")
+      next if ns.ipv4.present? || ns.ipv6.present?
+
+      errors.add(:nameservers, :invalid) if errors[:nameservers].blank?
+      ns.errors.add(:ipv4, :blank)
+    end
   end
 end
 # rubocop: enable Metrics/ClassLength
