@@ -421,7 +421,6 @@ class Domain < ActiveRecord::Base
     statuses.include?(DomainStatus::PENDING_UPDATE) && !statuses.include?(DomainStatus::FORCE_DELETE)
   end
 
-  # depricated not used, not valid
   def update_prohibited?
     pending_update_prohibited? && pending_delete_prohibited?
   end
