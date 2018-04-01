@@ -10,7 +10,7 @@ class Domain < ActiveRecord::Base
 
   belongs_to :registrar
   belongs_to :registrant, validate: true
-  has_one  :whois_record
+  has_one :whois_record
   has_many :contacts, through: :domain_contacts, source: :contact
   has_many :domain_contacts, dependent: :destroy
   has_many :admin_domain_contacts
@@ -79,18 +79,18 @@ class Domain < ActiveRecord::Base
                                 reject_if: :tech_change_prohibited?
   accepts_nested_attributes_for :legal_documents, reject_if: proc { |attrs| attrs[:body].blank? }
 
-  delegate :name,    to: :registrant, prefix: true
-  delegate :code,    to: :registrant, prefix: true
-  delegate :ident,   to: :registrant, prefix: true
-  delegate :email,   to: :registrant, prefix: true
-  delegate :phone,   to: :registrant, prefix: true
-  delegate :street,  to: :registrant, prefix: true
-  delegate :city,    to: :registrant, prefix: true
-  delegate :zip,     to: :registrant, prefix: true
-  delegate :state,   to: :registrant, prefix: true
+  delegate :name, to: :registrant, prefix: true
+  delegate :code, to: :registrant, prefix: true
+  delegate :ident, to: :registrant, prefix: true
+  delegate :email, to: :registrant, prefix: true
+  delegate :phone, to: :registrant, prefix: true
+  delegate :street, to: :registrant, prefix: true
+  delegate :city, to: :registrant, prefix: true
+  delegate :zip, to: :registrant, prefix: true
+  delegate :state, to: :registrant, prefix: true
   delegate :country, to: :registrant, prefix: true
 
-  delegate :name,   to: :registrar, prefix: true
+  delegate :name, to: :registrar, prefix: true
   delegate :street, to: :registrar, prefix: true
 
   has_paper_trail class_name: "DomainVersion", meta: { children: :children_log }
@@ -271,13 +271,13 @@ class Domain < ActiveRecord::Base
     status_notes[DomainStatus::PENDING_DELETE] = ''
 
     hash = {
-        registrant_verification_token:    nil,
-        registrant_verification_asked_at: nil,
-        pending_json: {},
-        status_notes: status_notes,
-        statuses:     statuses.presence || [DomainStatus::OK],
-        # need this column in order to update PaperTrail version properly
-        updated_at:   Time.now.utc
+      registrant_verification_token: nil,
+      registrant_verification_asked_at: nil,
+      pending_json: {},
+      status_notes: status_notes,
+      statuses: statuses.presence || [DomainStatus::OK],
+      # need this column in order to update PaperTrail version properly
+      updated_at: Time.now.utc
     }
 
     # PaperTrail
@@ -297,9 +297,9 @@ class Domain < ActiveRecord::Base
     pending_json_cache = pending_json
     token = registrant_verification_token
     asked_at = registrant_verification_asked_at
-    new_registrant_id    = registrant.id
+    new_registrant_id = registrant.id
     new_registrant_email = registrant.email
-    new_registrant_name  = registrant.name
+    new_registrant_name = registrant.name
 
     RegistrantChangeConfirmEmailJob.enqueue(id, new_registrant_id)
     RegistrantChangeNoticeEmailJob.enqueue(id, new_registrant_id)
@@ -311,9 +311,9 @@ class Domain < ActiveRecord::Base
     self.registrant_verification_asked_at = asked_at
     set_pending_update
     touch_always_version
-    pending_json['new_registrant_id']    = new_registrant_id
+    pending_json['new_registrant_id'] = new_registrant_id
     pending_json['new_registrant_email'] = new_registrant_email
-    pending_json['new_registrant_name']  = new_registrant_name
+    pending_json['new_registrant_name'] = new_registrant_name
 
     # This pending_update! method is triggered by before_update
     # Note, all before_save callbacks are executed before before_update,
@@ -337,6 +337,7 @@ class Domain < ActiveRecord::Base
     return false unless registrant_verification_token == token
     true
   end
+
   # rubocop: enable Metrics/CyclomaticComplexity
 
   def registrant_verification_asked?
@@ -513,17 +514,18 @@ class Domain < ActiveRecord::Base
     s_h = (statuses & [DomainStatus::SERVER_MANUAL_INZONE, DomainStatus::SERVER_HOLD]).empty?
     statuses << DomainStatus::SERVER_HOLD if p_d && s_h
   end
+
   # rubocop: enable Metrics/CyclomaticComplexity
   # rubocop: enable Metrics/PerceivedComplexity
 
   def children_log
     log = HashWithIndifferentAccess.new
     log[:admin_contacts] = admin_contact_ids
-    log[:tech_contacts]  = tech_contact_ids
-    log[:nameservers]    = nameserver_ids
-    log[:dnskeys]        = dnskey_ids
-    log[:legal_documents]= [legal_document_id]
-    log[:registrant]     = [registrant_id]
+    log[:tech_contacts] = tech_contact_ids
+    log[:nameservers] = nameserver_ids
+    log[:dnskeys] = dnskey_ids
+    log[:legal_documents] = [legal_document_id]
+    log[:registrant] = [registrant_id]
     log
   end
 
