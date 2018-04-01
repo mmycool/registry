@@ -29,7 +29,7 @@ class Domain < ActiveRecord::Base
   validates :transfer_code, presence: true
   validates_associated :contacts
   validate :validate_reservation
-  validate :status_is_consistant
+  validate :consistent_statuses
   validate :check_permissions, :unless => :is_admin
   validate :validate_nameserver_ips
   validate :statuses_uniqueness
@@ -625,7 +625,7 @@ class Domain < ActiveRecord::Base
     errors.add(:base, :invalid_auth_information_reserved)
   end
 
-  def status_is_consistant
+  def consistent_statuses
     has_error = (statuses.include?(DomainStatus::SERVER_HOLD) && statuses.include?(DomainStatus::SERVER_MANUAL_INZONE))
     unless has_error
       if (statuses & [DomainStatus::PENDING_DELETE_CONFIRMATION, DomainStatus::PENDING_DELETE, DomainStatus::FORCE_DELETE]).any?
