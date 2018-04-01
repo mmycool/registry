@@ -585,26 +585,6 @@ RSpec.describe Domain do
   it { is_expected.to alias_attribute(:on_hold_time, :outzone_at) }
   it { is_expected.to alias_attribute(:outzone_time, :outzone_at) }
 
-  describe 'registrar validation', db: false do
-    let(:domain) { described_class.new }
-
-    it 'rejects absent' do
-      domain.registrar = nil
-      domain.validate
-      expect(domain.errors).to have_key(:registrar)
-    end
-  end
-
-  describe 'registrant validation', db: false do
-    let(:domain) { described_class.new }
-
-    it 'rejects absent' do
-      domain.registrant = nil
-      domain.validate
-      expect(domain.errors).to have_key(:registrant)
-    end
-  end
-
   describe 'period validation', db: false do
     let(:domain) { described_class.new }
 

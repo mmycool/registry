@@ -21,8 +21,8 @@ class Domain < ActiveRecord::Base
   # TODO: whois requests ip whitelist for full info for own domains and partial info for other domains
   # TODO: most inputs should be trimmed before validatation, probably some global logic?
 
-  belongs_to :registrar, required: true
-  belongs_to :registrant, required: true, validate: true
+  belongs_to :registrar
+  belongs_to :registrant, validate: true
   has_many :admin_domain_contacts
   accepts_nested_attributes_for :admin_domain_contacts,  allow_destroy: true, reject_if: :admin_change_prohibited?
   has_many :tech_domain_contacts
