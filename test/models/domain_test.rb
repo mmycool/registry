@@ -16,15 +16,18 @@ class DomainTest < ActiveSupport::TestCase
   def test_invalid_when_registrant_is_invalid
     @domain.registrant = contacts(:invalid).becomes(Registrant)
     assert @domain.invalid?
+    assert_equal ['Registrant is invalid'], @domain.errors.full_messages
   end
 
   def test_invalid_when_admin_contact_is_invalid
-    @domain.domain_contacts = [domain_contacts(:invalid_invalid_admin)]
+    @domain.domain_contacts << domain_contacts(:invalid_invalid_admin)
     assert @domain.invalid?
+    assert_equal ['Contacts are invalid'], @domain.errors.full_messages
   end
 
   def test_invalid_when_tech_contact_is_invalid
-    @domain.domain_contacts = [domain_contacts(:invalid_invalid_tech)]
+    @domain.domain_contacts << domain_contacts(:invalid_invalid_tech)
     assert @domain.invalid?
+    assert_equal ['Contacts are invalid'], @domain.errors.full_messages
   end
 end
