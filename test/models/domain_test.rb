@@ -12,4 +12,9 @@ class DomainTest < ActiveSupport::TestCase
   def test_invalid_fixture_is_invalid
     assert domains(:invalid).invalid?
   end
+
+  def test_invalid_when_registrant_is_invalid
+    @domain.registrant = contacts(:invalid).becomes(Registrant)
+    assert @domain.invalid?
+  end
 end
