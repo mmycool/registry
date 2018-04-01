@@ -8,94 +8,31 @@ class Domain < ActiveRecord::Base
   include Concerns::Domain::Deletable
   include Concerns::Domain::Transferable
 
-  has_paper_trail class_name: "DomainVersion", meta: { children: :children_log }
-
-  attr_accessor :roles
-
-  attr_accessor :legal_document_id
-
-  alias_attribute :on_hold_time, :outzone_at
-  alias_attribute :outzone_time, :outzone_at
-  alias_attribute :auth_info, :transfer_code # Old attribute name; for PaperTrail
-
   belongs_to :registrar
   belongs_to :registrant, validate: true
+  has_one  :whois_record
   has_many :admin_domain_contacts
-  accepts_nested_attributes_for :admin_domain_contacts,  allow_destroy: true, reject_if: :admin_change_prohibited?
-  has_many :tech_domain_contacts
-  accepts_nested_attributes_for :tech_domain_contacts, allow_destroy: true, reject_if: :tech_change_prohibited?
-
-
-
-
   has_many :domain_contacts, dependent: :destroy
   has_many :contacts, through: :domain_contacts, source: :contact
   has_many :admin_contacts, through: :admin_domain_contacts, source: :contact
   has_many :tech_contacts, through: :tech_domain_contacts, source: :contact
   has_many :nameservers, dependent: :destroy, inverse_of: :domain
-
-  accepts_nested_attributes_for :nameservers, allow_destroy: true,
-                                              reject_if: proc { |attrs| attrs[:hostname].blank? }
-
+  has_many :tech_domain_contacts
   has_many :transfers, class_name: 'DomainTransfer', dependent: :destroy
-
   has_many :dnskeys, dependent: :destroy
-
   has_many :keyrelays
-  has_one  :whois_record
-
-  accepts_nested_attributes_for :dnskeys, allow_destroy: true
-
   has_many :legal_documents, as: :documentable
-  accepts_nested_attributes_for :legal_documents, reject_if: proc { |attrs| attrs[:body].blank? }
-
-  delegate :name,    to: :registrant, prefix: true
-  delegate :code,    to: :registrant, prefix: true
-  delegate :ident,   to: :registrant, prefix: true
-  delegate :email,   to: :registrant, prefix: true
-  delegate :phone,   to: :registrant, prefix: true
-  delegate :street,  to: :registrant, prefix: true
-  delegate :city,    to: :registrant, prefix: true
-  delegate :zip,     to: :registrant, prefix: true
-  delegate :state,   to: :registrant, prefix: true
-  delegate :country, to: :registrant, prefix: true
-
-  delegate :name,   to: :registrar, prefix: true
-  delegate :street, to: :registrar, prefix: true
-
-  after_initialize do
-    self.pending_json = {} if pending_json.blank?
-    self.statuses = [] if statuses.nil?
-    self.status_notes = {} if status_notes.nil?
-  end
-
-  before_create -> { self.reserved = in_reserved_list?; nil }
-  before_save :manage_automatic_statuses
-  before_save :touch_always_version
-
-
-  before_update :manage_statuses
-
-
-  after_commit :update_whois_record
-
-  after_create :update_reserved_domains
-
 
   validates :name_dirty, domain_name: true, uniqueness: true
   validates :puny_label, length: { maximum: 63 }
   validates :period, presence: true, numericality: { only_integer: true }
   validates :transfer_code, presence: true
   validates_associated :contacts
-
   validate :validate_reservation
   validate :status_is_consistant
-
-
-  attr_accessor :is_admin
-
   validate :check_permissions, :unless => :is_admin
-
+  validate :validate_nameserver_ips
+  validate :statuses_uniqueness
 
   validates :nameservers, domain_nameserver: {
     min: -> { Setting.ns_min_count },
@@ -133,13 +70,51 @@ class Domain < ActiveRecord::Base
     attribute: 'public_key'
   }
 
-  validate :validate_nameserver_ips
+  accepts_nested_attributes_for :nameservers, allow_destroy: true,
+                                reject_if: proc { |attrs| attrs[:hostname].blank? }
+  accepts_nested_attributes_for :dnskeys, allow_destroy: true
+  accepts_nested_attributes_for :admin_domain_contacts, allow_destroy: true,
+                                reject_if: :admin_change_prohibited?
+  accepts_nested_attributes_for :tech_domain_contacts, allow_destroy: true,
+                                reject_if: :tech_change_prohibited?
+  accepts_nested_attributes_for :legal_documents, reject_if: proc { |attrs| attrs[:body].blank? }
 
-  validate :statuses_uniqueness
+  delegate :name,    to: :registrant, prefix: true
+  delegate :code,    to: :registrant, prefix: true
+  delegate :ident,   to: :registrant, prefix: true
+  delegate :email,   to: :registrant, prefix: true
+  delegate :phone,   to: :registrant, prefix: true
+  delegate :street,  to: :registrant, prefix: true
+  delegate :city,    to: :registrant, prefix: true
+  delegate :zip,     to: :registrant, prefix: true
+  delegate :state,   to: :registrant, prefix: true
+  delegate :country, to: :registrant, prefix: true
 
+  delegate :name,   to: :registrar, prefix: true
+  delegate :street, to: :registrar, prefix: true
 
+  has_paper_trail class_name: "DomainVersion", meta: { children: :children_log }
   attr_accessor :registrant_typeahead, :update_me, :deliver_emails,
-    :epp_pending_update, :epp_pending_delete, :reserved_pw
+                :epp_pending_update, :epp_pending_delete, :reserved_pw
+  attr_accessor :roles
+  attr_accessor :legal_document_id
+  attr_accessor :is_admin
+  alias_attribute :on_hold_time, :outzone_at
+  alias_attribute :outzone_time, :outzone_at
+  alias_attribute :auth_info, :transfer_code # Old attribute name; for PaperTrail
+
+  after_initialize do
+    self.pending_json = {} if pending_json.blank?
+    self.statuses = [] if statuses.nil?
+    self.status_notes = {} if status_notes.nil?
+  end
+
+  before_create -> { self.reserved = in_reserved_list?; nil }
+  before_save :manage_automatic_statuses
+  before_save :touch_always_version
+  before_update :manage_statuses
+  after_commit :update_whois_record
+  after_create :update_reserved_domains
 
   def subordinate_nameservers
     nameservers.select { |x| x.hostname.end_with?(name) }
