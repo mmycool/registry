@@ -11,13 +11,13 @@ class Domain < ActiveRecord::Base
   belongs_to :registrar
   belongs_to :registrant, validate: true
   has_one  :whois_record
-  has_many :admin_domain_contacts
-  has_many :domain_contacts, dependent: :destroy
   has_many :contacts, through: :domain_contacts, source: :contact
+  has_many :domain_contacts, dependent: :destroy
+  has_many :admin_domain_contacts
+  has_many :tech_domain_contacts
   has_many :admin_contacts, through: :admin_domain_contacts, source: :contact
   has_many :tech_contacts, through: :tech_domain_contacts, source: :contact
   has_many :nameservers, dependent: :destroy, inverse_of: :domain
-  has_many :tech_domain_contacts
   has_many :transfers, class_name: 'DomainTransfer', dependent: :destroy
   has_many :dnskeys, dependent: :destroy
   has_many :keyrelays
