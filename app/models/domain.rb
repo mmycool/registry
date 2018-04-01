@@ -28,9 +28,7 @@ class Domain < ActiveRecord::Base
   has_many :tech_domain_contacts
   accepts_nested_attributes_for :tech_domain_contacts, allow_destroy: true, reject_if: :tech_change_prohibited?
 
-  def registrant_change_prohibited?
-    statuses.include? DomainStatus::SERVER_REGISTRANT_CHANGE_PROHIBITED
-  end
+
 
 
   # NB! contacts, admin_contacts, tech_contacts are empty for a new record
@@ -78,23 +76,15 @@ class Domain < ActiveRecord::Base
   before_create -> { self.reserved = in_reserved_list?; nil }
   before_save :manage_automatic_statuses
   before_save :touch_always_version
-  def touch_always_version
-    self.updated_at = Time.zone.now
-  end
+
 
   before_update :manage_statuses
-  def manage_statuses
-    return unless registrant_id_changed? # rollback has not yet happened
-    pending_update! if registrant_verification_asked?
-    true
-  end
+
 
   after_commit :update_whois_record
 
   after_create :update_reserved_domains
-  def update_reserved_domains
-    ReservedDomain.new_password_for(name) if in_reserved_list?
-  end
+
 
   validates :name_dirty, domain_name: true, uniqueness: true
   validates :puny_label, length: { maximum: 63 }
@@ -103,37 +93,13 @@ class Domain < ActiveRecord::Base
   validates_associated :contacts
 
   validate :validate_reservation
-  def validate_reservation
-    return if persisted? || !in_reserved_list?
-
-    if reserved_pw.blank?
-      errors.add(:base, :required_parameter_missing_reserved)
-      return false
-    end
-
-    return if ReservedDomain.pw_for(name) == reserved_pw
-    errors.add(:base, :invalid_auth_information_reserved)
-  end
-
   validate :status_is_consistant
-  def status_is_consistant
-      has_error = (statuses.include?(DomainStatus::SERVER_HOLD) && statuses.include?(DomainStatus::SERVER_MANUAL_INZONE))
-      unless has_error
-        if (statuses & [DomainStatus::PENDING_DELETE_CONFIRMATION, DomainStatus::PENDING_DELETE, DomainStatus::FORCE_DELETE]).any?
-          has_error = statuses.include? DomainStatus::SERVER_DELETE_PROHIBITED
-        end
-      end
-      errors.add(:domains, I18n.t(:object_status_prohibits_operation)) if has_error
-  end
+
 
   attr_accessor :is_admin
 
   validate :check_permissions, :unless => :is_admin
-  def check_permissions
-    return unless force_delete_scheduled?
-    errors.add(:base, I18n.t(:object_status_prohibits_operation))
-    false
-  end
+
 
   validates :nameservers, domain_nameserver: {
     min: -> { Setting.ns_min_count },
@@ -174,10 +140,7 @@ class Domain < ActiveRecord::Base
   validate :validate_nameserver_ips
 
   validate :statuses_uniqueness
-  def statuses_uniqueness
-    return if statuses.uniq == statuses
-    errors.add(:statuses, :taken)
-  end
+
 
   attr_accessor :registrant_typeahead, :update_me, :deliver_emails,
     :epp_pending_update, :epp_pending_delete, :reserved_pw
@@ -688,6 +651,59 @@ class Domain < ActiveRecord::Base
 
   def self.uses_zone?(zone)
     exists?(["name ILIKE ?", "%.#{zone.origin}"])
+  end
+
+  private
+
+  def validate_reservation
+    return if persisted? || !in_reserved_list?
+
+    if reserved_pw.blank?
+      errors.add(:base, :required_parameter_missing_reserved)
+      return false
+    end
+
+    return if ReservedDomain.pw_for(name) == reserved_pw
+    errors.add(:base, :invalid_auth_information_reserved)
+  end
+
+  def status_is_consistant
+    has_error = (statuses.include?(DomainStatus::SERVER_HOLD) && statuses.include?(DomainStatus::SERVER_MANUAL_INZONE))
+    unless has_error
+      if (statuses & [DomainStatus::PENDING_DELETE_CONFIRMATION, DomainStatus::PENDING_DELETE, DomainStatus::FORCE_DELETE]).any?
+        has_error = statuses.include? DomainStatus::SERVER_DELETE_PROHIBITED
+      end
+    end
+    errors.add(:domains, I18n.t(:object_status_prohibits_operation)) if has_error
+  end
+
+  def touch_always_version
+    self.updated_at = Time.zone.now
+  end
+
+  def manage_statuses
+    return unless registrant_id_changed? # rollback has not yet happened
+    pending_update! if registrant_verification_asked?
+    true
+  end
+
+  def update_reserved_domains
+    ReservedDomain.new_password_for(name) if in_reserved_list?
+  end
+
+  def check_permissions
+    return unless force_delete_scheduled?
+    errors.add(:base, I18n.t(:object_status_prohibits_operation))
+    false
+  end
+
+  def registrant_change_prohibited?
+    statuses.include? DomainStatus::SERVER_REGISTRANT_CHANGE_PROHIBITED
+  end
+
+  def statuses_uniqueness
+    return if statuses.uniq == statuses
+    errors.add(:statuses, :taken)
   end
 end
 # rubocop: enable Metrics/ClassLength
