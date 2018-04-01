@@ -1,7 +1,7 @@
 # rubocop: disable Metrics/ClassLength
 class Domain < ActiveRecord::Base
   include UserEvents
-  include Versions # version/domain_version.rb
+  include Versions
   include Concerns::Domain::Expirable
   include Concerns::Domain::Activatable
   include Concerns::Domain::ForceDelete
@@ -18,9 +18,6 @@ class Domain < ActiveRecord::Base
   alias_attribute :outzone_time, :outzone_at
   alias_attribute :auth_info, :transfer_code # Old attribute name; for PaperTrail
 
-  # TODO: whois requests ip whitelist for full info for own domains and partial info for other domains
-  # TODO: most inputs should be trimmed before validatation, probably some global logic?
-
   belongs_to :registrar
   belongs_to :registrant, validate: true
   has_many :admin_domain_contacts
@@ -31,7 +28,6 @@ class Domain < ActiveRecord::Base
 
 
 
-  # NB! contacts, admin_contacts, tech_contacts are empty for a new record
   has_many :domain_contacts, dependent: :destroy
   has_many :contacts, through: :domain_contacts, source: :contact
   has_many :admin_contacts, through: :admin_domain_contacts, source: :contact
@@ -46,7 +42,7 @@ class Domain < ActiveRecord::Base
   has_many :dnskeys, dependent: :destroy
 
   has_many :keyrelays
-  has_one  :whois_record # destroyment will be done in after_commit
+  has_one  :whois_record
 
   accepts_nested_attributes_for :dnskeys, allow_destroy: true
 
