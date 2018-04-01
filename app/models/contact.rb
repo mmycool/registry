@@ -555,4 +555,32 @@ class Contact < ActiveRecord::Base
 
     domain_names
   end
+
+  def epp_code_map
+    {
+      '2003' => [ # Required parameter missing
+        [:name,   :blank],
+        [:email,  :blank],
+        [:phone,  :blank],
+        [:city,   :blank],
+        [:zip,    :blank],
+        [:street, :blank],
+        [:country_code, :blank]
+      ],
+      '2005' => [ # Value syntax error
+        [:name, :invalid],
+        [:phone, :invalid],
+        [:email, :invalid],
+        [:country_code, :invalid],
+        [:code, :invalid],
+        [:code, :too_long_contact_code]
+      ],
+      '2302' => [ # Object exists
+        [:code, :epp_id_taken]
+      ],
+      '2305' => [ # Association exists
+        [:domains, :exist]
+      ]
+    }
+  end
 end

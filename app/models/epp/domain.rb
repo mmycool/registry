@@ -89,7 +89,8 @@ class Epp::Domain < Domain
         [:name_dirty, :blocked, { value: { obj: 'name', val: name_dirty } }]
       ],
       '2304' => [ # Object status prohibits operation
-        [:base, :domain_status_prohibits_operation]
+        [:base, :domain_status_prohibits_operation],
+        [:contacts, :invalid]
       ],
       '2306' => [ # Parameter policy error
         [:base, :ds_data_with_key_not_allowed],
