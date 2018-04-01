@@ -17,4 +17,14 @@ class DomainTest < ActiveSupport::TestCase
     @domain.registrant = contacts(:invalid).becomes(Registrant)
     assert @domain.invalid?
   end
+
+  def test_invalid_when_admin_contact_is_invalid
+    @domain.domain_contacts = [domain_contacts(:invalid_invalid_admin)]
+    assert @domain.invalid?
+  end
+
+  def test_invalid_when_tech_contact_is_invalid
+    @domain.domain_contacts = [domain_contacts(:invalid_invalid_tech)]
+    assert @domain.invalid?
+  end
 end
