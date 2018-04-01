@@ -107,7 +107,6 @@ UncommunicativeVariableName:
   - Epp::Domain#domain_statuses_attrs
   - Epp::Domain#nameservers_from
   - Epp::Domain#parse_period_unit_from_frame
-  - Epp::Domain#validate_contacts
   - Invoice#cancel_overdue_invoices
   - Legacy::Db
   - LegalDocument#save_to_filesystem
@@ -310,7 +309,6 @@ DuplicateMethodCall:
   - Epp::Domain#query_transfer
   - Epp::Domain#renew
   - Epp::Domain#update
-  - Epp::Domain#validate_contacts
   - Epp::Domain#validate_exp_dates
   - Invoice#cancel_overdue_invoices
   - Invoice#set_invoice_number
@@ -796,7 +794,6 @@ TooManyStatements:
   - Epp::Domain#renew
   - Epp::Domain#transfer
   - Epp::Domain#update
-  - Epp::Domain#validate_contacts
   - Invoice#cancel
   - Invoice#cancel_overdue_invoices
   - Invoice#set_invoice_number

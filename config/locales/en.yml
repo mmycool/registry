@@ -733,7 +733,6 @@ en:
   mail_templates: Mail Templates
   new_mail_template: New mail template
   failure: "It was not saved"
-  contact_is_not_valid: 'Contact %{value} is not valid, please fix the invalid contact'
   welcome_to_eis_registrar_portal: 'Welcome to EIS Registrar portal'
   next: 'Next'
   previous: 'Previous'
