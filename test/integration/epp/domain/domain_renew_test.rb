@@ -7,7 +7,7 @@ class EppDomainRenewTest < ActionDispatch::IntegrationTest
     travel_to Time.zone.parse('2010-07-05')
   end
 
-  def test_validate_domain
+  def test_invalid_domain_cannot_be_renewed
     request_xml = <<-XML
       <?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="https://epp.tld.ee/schema/epp-ee-1.0.xsd">
@@ -23,7 +23,10 @@ class EppDomainRenewTest < ActionDispatch::IntegrationTest
       </epp>
     XML
 
-    post '/epp/command/renew', { frame: request_xml }, 'HTTP_COOKIE' => 'session=api_bestnames'
+    assert_no_changes -> { domains(:invalid).valid_to } do
+      post '/epp/command/renew', { frame: request_xml }, 'HTTP_COOKIE' => 'session=api_bestnames'
+    end
+
     assert_equal '2304', Nokogiri::XML(response.body).at_css('result')[:code],
                  Nokogiri::XML(response.body).css('result').text
   end
