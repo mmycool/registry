@@ -585,40 +585,6 @@ class Epp::Domain < Domain
     save(validate: false)
   end
 
-  def renew(cur_exp_date, period, unit = 'y')
-    @is_renewal = true
-    validate_exp_dates(cur_exp_date)
-
-    add_epp_error('2105', nil, nil, I18n.t('object_is_not_eligible_for_renewal')) unless renewable?
-    return false if errors.any?
-
-    period = period.to_i
-    plural_period_unit_name = (unit == 'm' ? 'months' : 'years').to_sym
-    renewed_expire_time = valid_to.advance(plural_period_unit_name => period.to_i)
-
-    max_reg_time = 11.years.from_now
-
-    if renewed_expire_time >= max_reg_time
-      add_epp_error('2105', nil, nil, I18n.t('epp.domains.object_is_not_eligible_for_renewal',
-                                             max_date: max_reg_time.to_date.to_s(:db)))
-      return false if errors.any?
-    end
-
-    self.expire_time = renewed_expire_time
-    self.outzone_at = nil
-    self.delete_at = nil
-    self.period = period
-    self.period_unit = unit
-
-    statuses.delete(DomainStatus::SERVER_HOLD)
-    statuses.delete(DomainStatus::EXPIRED)
-    statuses.delete(DomainStatus::SERVER_UPDATE_PROHIBITED)
-
-    save
-  end
-
-  ### TRANSFER ###
-
   # rubocop: disable Metrics/CyclomaticComplexity
   def transfer(frame, action, current_user)
     check_discarded
@@ -775,21 +741,6 @@ class Epp::Domain < Domain
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
-
-  ### VALIDATIONS ###
-
-  def validate_exp_dates(cur_exp_date)
-    begin
-      return if cur_exp_date.to_date == valid_to.to_date
-    rescue
-      add_epp_error('2306', 'curExpDate', cur_exp_date, I18n.t('errors.messages.epp_exp_dates_do_not_match'))
-      return
-    end
-    add_epp_error('2306', 'curExpDate', cur_exp_date, I18n.t('errors.messages.epp_exp_dates_do_not_match'))
-  end
-
-  ### ABILITIES ###
-
 
   def can_be_deleted?
     begin

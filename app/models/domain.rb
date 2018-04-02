@@ -7,6 +7,7 @@ class Domain < ActiveRecord::Base
   include Concerns::Domain::ForceDelete
   include Concerns::Domain::Deletable
   include Concerns::Domain::Transferable
+  include Concerns::Domain::Renewable
 
   has_paper_trail class_name: "DomainVersion", meta: { children: :children_log }
 
@@ -285,20 +286,6 @@ class Domain < ActiveRecord::Base
     return false if delete_at > Time.zone.now
     return false if statuses.include?(DomainStatus::DELETE_CANDIDATE)
     return false if statuses.include?(DomainStatus::SERVER_DELETE_PROHIBITED)
-    true
-  end
-
-  def renewable?
-    if Setting.days_to_renew_domain_before_expire != 0
-      # if you can renew domain at days_to_renew before domain expiration
-      if (expire_time.to_date - Date.today) + 1 > Setting.days_to_renew_domain_before_expire
-        return false
-      end
-    end
-
-    return false if statuses.include_any?(DomainStatus::DELETE_CANDIDATE, DomainStatus::PENDING_RENEW,
-                                          DomainStatus::PENDING_TRANSFER, DomainStatus::PENDING_DELETE,
-                                          DomainStatus::PENDING_UPDATE, DomainStatus::PENDING_DELETE_CONFIRMATION)
     true
   end
 

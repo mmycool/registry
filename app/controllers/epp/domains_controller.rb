@@ -99,20 +99,35 @@ class Epp::DomainsController < EppController
   def renew
     authorize! :renew, @domain
 
-    period_element = params[:parsed_frame].css('period').text
-    period = (period_element.to_i == 0) ? 1 : period_element.to_i
-    period_unit = Epp::Domain.parse_period_unit_from_frame(params[:parsed_frame]) || 'y'
+    if params[:parsed_frame].css('curExpDate').text.to_date != @domain.valid_to.to_date
+      throw :epp_error, {
+        code: '2306',
+        msg: I18n.t('errors.messages.epp_exp_dates_do_not_match')
+      }
+    end
 
-    balance_ok?('renew', period, period_unit) # loading pricelist
+    if @domain.non_renewable?
+      throw :epp_error, {
+        code: '2105',
+        msg: I18n.t('object_is_not_eligible_for_renewal')
+      }
+    end
+
+    period_element = params[:parsed_frame].css('period')
+    period = period_element.text.to_i
+    period_unit = period_element[:unit]
+
+    balance_ok?('renew', period, period_unit)
 
     begin
       ActiveRecord::Base.transaction(isolation: :serializable) do
         @domain.reload
 
-        success = @domain.renew(
-          params[:parsed_frame].css('curExpDate').text,
-          period, period_unit
-        )
+        if period_element
+          success = @domain.renew_for(period, period_unit)
+        else
+          success = @domain.renew_for_default_period
+        end
 
         if success
           unless balance_ok?('renew', period, period_unit)

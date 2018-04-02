@@ -286,7 +286,6 @@ DuplicateMethodCall:
   - Domain#manage_automatic_statuses
   - Domain#parent_valid?
   - Domain#pending_registrant
-  - Domain#renewable?
   - Domain#set_graceful_expired
   - DomainCron#self.clean_expired_pendings
   - DomainCron#self.delete_legal_doc_duplicates
@@ -311,7 +310,6 @@ DuplicateMethodCall:
   - Epp::Domain#renew
   - Epp::Domain#update
   - Epp::Domain#validate_contacts
-  - Epp::Domain#validate_exp_dates
   - Invoice#cancel_overdue_invoices
   - Invoice#set_invoice_number
   - LegalDocument#save_to_filesystem

@@ -4,7 +4,7 @@ shop:
   registrar: bestnames
   registrant: john
   transfer_code: 65078d5
-  valid_to: 2010-07-05
+  valid_to: <%= Time.zone.parse('2010-07-05').utc.to_s(:db) %>
   period: 1
   period_unit: m
 
