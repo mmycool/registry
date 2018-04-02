@@ -11,7 +11,6 @@ require 'minitest/mock'
 require 'capybara/rails'
 require 'capybara/minitest'
 require 'webmock/minitest'
-require 'support/rails5_assetions' # Remove once upgraded to Rails 5
 
 Setting.address_processing = false
 
