@@ -288,7 +288,6 @@ DuplicateMethodCall:
   - Domain#pending_registrant
   - Domain#set_graceful_expired
   - DomainCron#self.clean_expired_pendings
-  - DomainCron#self.delete_legal_doc_duplicates
   - DomainCron#self.destroy_delete_candidates
   - DomainCron#self.start_expire_period
   - DomainCron#self.start_redemption_grace_period
