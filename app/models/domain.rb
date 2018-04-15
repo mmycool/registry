@@ -8,6 +8,7 @@ class Domain < ActiveRecord::Base
   include Concerns::Domain::Deletable
   include Concerns::Domain::Transferable
   include Concerns::Domain::Renewable
+  include Concerns::Domain::Suspendable
 
   has_paper_trail class_name: "DomainVersion", meta: { children: :children_log }
 

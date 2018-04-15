@@ -44,3 +44,12 @@ invalid:
   valid_to: <%= Time.zone.parse('2010-07-05').utc.to_s(:db) %>
   registrar: bestnames
   registrant: invalid
+
+discarded:
+  name: discarded.test
+  transfer_code: 3c192f
+  valid_to: <%= Time.zone.parse('2010-07-05').utc.to_s(:db) %>
+  registrar: bestnames
+  registrant: john
+  statuses:
+    - <%= DomainStatus::DELETE_CANDIDATE %>

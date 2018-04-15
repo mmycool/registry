@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    errors:
+      models:
+        domain:
+          attributes:
+            base:
+              before_pre_expiry_period: Domain cannot be renewed before pre-expiry period
+              discarded_domain_cannot_be_renewed: Discarded domain cannot be renewed
+              reg_period_exceeds_abs_max: Registration period cannot exceed 10 years
+              action_pending: Domain cannot be renewed because of pending action

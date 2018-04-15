@@ -106,51 +106,61 @@ class Epp::DomainsController < EppController
       }
     end
 
-    if @domain.non_renewable?
-      throw :epp_error, {
-        code: '2105',
-        msg: I18n.t('object_is_not_eligible_for_renewal')
-      }
+    # if @domain.non_renewable?
+    #   throw :epp_error, {
+    #     code: '2105',
+    #     msg: I18n.t('object_is_not_eligible_for_renewal')
+    #   }
+    # end
+
+    # Replace with http://api.rubyonrails.org/classes/ActiveSupport/Duration.html#method-i-iso8601
+    # once upgraded to Rails 5
+    period_element = params[:parsed_frame].at('period')
+
+    if period_element
+      period_number = period_element.text.to_i
+      period_unit = period_element[:unit]
+      period = period_number.public_send(period_unit == 'm' ? 'months' : 'years')
     end
 
-    period_element = params[:parsed_frame].css('period')
-    period = period_element.text.to_i
-    period_unit = period_element[:unit]
+    # balance_ok?('renew', period, period_unit)
+    #
+    # def balance_ok?(operation, period = nil, unit = nil)
+    #   @domain_pricelist = @domain.pricelist(operation, period.try(:to_i), unit)
+    #   if @domain_pricelist.try(:price) # checking if price list is not found
+    #     if current_user.registrar.balance < @domain_pricelist.price.amount
+    #       epp_errors << {
+    #         code: '2104',
+    #         msg: I18n.t('billing_failure_credit_balance_low')
+    #       }
+    #       return false
+    #     end
+    #   else
+    #     epp_errors << {
+    #       code: '2104',
+    #       msg: I18n.t(:active_price_missing_for_this_operation)
+    #     }
+    #     return false
+    #   end
+    #   true
+    # end
 
-    balance_ok?('renew', period, period_unit)
+    ActiveRecord::Base.transaction(isolation: :serializable) do
+      @domain.reload
+      @domain.renew(period)
 
-    begin
-      ActiveRecord::Base.transaction(isolation: :serializable) do
-        @domain.reload
-
-        if period_element
-          success = @domain.renew_for(period, period_unit)
-        else
-          success = @domain.renew_for_default_period
-        end
-
-        if success
-          unless balance_ok?('renew', period, period_unit)
-            handle_errors
-            fail ActiveRecord::Rollback
-          end
-
-          current_user.registrar.debit!({
-                                          sum: @domain_pricelist.price.amount,
-                                          description: "#{I18n.t('renew')} #{@domain.name}",
-                                          activity_type: AccountActivity::RENEW,
-                                          price: @domain_pricelist
-                                        })
-
-          render_epp_response '/epp/domains/renew'
-        else
-          handle_errors(@domain)
-        end
-      end
-    rescue ActiveRecord::StatementInvalid => e
-      sleep rand / 100
-      retry
+      current_user.registrar.debit!({
+                                      sum: @domain_pricelist.price.amount,
+                                      description: "#{I18n.t('renew')} #{@domain.name}",
+                                      activity_type: AccountActivity::RENEW,
+                                      price: @domain_pricelist
+                                    })
     end
+
+    render_epp_response '/epp/domains/renew'
+  rescue ActiveRecord::StatementInvalid
+    sleep rand / 100
+    retry
   end
 
   def transfer

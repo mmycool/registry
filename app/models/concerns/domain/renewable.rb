@@ -1,63 +1,59 @@
 module Concerns::Domain::Renewable
   extend ActiveSupport::Concern
 
-  def renew_for_default_period
-    renew_for(1, 'y')
+  class_methods do
+    def reg_period_abs_max
+      # Between the current date and the current expiration date; Defined by ICANN
+      10.years
+    end
   end
 
-  def renew_for(period, unit)
+  def renew(period = 1.year)
     @is_renewal = true
 
-    period = period.to_i
-    plural_period_unit_name = (unit == 'm' ? 'months' : 'years').to_sym
-    renewed_expire_time = valid_to.advance(plural_period_unit_name => period.to_i)
-
-    period_number, period_unit = Billing::Price.maximum(:duration).split
-    max_reg_time = (period_number.to_i.public_send(period_unit) + 1.year).from_now
-
-    if renewed_expire_time >= max_reg_time
-      add_epp_error('2105', nil, nil, I18n.t('epp.domains.object_is_not_eligible_for_renewal',
-                                             max_date: max_reg_time.to_date.to_s(:db)))
-      return false if errors.any?
+    if action_pending?
+      errors.add(:base, :action_pending)
+      return false
     end
 
-    self.expire_time = renewed_expire_time
-    self.outzone_at = nil
-    self.delete_at = nil
-    self.period = period
-    self.period_unit = unit
+    if discarded?
+      errors.add(:base, :discarded_domain_cannot_be_renewed)
+      return false
+    end
 
-    statuses.delete(DomainStatus::SERVER_HOLD)
-    statuses.delete(DomainStatus::EXPIRED)
-    statuses.delete(DomainStatus::SERVER_UPDATE_PROHIBITED)
+    if pre_expiry_renew_period_enabled?
+      unless pre_expiry_renew_period_started?
+        errors.add(:base, :before_pre_expiry_period)
+        return false
+      end
+    end
 
+    if reg_period_exceeds_abs_max?(period)
+      errors.add(:base, :reg_period_exceeds_abs_max)
+      return false
+    end
+
+    self.valid_to += period
+    self.period = period.parts.first.second
+    self.period_unit = period.parts.first.first[0]
+
+    unsuspend
+    unexpire
     save
-  end
-
-  def non_renewable?
-    !renewable?
   end
 
   private
 
-  def add_epp_error(code, obj, val, msg)
-    errors[:epp_errors] ||= []
-    t = errors.generate_message(*msg) if msg.is_a?(Array)
-    t = msg if msg.is_a?(String)
-    err = { code: code, msg: t }
-    err[:value] = { val: val, obj: obj } if val.present?
-    errors[:epp_errors] << err
+  def reg_period_exceeds_abs_max?(period)
+    (valid_to + period) > (Time.zone.now + self.class.reg_period_abs_max)
   end
 
-  def renewable?
-    if pre_expiry_renew_period_enabled?
-      return false unless pre_expiry_renew_period_started?
-    end
-
-    return false if statuses.include_any?(DomainStatus::DELETE_CANDIDATE, DomainStatus::PENDING_RENEW,
-                                          DomainStatus::PENDING_TRANSFER, DomainStatus::PENDING_DELETE,
-                                          DomainStatus::PENDING_UPDATE, DomainStatus::PENDING_DELETE_CONFIRMATION)
-    true
+  def action_pending?
+    (statuses & [DomainStatus::PENDING_RENEW,
+                 DomainStatus::PENDING_TRANSFER,
+                 DomainStatus::PENDING_DELETE,
+                 DomainStatus::PENDING_UPDATE,
+                 DomainStatus::PENDING_DELETE_CONFIRMATION]).any?
   end
 
   def pre_expiry_renew_period_enabled?

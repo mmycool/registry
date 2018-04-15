@@ -28,4 +28,11 @@ module Concerns::Domain::Expirable
 
     true
   end
+
+  private
+
+  def unexpire
+    statuses.delete(DomainStatus::EXPIRED)
+    self.delete_at = nil
+  end
 end
