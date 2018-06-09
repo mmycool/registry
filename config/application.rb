@@ -35,9 +35,6 @@ module DomainNameRegistry
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
     config.i18n.default_locale = :en
 
-    config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
-
     # Autoload all model subdirs
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '**/')]
     config.autoload_paths << Rails.root.join('lib')
