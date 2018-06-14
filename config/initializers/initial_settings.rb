@@ -26,7 +26,7 @@ if con.present? && con.table_exists?('settings')
   Setting.transfer_wait_time = 0
   Setting.save_default(:request_confrimation_on_registrant_change_enabled, true)
   Setting.save_default(:request_confirmation_on_domain_deletion_enabled, true)
-  Setting.save_default(:address_processing, true)
+  Setting.save_default(:address_processing, false)
   Setting.save_default(:default_language, 'en')
   Setting.save_default(:nameserver_required, false)
 
