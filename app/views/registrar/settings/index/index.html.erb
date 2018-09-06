@@ -1,0 +1,11 @@
+<div class="page-header">
+    <h1><%= t '.header' %></h1>
+</div>
+
+<% if Billing::Subscription.enabled? %>
+    <div class="row">
+        <div class="col-sm-4">
+            <%= render 'subscription_billing', subscription: @subscription %>
+        </div>
+    </div>
+<% end %>

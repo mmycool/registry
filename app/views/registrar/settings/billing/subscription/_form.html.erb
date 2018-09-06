@@ -1,0 +1,45 @@
+<%= form_for @subscription, url: registrar_settings_billing_subscription_path, method: :patch, html: { class: 'form-horizontal' } do |f| %>
+    <%= render 'form_errors', target: @subscription %>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-2">
+            <div class="checkbox">
+                <label>
+                    <%= f.check_box :active %>
+                    <%= Billing::Subscription.human_attribute_name :active %>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :balance_threshold, class: 'col-sm-2 control-label' %>
+
+        <div class="col-sm-3">
+            <div class="input-group">
+                <%= f.money_field :balance_threshold, required: true, autofocus: true,
+                                  class: 'form-control' %>
+                <div class="input-group-addon"><%= Money::default_currency.symbol %></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :top_up_amount, class: 'col-sm-2 control-label' %>
+
+        <div class="col-sm-3">
+            <div class="input-group">
+                <%= f.money_field :top_up_amount, class: 'form-control', required: true %>
+                <div class="input-group-addon"><%= Money::default_currency.symbol %></div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-2">
+            <%= f.submit t('.submit_btn'), class: 'btn btn-success' %>
+        </div>
+    </div>
+<% end %>

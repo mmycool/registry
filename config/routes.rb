@@ -106,6 +106,14 @@ Rails.application.routes.draw do
     put  'pay/return/:bank'       => 'payments#back'
     post 'pay/callback/:bank'     => 'payments#callback', as: 'response_payment_with'
     get  'pay/go/:bank'           => 'payments#pay',   as: 'payment_with'
+
+    namespace :settings do
+      root 'index#index'
+
+      namespace :billing do
+        resource :subscription, controller: 'subscription', only: %i[edit update]
+      end
+    end
   end
 
   scope :registrar do

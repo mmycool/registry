@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><%= t '.header' %></div>
+
+    <% if subscription.active? %>
+        <table class="table">
+            <tr>
+                <td><%= Billing::Subscription.human_attribute_name :balance_threshold %></td>
+                <td><%= number_to_currency subscription.balance_threshold %></td>
+            </tr>
+
+            <tr>
+                <td><%= Billing::Subscription.human_attribute_name :top_up_amount %></td>
+                <td><%= number_to_currency subscription.top_up_amount %></td>
+            </tr>
+        </table>
+    <% else %>
+        <div class="panel-body">
+            <span class="text-muted"><%= t '.inactive' %></span>
+        </div>
+    <% end %>
+
+    <div class="panel-footer text-right">
+        <%= link_to t('.edit_btn'), edit_registrar_settings_billing_subscription_path,
+                    class: 'btn btn-primary btn-sm' %>
+    </div>
+</div>

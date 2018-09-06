@@ -501,6 +501,38 @@ ALTER SEQUENCE public.banklink_transactions_id_seq OWNED BY public.banklink_tran
 
 
 --
+-- Name: billing_subscriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE public.billing_subscriptions (
+    id integer NOT NULL,
+    registrar_id integer NOT NULL,
+    balance_threshold_cents integer NOT NULL,
+    top_up_amount_cents integer NOT NULL,
+    active boolean NOT NULL
+);
+
+
+--
+-- Name: billing_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.billing_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: billing_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.billing_subscriptions_id_seq OWNED BY public.billing_subscriptions.id;
+
+
+--
 -- Name: blocked_domains; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2512,6 +2544,13 @@ ALTER TABLE ONLY public.banklink_transactions ALTER COLUMN id SET DEFAULT nextva
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY public.billing_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.billing_subscriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY public.blocked_domains ALTER COLUMN id SET DEFAULT nextval('public.blocked_domains_id_seq'::regclass);
 
 
@@ -2896,6 +2935,14 @@ ALTER TABLE ONLY public.bank_transactions
 
 ALTER TABLE ONLY public.banklink_transactions
     ADD CONSTRAINT banklink_transactions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: billing_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY public.billing_subscriptions
+    ADD CONSTRAINT billing_subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -3388,6 +3435,13 @@ CREATE INDEX index_account_activities_on_invoice_id ON public.account_activities
 --
 
 CREATE INDEX index_accounts_on_registrar_id ON public.accounts USING btree (registrar_id);
+
+
+--
+-- Name: index_billing_subscriptions_on_registrar_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_billing_subscriptions_on_registrar_id ON public.billing_subscriptions USING btree (registrar_id);
 
 
 --
@@ -4056,6 +4110,14 @@ ALTER TABLE ONLY public.account_activities
 
 ALTER TABLE ONLY public.domain_transfers
     ADD CONSTRAINT fk_rails_87b8e40c63 FOREIGN KEY (domain_id) REFERENCES public.domains(id);
+
+
+--
+-- Name: fk_rails_8f361fd9f3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.billing_subscriptions
+    ADD CONSTRAINT fk_rails_8f361fd9f3 FOREIGN KEY (registrar_id) REFERENCES public.registrars(id);
 
 
 --
@@ -4767,4 +4829,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180808064402');
 INSERT INTO schema_migrations (version) VALUES ('20180816123540');
 
 INSERT INTO schema_migrations (version) VALUES ('20180824092855');
+
+INSERT INTO schema_migrations (version) VALUES ('20180905125317');
+
+INSERT INTO schema_migrations (version) VALUES ('20180905152803');
 

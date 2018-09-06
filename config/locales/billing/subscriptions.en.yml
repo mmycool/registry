@@ -1,0 +1,5 @@
+en:
+  activerecord:
+    attributes:
+      billing/subscription:
+        top_up_amount: Top-up amount
