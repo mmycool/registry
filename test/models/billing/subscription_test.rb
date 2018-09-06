@@ -27,26 +27,26 @@ class BillingSubscriptionTest < ActiveSupport::TestCase
     assert @subscription.valid?
   end
 
-  def test_invalid_without_balance_threshold
-    @subscription.balance_threshold = ''
+  def test_invalid_without_low_balance_threshold
+    @subscription.low_balance_threshold = ''
     assert @subscription.invalid?
   end
 
-  def test_balance_threshold_range_validation
-    @subscription.balance_threshold = -1
+  def test_low_balance_threshold_range_validation
+    @subscription.low_balance_threshold = -1
     assert @subscription.invalid?
 
-    @subscription.balance_threshold = 0
+    @subscription.low_balance_threshold = 0
     assert @subscription.valid?
 
-    @subscription.balance_threshold = 0.01
+    @subscription.low_balance_threshold = 0.01
     assert @subscription.valid?
   end
 
-  def test_fractional_balance_threshold
-    @subscription.balance_threshold = 0.01
+  def test_fractional_low_balance_threshold
+    @subscription.low_balance_threshold = 0.01
     @subscription.save!
-    assert Money.from_amount(0.01), @subscription.balance_threshold
+    assert Money.from_amount(0.01), @subscription.low_balance_threshold
   end
 
   def test_invalid_without_top_up_amount

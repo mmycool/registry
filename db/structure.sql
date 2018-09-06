@@ -507,7 +507,7 @@ ALTER SEQUENCE public.banklink_transactions_id_seq OWNED BY public.banklink_tran
 CREATE TABLE public.billing_subscriptions (
     id integer NOT NULL,
     registrar_id integer NOT NULL,
-    balance_threshold_cents integer NOT NULL,
+    low_balance_threshold_cents integer NOT NULL,
     top_up_amount_cents integer NOT NULL,
     active boolean NOT NULL
 );
@@ -4833,4 +4833,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180824092855');
 INSERT INTO schema_migrations (version) VALUES ('20180905125317');
 
 INSERT INTO schema_migrations (version) VALUES ('20180905152803');
+
+INSERT INTO schema_migrations (version) VALUES ('20180906131559');
 

@@ -2,7 +2,7 @@
     <%= render 'form_errors', target: @subscription %>
 
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-2">
+        <div class="col-sm-offset-3 col-sm-3">
             <div class="checkbox">
                 <label>
                     <%= f.check_box :active %>
@@ -13,11 +13,11 @@
     </div>
 
     <div class="form-group">
-        <%= f.label :balance_threshold, class: 'col-sm-2 control-label' %>
+        <%= f.label :low_balance_threshold, class: 'col-sm-3 control-label' %>
 
         <div class="col-sm-3">
             <div class="input-group">
-                <%= f.money_field :balance_threshold, required: true, autofocus: true,
+                <%= f.money_field :low_balance_threshold, required: true, autofocus: true,
                                   class: 'form-control' %>
                 <div class="input-group-addon"><%= Money::default_currency.symbol %></div>
             </div>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="form-group">
-        <%= f.label :top_up_amount, class: 'col-sm-2 control-label' %>
+        <%= f.label :top_up_amount, class: 'col-sm-3 control-label' %>
 
         <div class="col-sm-3">
             <div class="input-group">
@@ -38,7 +38,7 @@
     <hr>
 
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-2">
+        <div class="col-sm-offset-3 col-sm-2">
             <%= f.submit t('.submit_btn'), class: 'btn btn-success' %>
         </div>
     </div>

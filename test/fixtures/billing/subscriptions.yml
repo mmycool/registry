@@ -1,5 +1,5 @@
 one:
-  balance_threshold_cents: 100
+  low_balance_threshold_cents: 100
   top_up_amount_cents: 1000
   active: false
   registrar: bestnames

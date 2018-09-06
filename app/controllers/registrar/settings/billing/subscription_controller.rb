@@ -22,7 +22,7 @@ class Registrar
         end
 
         def subscription_params
-          params.require(:subscription).permit(:active, :balance_threshold, :top_up_amount)
+          params.require(:subscription).permit(:active, :low_balance_threshold, :top_up_amount)
         end
       end
     end

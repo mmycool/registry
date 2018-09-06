@@ -4,8 +4,8 @@
     <% if subscription.active? %>
         <table class="table">
             <tr>
-                <td><%= Billing::Subscription.human_attribute_name :balance_threshold %></td>
-                <td><%= number_to_currency subscription.balance_threshold %></td>
+                <td><%= Billing::Subscription.human_attribute_name :low_balance_threshold %></td>
+                <td><%= number_to_currency subscription.low_balance_threshold %></td>
             </tr>
 
             <tr>
