@@ -2,10 +2,5 @@ en:
   registrar:
     settings:
       index:
-        index:
+        show:
           header: Settings
-
-        subscription_billing:
-          header: Subscription billing
-          inactive: Inactive
-          edit_btn: Edit

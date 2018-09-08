@@ -108,11 +108,9 @@ Rails.application.routes.draw do
     get  'pay/go/:bank'           => 'payments#pay',   as: 'payment_with'
 
     namespace :settings do
-      root 'index#index'
+      root 'index#show'
 
-      namespace :billing do
-        resource :subscription, controller: 'subscription', only: %i[edit update]
-      end
+      resource :auto_invoice, controller: 'auto_invoice', only: %i[edit update]
     end
   end
 

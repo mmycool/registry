@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><%= t '.header' %></div>
+
+    <table class="table">
+        <tr>
+            <td><%= Registrar.human_attribute_name :auto_invoice %></td>
+            <td><%= registrar.auto_invoice %></td>
+        </tr>
+
+        <tr>
+            <td><%= Registrar.human_attribute_name :low_balance_threshold %></td>
+            <td><%= registrar.low_balance_threshold&.format %></td>
+        </tr>
+
+        <tr>
+            <td><%= Registrar.human_attribute_name :top_up_amount %></td>
+            <td><%= registrar.top_up_amount&.format %></td>
+        </tr>
+    </table>
+
+    <div class="panel-footer text-right">
+        <%= link_to t('.edit_btn'), edit_registrar_settings_auto_invoice_path,
+                    class: 'btn btn-primary btn-sm' %>
+    </div>
+</div>

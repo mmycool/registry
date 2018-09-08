@@ -1,0 +1,16 @@
+en:
+  registrar:
+    settings:
+      auto_invoice:
+        for_settings:
+          header: Auto-invoicing
+          edit_btn: Edit
+
+        edit:
+          header: Auto-invoicing
+
+        form:
+          submit_btn: Update
+
+        update:
+          updated: Settings are updated

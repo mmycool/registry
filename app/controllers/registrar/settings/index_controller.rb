@@ -3,8 +3,8 @@ class Registrar
     class IndexController < BaseController
       skip_authorization_check
 
-      def index
-        @subscription = current_registrar_user.registrar.subscription_billing
+      def show
+        @registrar = current_registrar_user.registrar
       end
     end
   end

@@ -2,10 +2,10 @@
     <h1><%= t '.header' %></h1>
 </div>
 
-<% if Billing::Subscription.enabled? %>
+<% if Application.feature_enabled?(:auto_invoice) %>
     <div class="row">
         <div class="col-sm-4">
-            <%= render 'subscription_billing', subscription: @subscription %>
+            <%= render 'registrar/settings/auto_invoice/for_settings', registrar: @registrar %>
         </div>
     </div>
 <% end %>

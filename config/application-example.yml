@@ -147,11 +147,10 @@ secure_session_cookies: 'false' # true|false
 same_site_session_cookies: 'false' # false|strict|lax
 
 # Billing
-subscription_billing:
+auto_invoice:
 e_invoice_provider:
 
 # Since the keys for staging are absent from the repo, we need to supply them separate for testing.
 test:
   payments_seb_bank_certificate: 'test/fixtures/files/seb_bank_cert.pem'
   payments_seb_seller_private: 'test/fixtures/files/seb_seller_key.pem'
-  subscription_billing: 'true'

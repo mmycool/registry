@@ -1,5 +1,9 @@
 en:
   activerecord:
+    attributes:
+      registrar:
+        auto_invoice: Active
+        top_up_amount: Top-up amount
     errors:
       models:
         registrar:
