@@ -48,4 +48,36 @@ class RegistrarAutoInvoiceTest < ActiveSupport::TestCase
     @registrar.save!
     assert Money.from_amount(0.01), @registrar.top_up_amount
   end
+
+  def test_valid_without_iban
+    @registrar.iban = ''
+    assert @registrar.valid?
+  end
+
+  def test_ungrouped_iban_is_valid
+    @registrar.iban = 'DE91100000000123456789'
+    assert @registrar.valid?
+  end
+
+  def test_grouped_iban_is_valid
+    @registrar.iban = 'DE91 1000 0000 0123 4567 89'
+    assert @registrar.valid?
+  end
+
+  def test_invalid_iban_format
+    @registrar.iban = 'invalid'
+    assert @registrar.invalid?
+  end
+
+  def test_normalize_iban_when_persisted
+    @registrar.iban = '  de91 1000 0000 0123 4567 89  '
+    @registrar.save!
+    @registrar.reload
+    assert_equal 'DE91100000000123456789', @registrar.iban
+  end
+
+  def test_do_not_normalize_iban_unless_persisted
+    @registrar.iban = 'DE91 1000 0000 0123 4567 89'
+    assert_equal 'DE91 1000 0000 0123 4567 89', @registrar.iban
+  end
 end

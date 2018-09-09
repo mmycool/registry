@@ -16,6 +16,11 @@
             <td><%= Registrar.human_attribute_name :top_up_amount %></td>
             <td><%= registrar.top_up_amount&.format %></td>
         </tr>
+
+        <tr>
+            <td><%= Registrar.human_attribute_name :iban %></td>
+            <td><%= registrar.iban %></td>
+        </tr>
     </table>
 
     <div class="panel-footer text-right">

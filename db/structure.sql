@@ -2176,7 +2176,8 @@ CREATE TABLE public.registrars (
     vat_rate numeric(4,3),
     auto_invoice boolean DEFAULT false NOT NULL,
     low_balance_threshold_cents integer,
-    top_up_amount_cents integer
+    top_up_amount_cents integer,
+    iban character varying
 );
 
 
@@ -4780,4 +4781,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180906131559');
 INSERT INTO schema_migrations (version) VALUES ('20180906203939');
 
 INSERT INTO schema_migrations (version) VALUES ('20180906204108');
+
+INSERT INTO schema_migrations (version) VALUES ('20180908210255');
 
