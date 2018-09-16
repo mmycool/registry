@@ -106,4 +106,22 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice.save!
     assert_equal 'US1234', invoice.buyer_vat_no
   end
+
+  def test_seller_address
+    invoice = Invoice.new(seller_city: 'Anytown',
+                          seller_street: 'Main Street',
+                          seller_state: nil,
+                          seller_zip: nil)
+    assert_equal 'Main Street, Anytown', invoice.seller_address
+  end
+
+  def test_cancel_overdue_invoices
+    travel_to Time.zone.parse('2010-07-05')
+    Setting.days_to_keep_overdue_invoices_active = 1
+
+    Invoice.cancel_overdue_invoices
+
+    assert invoices(:overdue).cancelled?
+    refute invoices(:outstanding).cancelled?
+  end
 end
