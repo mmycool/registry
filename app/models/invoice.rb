@@ -3,10 +3,10 @@ class Invoice < ActiveRecord::Base
   belongs_to :seller, class_name: 'Registrar'
   belongs_to :buyer, class_name: 'Registrar'
   has_one  :account_activity
-  has_many :invoice_items
+  has_many :items, class_name: 'InvoiceItem'
   has_many :directo_records, as: :item, class_name: 'Directo'
 
-  accepts_nested_attributes_for :invoice_items
+  accepts_nested_attributes_for :items
 
   scope :unbinded, lambda {
     where('id NOT IN (SELECT invoice_id FROM account_activities where invoice_id IS NOT NULL)')
@@ -28,7 +28,7 @@ class Invoice < ActiveRecord::Base
   validates :billing_email, email_format: { message: :invalid }, allow_blank: true
 
   validates :due_date, :currency, :seller_name,
-            :seller_iban, :buyer_name, :invoice_items, presence: true
+            :seller_iban, :buyer_name, :items, presence: true
   validates :vat_rate, numericality: { greater_than_or_equal_to: 0, less_than: 100 },
             allow_nil: true
 
@@ -146,12 +146,8 @@ class Invoice < ActiveRecord::Base
     true
   end
 
-  def items
-    invoice_items
-  end
-
   def subtotal
-    invoice_items.map(&:amount).reduce(:+)
+    items.map(&:amount).reduce(:+)
   end
 
   def vat_amount

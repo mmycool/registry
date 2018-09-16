@@ -87,7 +87,7 @@ class Registrar < ActiveRecord::Base
       buyer_url: website,
       buyer_email: email,
       reference_no: reference_no,
-      invoice_items_attributes: [
+      items_attributes: [
         {
           description: 'prepayment',
           unit: 'piece',
