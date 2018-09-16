@@ -977,7 +977,7 @@ CREATE TABLE public.invoice_items (
     invoice_id integer NOT NULL,
     description character varying NOT NULL,
     unit character varying NOT NULL,
-    amount integer NOT NULL,
+    quantity integer NOT NULL,
     price numeric(10,2) NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -4785,4 +4785,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180916151334');
 INSERT INTO schema_migrations (version) VALUES ('20180916151516');
 
 INSERT INTO schema_migrations (version) VALUES ('20180916151622');
+
+INSERT INTO schema_migrations (version) VALUES ('20180916211929');
 
