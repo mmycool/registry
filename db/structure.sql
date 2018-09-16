@@ -974,11 +974,11 @@ ALTER SEQUENCE public.epp_sessions_id_seq OWNED BY public.epp_sessions.id;
 
 CREATE TABLE public.invoice_items (
     id integer NOT NULL,
-    invoice_id integer,
+    invoice_id integer NOT NULL,
     description character varying NOT NULL,
-    unit character varying,
-    amount integer,
-    price numeric(10,2),
+    unit character varying NOT NULL,
+    amount integer NOT NULL,
+    price numeric(10,2) NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     creator_str character varying,
@@ -4099,6 +4099,14 @@ ALTER TABLE ONLY public.account_activities
 
 
 --
+-- Name: invoice_items_invoice_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.invoice_items
+    ADD CONSTRAINT invoice_items_invoice_id_fk FOREIGN KEY (invoice_id) REFERENCES public.invoices(id);
+
+
+--
 -- Name: messages_registrar_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4767,4 +4775,14 @@ INSERT INTO schema_migrations (version) VALUES ('20180808064402');
 INSERT INTO schema_migrations (version) VALUES ('20180816123540');
 
 INSERT INTO schema_migrations (version) VALUES ('20180824092855');
+
+INSERT INTO schema_migrations (version) VALUES ('20180916145817');
+
+INSERT INTO schema_migrations (version) VALUES ('20180916150152');
+
+INSERT INTO schema_migrations (version) VALUES ('20180916151334');
+
+INSERT INTO schema_migrations (version) VALUES ('20180916151516');
+
+INSERT INTO schema_migrations (version) VALUES ('20180916151622');
 
