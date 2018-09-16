@@ -71,7 +71,7 @@ class InvoiceTest < ActiveSupport::TestCase
     line_item = InvoiceItem.new
     invoice = Invoice.new(invoice_items: [line_item, line_item])
 
-    line_item.stub(:item_sum_without_vat, BigDecimal('2.5')) do
+    line_item.stub(:amount, BigDecimal('2.5')) do
       assert_equal BigDecimal(5), invoice.subtotal
     end
   end
@@ -86,7 +86,7 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice.vat_rate = 10
     invoice.invoice_items = [line_item, line_item]
 
-    line_item.stub(:item_sum_without_vat, BigDecimal('2.5')) do
+    line_item.stub(:amount, BigDecimal('2.5')) do
       assert_equal BigDecimal('5.50'), invoice.total
     end
   end

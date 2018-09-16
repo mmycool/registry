@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class InvoiceItemTest < ActiveSupport::TestCase
-  def test_calculate_item_sum_without_vat
+  def test_calculate_amount
     item = InvoiceItem.new(price: 5, quantity: 2)
-    assert_equal 10, item.item_sum_without_vat
+    assert_equal 10, item.amount
   end
 end

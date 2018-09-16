@@ -151,7 +151,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def subtotal
-    invoice_items.map(&:item_sum_without_vat).reduce(:+)
+    invoice_items.map(&:amount).reduce(:+)
   end
 
   def vat_amount
