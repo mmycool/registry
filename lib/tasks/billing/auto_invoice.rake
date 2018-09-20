@@ -9,9 +9,11 @@ namespace :billing do
 
     invoiced_registrar_count = 0
 
-    Registrar.invoice_registrars_with_low_balance do |registrar, invoice_amount|
-      puts %Q(Registrar "#{registrar}" has been invoiced to #{invoice_amount.
-        format(decimal_mark: '.', symbol: invoice_amount.currency.to_s + ' ')})
+    Registrar.invoice_registrars_with_low_balance do |registrar, amount|
+      puts %Q(Registrar "#{registrar}" has been invoiced to #{amount.format(symbol: false,
+                                                                            with_currency: true,
+                                                                            thousands_separator: ' ',
+                                                                            decimal_mark: ',')})
       invoiced_registrar_count += 1
     end
 
