@@ -33,6 +33,17 @@ GIT
       libxml-ruby
 
 GIT
+  remote: https://github.com/internetee/estonian_e_invoice
+  revision: ed02dec78b98ebb08a9aa6616f27b41af71d7036
+  branch: master
+  specs:
+    estonian_e_invoice (0.1.0)
+      builder (~> 3.2)
+      money
+      nokogiri
+      savon
+
+GIT
   remote: https://github.com/prehnRA/que-mailer.git
   revision: 32156f258993348b50a7db2a41eed1bdb0bf4fab
   branch: master
@@ -464,6 +475,7 @@ DEPENDENCIES
   digidoc_client!
   epp (= 1.5.0)!
   epp-xml (= 1.1.0)!
+  estonian_e_invoice!
   factory_bot_rails
   figaro (= 1.1.1)
   grape

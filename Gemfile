@@ -98,6 +98,7 @@ gem 'activerecord-import', '0.7.0' # for inserting dummy data
 gem 'pdfkit', '0.6.2'
 gem 'jquery-ui-rails', '5.0.5'
 gem 'active_model-errors_details' # Backport from Rails 5, https://github.com/rails/rails/pull/18322
+gem 'estonian_e_invoice', git: 'https://github.com/internetee/estonian_e_invoice', branch: 'master'
 
 group :development do
   # deploy
