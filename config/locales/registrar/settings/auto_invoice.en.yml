@@ -10,7 +10,7 @@ en:
           header: Auto-invoicing
 
         form:
-          iban_hint: Spaces are allowed
+          iban_hint: Spaces are ignored
           submit_btn: Update
 
         update:
