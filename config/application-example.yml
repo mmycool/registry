@@ -148,7 +148,8 @@ same_site_session_cookies: 'false' # false|strict|lax
 
 # Billing
 auto_invoice:
-e_invoice_provider:
+e_invoice_provider_wsdl:
+e_invoice_provider_secret_key:
 
 # Since the keys for staging are absent from the repo, we need to supply them separate for testing.
 test:
