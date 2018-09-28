@@ -155,7 +155,7 @@
               %dt= t(:cancel_date)
               %dd= l(@invoice.cancelled_at, format: :date_long)
 
-            %dt= t(:due_date)
+            %dt= Invoice.human_attribute_name :due_date
             - if @invoice.cancelled?
               %dd= t(:cancelled)
             - else

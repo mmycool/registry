@@ -528,7 +528,6 @@ en:
   billing: 'Billing'
   your_account: 'Your account'
   issue_date: 'Issue date'
-  due_date: 'Due date'
   payment_term: 'Payment term'
   iban: 'IBAN'
   bank: 'Bank'
