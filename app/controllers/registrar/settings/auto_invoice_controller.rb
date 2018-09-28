@@ -19,10 +19,10 @@ class Registrar
       end
 
       def registrar_params
-        params.require(:registrar).permit(:auto_invoice,
-                                          :low_balance_threshold,
-                                          :top_up_amount,
-                                          :iban)
+        params.require(:registrar).permit(:auto_invoice_activated,
+                                          :auto_invoice_low_balance_threshold,
+                                          :auto_invoice_top_up_amount,
+                                          :auto_invoice_iban)
       end
     end
   end

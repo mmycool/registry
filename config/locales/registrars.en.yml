@@ -2,8 +2,10 @@ en:
   activerecord:
     attributes:
       registrar:
-        auto_invoice: Active
-        top_up_amount: Top-up amount
+        auto_invoice_activated: Activated
+        auto_invoice_low_balance_threshold: Low balance threshold
+        auto_invoice_top_up_amount: Amount to be invoiced
+        auto_invoice_iban: IBAN
     errors:
       models:
         registrar:

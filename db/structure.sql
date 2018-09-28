@@ -2175,10 +2175,10 @@ CREATE TABLE public.registrars (
     test_registrar boolean DEFAULT false,
     language character varying NOT NULL,
     vat_rate numeric(4,3),
-    auto_invoice boolean DEFAULT false NOT NULL,
-    low_balance_threshold_cents integer,
-    top_up_amount_cents integer,
-    iban character varying
+    auto_invoice_activated boolean DEFAULT false NOT NULL,
+    auto_invoice_low_balance_threshold numeric(10,2),
+    auto_invoice_top_up_amount numeric(10,2),
+    auto_invoice_iban character varying
 );
 
 
@@ -4796,4 +4796,10 @@ INSERT INTO schema_migrations (version) VALUES ('20180906204108');
 INSERT INTO schema_migrations (version) VALUES ('20180908210255');
 
 INSERT INTO schema_migrations (version) VALUES ('20180927131731');
+
+INSERT INTO schema_migrations (version) VALUES ('20180927153645');
+
+INSERT INTO schema_migrations (version) VALUES ('20180927154135');
+
+INSERT INTO schema_migrations (version) VALUES ('20180927190702');
 

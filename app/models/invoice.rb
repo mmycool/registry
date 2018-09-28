@@ -75,6 +75,17 @@ class Invoice < ActiveRecord::Base
 
       STDOUT << "#{Time.zone.now.utc} - Successfully cancelled #{count} overdue invoices\n" unless Rails.env.test?
     end
+
+    def invoice_registrars_eligible_to_auto_invoice
+      Registrar.registrars_eligible_to_auto_invoice.each do |registrar|
+        registrar.invoice(registrar.top_up_amount)
+        yield(registrar, registrar.top_up_amount) if block_given?
+      end
+    end
+
+    def unpaid_automatically_generated
+      where(generated_automatically: true)
+    end
   end
 
   def binded?
