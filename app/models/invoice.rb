@@ -77,6 +77,10 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def date
+    created_at.to_date
+  end
+
   def binded?
     account_activity.present?
   end

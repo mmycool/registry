@@ -124,4 +124,9 @@ class InvoiceTest < ActiveSupport::TestCase
     assert invoices(:overdue).cancelled?
     refute invoices(:outstanding).cancelled?
   end
+
+  def test_extract_date_from_created_at
+    invoice = Invoice.new(created_at: Time.zone.parse('2010-07-05 00:00'))
+    assert_equal Date.parse('2010-07-05'), invoice.date
+  end
 end
