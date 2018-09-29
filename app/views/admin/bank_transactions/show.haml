@@ -45,7 +45,7 @@
       %dd= @bank_transaction.reference_no
 
       %dt= t(:paid_at)
-      %dd= l(@bank_transaction.paid_at, format: :date_long)
+      %dd= l @bank_transaction.paid_at.to_date
 
       - if @bank_transaction.binded?
         %dt= t(:binded_invoice)

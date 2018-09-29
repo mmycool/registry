@@ -6,7 +6,7 @@
 
   - if @invoice.cancelled?
     %dt= t(:cancel_date)
-    %dd= l(@invoice.cancelled_at, format: :date_long)
+    %dd= l @invoice.cancelled_at.to_date
 
   %dt= Invoice.human_attribute_name :due_date
   - if @invoice.cancelled?
@@ -16,7 +16,7 @@
 
   %dt= t(:receipt_date)
   - if @invoice.binded?
-    %dd= l(@invoice.receipt_date, format: :date_long)
+    %dd= l @invoice.receipt_date.to_date
   - elsif @invoice.cancelled?
     %dd.text-grey= t(:cancelled)
   - else

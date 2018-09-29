@@ -60,7 +60,7 @@
             %tr
               %td= link_to(x, [:registrar, x])
               - if x.receipt_date
-                %td= l(x.receipt_date, format: :date_long)
+                %td= l x.receipt_date.to_date
               - elsif x.cancelled?
                 %td.text-grey= t(:cancelled)
               - else
