@@ -149,7 +149,7 @@
           %hr
           %dl.dl-horizontal
             %dt= Invoice.human_attribute_name :date
-            %dd= l(@invoice.created_at, format: :date_long)
+            %dd= l @invoice.date
 
             - if @invoice.cancelled?
               %dt= t(:cancel_date)
@@ -174,14 +174,14 @@
 
             %dt= t(:payment_term)
             %dd= t(@invoice.payment_term)
-          
+
             %dt= t(:invoice_number)
             %dd= @invoice.number
 
             - if @invoice.description.present?
               %dt= t(:description)
               %dd=@invoice.description
-                
+
             %dt= Invoice.human_attribute_name :reference_no
             %dd= @invoice.reference_no
 

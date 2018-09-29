@@ -2,7 +2,7 @@
 %hr
 %dl.dl-horizontal
   %dt= Invoice.human_attribute_name :date
-  %dd= l(@invoice.created_at, format: :date_long)
+  %dd= l @invoice.date
 
   - if @invoice.cancelled?
     %dt= t(:cancel_date)

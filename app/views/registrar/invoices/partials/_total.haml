@@ -5,7 +5,7 @@
   / %dd= t(@invoice.document_name)
 
   %dt= Invoice.human_attribute_name :date
-  %dd= l(@invoice.created_at)
+  %dd= l @invoice.date
 
   %dt= Invoice.human_attribute_name :due_date
   %dd= l @invoice.due_date
