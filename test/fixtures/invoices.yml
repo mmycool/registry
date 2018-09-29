@@ -24,14 +24,6 @@ paid:
   <<: *DEFAULTS
   total: 1
 
-outstanding:
-  <<: *DEFAULTS
-  due_date: <%= Date.parse '2010-07-04' %>
-
-overdue:
-  <<: *DEFAULTS
-  due_date: <%= Date.parse '2010-07-03' %>
-
 for_payments_test:
   <<: *DEFAULTS
   total: 12.00

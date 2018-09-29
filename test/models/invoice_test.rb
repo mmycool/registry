@@ -2,7 +2,14 @@ require 'test_helper'
 
 class InvoiceTest < ActiveSupport::TestCase
   setup do
+    @original_days_to_keep_overdue_invoices_active_setting =
+      Setting.days_to_keep_overdue_invoices_active
     @invoice = invoices(:valid)
+  end
+
+  teardown do
+    Setting.days_to_keep_overdue_invoices_active =
+      @original_days_to_keep_overdue_invoices_active_setting
   end
 
   def test_valid
@@ -115,14 +122,25 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_equal 'Main Street, Anytown', invoice.seller_address
   end
 
-  def test_cancel_overdue_invoices
+  def test_cancel_overdue_cancels_overdue_invoices
     travel_to Time.zone.parse('2010-07-05')
     Setting.days_to_keep_overdue_invoices_active = 1
+    @invoice.update!(due_date: '2010-07-03')
+
+    Invoice.cancel_overdue_invoices
+    @invoice.reload
+
+    assert @invoice.cancelled?
+  end
+
+  def test_cancel_overdue_keeps_unpaid_invoices_intact
+    travel_to Time.zone.parse('2010-07-05')
+    Setting.days_to_keep_overdue_invoices_active = 1
+    @invoice.update!(due_date: '2010-07-04')
 
     Invoice.cancel_overdue_invoices
 
-    assert invoices(:overdue).cancelled?
-    refute invoices(:outstanding).cancelled?
+    assert_not @invoice.cancelled?
   end
 
   def test_extract_date_from_created_at

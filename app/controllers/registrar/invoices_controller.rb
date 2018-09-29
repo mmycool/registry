@@ -61,8 +61,8 @@ class Registrar
 
       ca_cache = params[:q][:due_date_lteq]
       begin
-        end_time = params[:q][:due_date_lteq].try(:to_date)
-        params[:q][:due_date_lteq] = end_time.try(:end_of_day)
+        end_time = params[:q][:due_date_lteq]
+        params[:q][:due_date_lteq] = end_time
       rescue
         logger.warn('Invalid date')
       end

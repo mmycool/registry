@@ -8,7 +8,7 @@
   %dd= l(@invoice.created_at)
 
   %dt= Invoice.human_attribute_name :due_date
-  %dd= l(@invoice.due_date)
+  %dd= l @invoice.due_date
 
   %dt= t(:payment_term)
   %dd= t(@invoice.payment_term)
