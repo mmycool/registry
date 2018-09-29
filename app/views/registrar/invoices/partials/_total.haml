@@ -4,7 +4,7 @@
   / %dt= t(:document_name)
   / %dd= t(@invoice.document_name)
 
-  %dt= t(:issue_date)
+  %dt= Invoice.human_attribute_name :date
   %dd= l(@invoice.created_at)
 
   %dt= Invoice.human_attribute_name :due_date

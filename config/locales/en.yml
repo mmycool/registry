@@ -527,7 +527,6 @@ en:
   your_current_account_balance_is: 'Your current account balance is %{balance} %{currency}'
   billing: 'Billing'
   your_account: 'Your account'
-  issue_date: 'Issue date'
   payment_term: 'Payment term'
   iban: 'IBAN'
   bank: 'Bank'
