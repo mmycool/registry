@@ -147,4 +147,14 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice = Invoice.new(created_at: Time.zone.parse('2010-07-05 00:00'))
     assert_equal Date.parse('2010-07-05'), invoice.date
   end
+
+  def test_cancelled_when_cancelled_at_is_present
+    invoice = Invoice.new(cancelled_at: '2010-07-05')
+    assert invoice.cancelled?
+  end
+
+  def test_cancelled_when_cancelled_at_is_absent
+    invoice = Invoice.new(cancelled_at: nil)
+    assert_not invoice.cancelled?
+  end
 end
