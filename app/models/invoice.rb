@@ -156,8 +156,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def vat_amount
-    return 0 unless vat_rate
-    subtotal * vat_rate / 100
+    items.to_a.sum(&:vat_amount)
   end
 
   def total
@@ -176,6 +175,6 @@ class Invoice < ActiveRecord::Base
   end
 
   def calculate_total
-    self.total = subtotal + vat_amount
+    self.total = items.to_a.sum(&:total)
   end
 end

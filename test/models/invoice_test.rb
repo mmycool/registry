@@ -65,37 +65,35 @@ class InvoiceTest < ActiveSupport::TestCase
     refute_equal BigDecimal(21), @invoice.vat_rate
   end
 
-  def test_calculates_vat_amount
-    assert_equal BigDecimal('1.5'), @invoice.vat_amount
-  end
-
-  def test_vat_amount_is_zero_when_vat_rate_is_blank
-    @invoice.vat_rate = nil
-    assert_equal 0, @invoice.vat_amount
-  end
-
   def test_calculates_subtotal
-    line_item = InvoiceItem.new
-    invoice = Invoice.new(items: [line_item, line_item])
+    invoice_item = InvoiceItem.new
+    invoice = Invoice.new(items: [invoice_item, invoice_item])
 
-    line_item.stub(:amount, BigDecimal('2.5')) do
-      assert_equal BigDecimal(5), invoice.subtotal
+    invoice_item.stub(:amount, 5) do
+      assert_equal 10, invoice.subtotal
+    end
+  end
+
+  def test_calculates_vat_amount
+    invoice_item = InvoiceItem.new
+    invoice = Invoice.new(items: [invoice_item, invoice_item])
+
+    invoice_item.stub(:vat_amount, 5) do
+      assert_equal 10, invoice.vat_amount
+    end
+  end
+
+  def test_calculates_total
+    invoice_item = InvoiceItem.new
+    invoice = Invoice.new(items: [invoice_item, invoice_item])
+
+    invoice_item.stub(:total, 5) do
+      assert_equal 10, invoice.total
     end
   end
 
   def test_returns_persisted_total
     assert_equal BigDecimal('16.50'), @invoice.total
-  end
-
-  def test_calculates_total
-    line_item = InvoiceItem.new
-    invoice = Invoice.new
-    invoice.vat_rate = 10
-    invoice.items = [line_item, line_item]
-
-    line_item.stub(:amount, BigDecimal('2.5')) do
-      assert_equal BigDecimal('5.50'), invoice.total
-    end
   end
 
   def test_valid_without_buyer_vat_no
