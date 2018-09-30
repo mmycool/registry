@@ -54,7 +54,7 @@
             %th{class: 'col-xs-3'}= t(:invoice)
             %th{class: 'col-xs-3'}= t(:receipt_date)
             %th{class: 'col-xs-3'}= Invoice.human_attribute_name :due_date
-            %th{class: 'col-xs-3'}= t(:total)
+            %th{class: 'col-xs-3'}= Invoice.human_attribute_name :total
         %tbody
           - @invoices.each do |x|
             %tr
