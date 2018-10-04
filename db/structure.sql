@@ -885,7 +885,6 @@ CREATE TABLE public.domains (
     name character varying,
     registrar_id integer NOT NULL,
     registered_at timestamp without time zone,
-    status character varying,
     valid_to timestamp without time zone NOT NULL,
     registrant_id integer NOT NULL,
     transfer_code character varying NOT NULL,
@@ -4799,4 +4798,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180916151622');
 INSERT INTO schema_migrations (version) VALUES ('20180916211929');
 
 INSERT INTO schema_migrations (version) VALUES ('20180928201537');
+
+INSERT INTO schema_migrations (version) VALUES ('20181002090319');
 
