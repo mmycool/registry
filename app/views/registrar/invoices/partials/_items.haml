@@ -12,7 +12,7 @@
     %tbody
       - @invoice.items.each do |x|
         %tr
-          %td= t(x.description)
+          %td= x.description
           %td= x.unit
           %td= x.quantity
           %td= currency(x.price)
