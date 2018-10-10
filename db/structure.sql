@@ -1017,7 +1017,7 @@ CREATE TABLE public.invoices (
     currency character varying NOT NULL,
     description character varying,
     reference_no character varying,
-    vat_rate numeric(4,3),
+    vat_rate numeric(5,3),
     paid_at timestamp without time zone,
     seller_id integer,
     seller_name character varying NOT NULL,
@@ -2172,7 +2172,7 @@ CREATE TABLE public.registrars (
     reference_no character varying,
     test_registrar boolean DEFAULT false,
     language character varying NOT NULL,
-    vat_rate numeric(4,3)
+    vat_rate numeric(5,3)
 );
 
 
@@ -4800,4 +4800,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180916211929');
 INSERT INTO schema_migrations (version) VALUES ('20180928201537');
 
 INSERT INTO schema_migrations (version) VALUES ('20181002090319');
+
+INSERT INTO schema_migrations (version) VALUES ('20181010185112');
 
