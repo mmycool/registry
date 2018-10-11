@@ -158,6 +158,10 @@ class Invoice < ActiveRecord::Base
     calculate_total
   end
 
+  def each
+    items.each { |item| yield item }
+  end
+
   private
 
   def calculate_total

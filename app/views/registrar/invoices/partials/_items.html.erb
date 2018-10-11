@@ -13,7 +13,7 @@
         </thead>
 
         <tbody>
-            <% @invoice.items.each do |invoice_item| %>
+            <% @invoice.each do |invoice_item| %>
                 <tr>
                     <td><%= invoice_item.description %></td>
                     <td><%= invoice_item.unit %></td>
