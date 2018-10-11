@@ -13,13 +13,13 @@
         </thead>
 
         <tbody>
-            <% @invoice.items.each do |x| %>
+            <% @invoice.items.each do |invoice_item| %>
                 <tr>
-                    <td><%= x.description %></td>
-                    <td><%= x.unit %></td>
-                    <td><%= x.quantity %></td>
-                    <td><%= currency(x.price) %></td>
-                    <td><%= currency(x.amount) %></td>
+                    <td><%= invoice_item.description %></td>
+                    <td><%= invoice_item.unit %></td>
+                    <td><%= invoice_item.quantity %></td>
+                    <td><%= currency(invoice_item.price) %></td>
+                    <td><%= currency(invoice_item.amount) %></td>
                 </tr>
             <% end %>
         </tbody>

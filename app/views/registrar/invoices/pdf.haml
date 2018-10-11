@@ -228,13 +228,13 @@
                   %th{class: 'col-xs-3'}= InvoiceItem.human_attribute_name :price
                   %th{class: 'col-xs-2'}= InvoiceItem.human_attribute_name :total
               %tbody
-                - @invoice.items.each do |x|
+                - @invoice.items.each do |invoice_item|
                   %tr
-                    %td= t(x.description)
-                    %td= x.unit
-                    %td= x.quantity
-                    %td= currency(x.price)
-                    %td= "#{currency(x.amount)} #{@invoice.currency}"
+                    %td= t(invoice_item.description)
+                    %td= invoice_item.unit
+                    %td= invoice_item.quantity
+                    %td= currency(invoice_item.price)
+                    %td= "#{currency(invoice_item.amount)} #{@invoice.currency}"
               %tfoot
                 %tr
                   %th{colspan: 3}
