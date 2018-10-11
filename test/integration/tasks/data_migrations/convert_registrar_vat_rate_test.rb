@@ -23,13 +23,13 @@ class ConvertRegistrarVATRateTaskTest < ActiveSupport::TestCase
     assert_equal NoVATRate.instance, @registrar.vat_rate
   end
 
-  def test_task_is_idempotent
-    @registrar.update_columns(vat_rate: VATRate.new(10))
+  def test_keeps_registrars_with_zero_vat_intact
+    @registrar.update_columns(vat_rate: VATRate.new(0))
 
     capture_io { run_task }
     @registrar.reload
 
-    assert_equal VATRate.new(10), @registrar.vat_rate
+    assert_equal VATRate.new(0), @registrar.vat_rate
   end
 
   def test_output

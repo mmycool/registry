@@ -22,12 +22,9 @@ class Registrar < ActiveRecord::Base
   validates :vat_rate, presence: true, if: 'foreign_vat_payer? && vat_no.blank?'
   validates :vat_rate, absence: true, if: :home_vat_payer?
   validates :vat_rate, absence: true, if: 'foreign_vat_payer? && vat_no?'
-  validates :vat_rate, numericality: { greater_than_or_equal_to: 0, less_than: 100 },
-            allow_nil: true
-
   validate :forbid_special_code
 
-  attribute :vat_rate, ::Type::VATRate.new
+  attribute :vat_rate, ::Types::VATRate.new
   after_initialize :set_defaults
   before_validation :generate_iso_11649_reference_no
 
@@ -86,7 +83,9 @@ class Registrar < ActiveRecord::Base
       buyer_phone: phone,
       buyer_url: website,
       buyer_email: email,
+      buyer_vat_no: vat_no,
       reference_no: reference_no,
+      vat_rate: effective_vat_rate,
       items_attributes: [
         {
           description: 'prepayment',
@@ -149,18 +148,18 @@ class Registrar < ActiveRecord::Base
     end
   end
 
+  private
+
+  def set_defaults
+    self.language = Setting.default_language unless language
+  end
+
   def effective_vat_rate
     if home_vat_payer?
       Registry.instance.vat_rate
     else
       vat_rate
     end
-  end
-
-  private
-
-  def set_defaults
-    self.language = Setting.default_language unless language
   end
 
   def forbid_special_code

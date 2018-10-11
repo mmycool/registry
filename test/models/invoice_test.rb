@@ -16,34 +16,30 @@ class InvoiceTest < ActiveSupport::TestCase
     assert @invoice.valid?
   end
 
-  def test_calculates_subtotal
-    invoice_item = InvoiceItem.new
-    invoice = Invoice.new(items: [invoice_item, invoice_item])
-
-    invoice_item.stub(:amount, 5) do
-      assert_equal 10, invoice.subtotal
-    end
-  end
-
-  def test_calculates_total
-    invoice_item = InvoiceItem.new
-    invoice = Invoice.new(items: [invoice_item, invoice_item])
-
-    invoice_item.stub(:total, 5) do
-      assert_equal 10, invoice.total
-    end
-  end
-
-  def test_returns_persisted_total
-    assert_equal BigDecimal('16.50'), @invoice.total
-  end
-
   def test_seller_address
     invoice = Invoice.new(seller_city: 'Anytown',
                           seller_street: 'Main Street',
                           seller_state: nil,
                           seller_zip: nil)
     assert_equal 'Main Street, Anytown', invoice.seller_address
+  end
+
+  def test_calculates_subtotal
+    invoice_item = InvoiceItem.new(price: 25, quantity: 2)
+    invoice = Invoice.new(items: [invoice_item, invoice_item])
+    assert_equal 100, invoice.subtotal
+  end
+
+  def test_calculates_vat_amount
+    invoice_item = InvoiceItem.new(price: 25, quantity: 2)
+    invoice = Invoice.new(vat_rate: VATRate.new(10), items: [invoice_item, invoice_item])
+    assert_equal 10, invoice.vat_amount
+  end
+
+  def test_calculates_total
+    invoice_item = InvoiceItem.new(price: 25, quantity: 2)
+    invoice = Invoice.new(vat_rate: VATRate.new(10), items: [invoice_item, invoice_item])
+    assert_equal 110, invoice.total
   end
 
   def test_cancel_overdue_cancels_overdue_invoices
@@ -80,5 +76,10 @@ class InvoiceTest < ActiveSupport::TestCase
   def test_cancelled_when_cancelled_at_is_absent
     invoice = Invoice.new(cancelled_at: nil)
     assert_not invoice.cancelled?
+  end
+
+  def test_valid_without_buyer_vat_number
+    @invoice.buyer_vat_no = ''
+    assert @invoice.valid?
   end
 end

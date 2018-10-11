@@ -14,6 +14,15 @@ class ConvertInvoiceVATRateTaskTest < ActiveSupport::TestCase
     assert_equal VATRate.new(BigDecimal('20.5')), @invoice.vat_rate
   end
 
+  def test_keeps_invoices_with_zero_vat_intact
+    @invoice.update_columns(vat_rate: VATRate.new(0))
+
+    capture_io { run_task }
+    @invoice.reload
+
+    assert_equal VATRate.new(0), @invoice.vat_rate
+  end
+
   def test_keeps_invoices_with_no_vat_intact
     @invoice.update_columns(vat_rate: NoVATRate.instance)
 
@@ -21,15 +30,6 @@ class ConvertInvoiceVATRateTaskTest < ActiveSupport::TestCase
     @invoice.reload
 
     assert_equal NoVATRate.instance, @invoice.vat_rate
-  end
-
-  def test_task_is_idempotent
-    @invoice.update_columns(vat_rate: VATRate.new(10))
-
-    capture_io { run_task }
-    @invoice.reload
-
-    assert_equal VATRate.new(10), @invoice.vat_rate
   end
 
   def test_output
