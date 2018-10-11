@@ -7,4 +7,8 @@ class InvoiceItem < ActiveRecord::Base
   def amount
     price * quantity
   end
+
+  def total
+    amount + vat_amount
+  end
 end
