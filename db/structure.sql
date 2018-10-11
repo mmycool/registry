@@ -982,7 +982,8 @@ CREATE TABLE public.invoice_items (
     updated_at timestamp without time zone,
     creator_str character varying,
     updator_str character varying,
-    vat_rate numeric(3,1)
+    vat_rate numeric(3,1),
+    vat_amount numeric(10,2)
 );
 
 
@@ -1053,7 +1054,8 @@ CREATE TABLE public.invoices (
     cancelled_at timestamp without time zone,
     total numeric(10,2) NOT NULL,
     in_directo boolean DEFAULT false,
-    buyer_vat_no character varying
+    buyer_vat_no character varying,
+    vat_amount numeric(10,2)
 );
 
 
@@ -4805,4 +4807,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181002090319');
 INSERT INTO schema_migrations (version) VALUES ('20181010185112');
 
 INSERT INTO schema_migrations (version) VALUES ('20181011164727');
+
+INSERT INTO schema_migrations (version) VALUES ('20181011171808');
 
