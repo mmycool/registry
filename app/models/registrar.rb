@@ -52,6 +52,8 @@ class Registrar < ActiveRecord::Base
   end
 
   def issue_prepayment_invoice(amount, description = nil)
+    invoice_item = InvoiceItem.new(description: 'prepayment', unit: 'piece', quantity: 1, price: amount)
+
     invoices.create(
       due_date: (Time.zone.now + Setting.days_to_keep_invoices_active.days).to_date,
       payment_term: 'prepayment',
@@ -86,14 +88,7 @@ class Registrar < ActiveRecord::Base
       buyer_vat_no: vat_no,
       reference_no: reference_no,
       vat_rate: effective_vat_rate,
-      items_attributes: [
-        {
-          description: 'prepayment',
-          unit: 'piece',
-          quantity: 1,
-          price: amount
-        }
-      ]
+      items: [invoice_item]
     )
   end
 

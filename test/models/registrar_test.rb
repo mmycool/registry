@@ -129,4 +129,15 @@ class RegistrarTest < ActiveSupport::TestCase
     invoice = Invoice.last
     assert_equal '1234', invoice.buyer_vat_no
   end
+
+  def test_issues_new_invoice
+    invoice = @registrar.issue_prepayment_invoice(100)
+
+    invoice_item = invoice.items.first
+    assert_equal 1, invoice.items.count
+    assert_equal 'prepayment', invoice_item.description
+    assert_equal 100, invoice_item.price
+    assert_equal 1, invoice_item.quantity
+    assert_equal 'piece', invoice_item.unit
+  end
 end

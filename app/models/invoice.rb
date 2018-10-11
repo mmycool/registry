@@ -6,8 +6,6 @@ class Invoice < ActiveRecord::Base
   has_many :items, class_name: 'InvoiceItem'
   has_many :directo_records, as: :item, class_name: 'Directo'
 
-  accepts_nested_attributes_for :items
-
   scope :unbinded, lambda {
     where('id NOT IN (SELECT invoice_id FROM account_activities where invoice_id IS NOT NULL)')
   }
