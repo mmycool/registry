@@ -147,7 +147,7 @@ secure_session_cookies: 'false' # true|false
 same_site_session_cookies: 'false' # false|strict|lax
 
 # Billing
-auto_invoice:
+auto_account_top_up:
 e_invoice_provider_wsdl:
 e_invoice_provider_secret_key:
 

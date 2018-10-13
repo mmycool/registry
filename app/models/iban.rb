@@ -5,7 +5,7 @@ class IBAN
   def initialize(iban)
     @iban = iban
   end
-
+  
   def normalize
     iban.gsub(/\s+/, '').upcase
   end

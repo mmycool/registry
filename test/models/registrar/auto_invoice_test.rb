@@ -52,19 +52,6 @@ class RegistrarAutoInvoiceTest < ActiveSupport::TestCase
     @registrar.auto_invoice_top_up_amount = 4
 
     assert @registrar.invalid?
-
-    Setting.minimum_deposit = @original_minimum_deposit_setting
-  end
-
-  def test_valid_when_top_up_amount_is_the_same_as_minimum_deposit_setting
-    @original_minimum_deposit_setting = Setting.minimum_deposit
-
-    Setting.minimum_deposit = 5
-    @registrar.auto_invoice_top_up_amount = 5
-
-    assert @registrar.valid?
-
-    Setting.minimum_deposit = @original_minimum_deposit_setting
   end
 
   def test_valid_without_iban_when_deactivated
@@ -94,53 +81,14 @@ class RegistrarAutoInvoiceTest < ActiveSupport::TestCase
     assert @registrar.invalid?
   end
 
-  def test_normalize_iban_when_persisted
-    @registrar.auto_invoice_iban = '  de91 1000 0000 0123 4567 89  '
-    @registrar.save!
+  def test_normalizes_auto_invoice_iban_when_persisted
+    @registrar.update!(auto_invoice_iban: '  de91 1000 0000 0123 4567 89  ')
     @registrar.reload
     assert_equal 'DE91100000000123456789', @registrar.auto_invoice_iban_before_type_cast
   end
 
-  def test_do_not_normalize_iban_unless_persisted
+  def test_does_not_normalize_auto_invoice_iban_unless_persisted
     @registrar.auto_invoice_iban = 'DE91 1000 0000 0123 4567 89'
-    assert_equal 'DE91 1000 0000 0123 4567 89', @registrar.auto_invoice_iban.to_s
-  end
-
-  def test_registrar_with_auto_invoice_activated_and_low_balance_threshold_reached_is_eligible_for_auto_invoice
-    @registrar.update!(auto_invoice_activated: true,
-                       auto_invoice_low_balance_threshold: 1,
-                       auto_invoice_top_up_amount: 1)
-    @registrar.cash_account.update!(balance: 1)
-    assert_includes Registrar.registrars_eligible_to_auto_invoice, @registrar
-  end
-
-  def test_eligible_to_auto_invoice_when_auto_invoice_activated_and_low_balance_threshold_reached_and_there_are_no_unpaid_auto_generated_invoices
-    assert false
-  end
-
-  def test_not_eligible_to_auto_invoice_when_auto_invoice_activated_and_low_balance_threshold_reached_and_unpaid_auto_generated_invoices_exist
-    @registrar.update!(auto_invoice_activated: true,
-                       auto_invoice_low_balance_threshold: 1,
-                       auto_invoice_top_up_amount: 1)
-    @registrar.cash_account.update!(balance: 1)
-    invoices(:valid).update!(buyer: @registrar)
-    invoices(:valid).account_activity.destroy!
-    assert_not_includes Registrar.registrars_eligible_to_auto_invoice, @registrar
-  end
-
-  def test_registrar_with_auto_invoice_deactivated_and_when_low_balance_threshold_is_not_reached_is_not_eligible_for_auto_invoice
-    @registrar.update!(auto_invoice_activated: false,
-                       auto_invoice_low_balance_threshold: 1,
-                       auto_invoice_top_up_amount: 1)
-    @registrar.cash_account.update!(balance: 0)
-    assert_not_includes Registrar.registrars_eligible_to_auto_invoice, @registrar
-  end
-
-  def test_registrar_with_auto_invoice_activated_and_when_low_balance_threshold_is_not_reached_is_not_eligible_for_auto_invoice
-    @registrar.update!(auto_invoice_activated: true,
-                       auto_invoice_low_balance_threshold: 1,
-                       auto_invoice_top_up_amount: 1)
-    @registrar.cash_account.update!(balance: 2)
-    assert_not_includes Registrar.registrars_eligible_to_auto_invoice, @registrar
+    assert_equal 'DE91 1000 0000 0123 4567 89', @registrar.auto_invoice_iban
   end
 end
