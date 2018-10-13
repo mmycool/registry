@@ -23,6 +23,8 @@ class Invoice < ActiveRecord::Base
   scope :sort_by_sort_receipt_date_desc, ->{sort_receipt_date_column.order("sort_receipt_date DESC")}
 
   attr_accessor :billing_email
+
+  validates :date, presence: true
   validates :billing_email, email_format: { message: :invalid }, allow_blank: true
 
   validates :due_date, :currency, :seller_name,
@@ -69,10 +71,6 @@ class Invoice < ActiveRecord::Base
 
       STDOUT << "#{Time.zone.now.utc} - Successfully cancelled #{count} overdue invoices\n" unless Rails.env.test?
     end
-  end
-
-  def date
-    created_at.to_date
   end
 
   def binded?

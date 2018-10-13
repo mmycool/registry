@@ -16,6 +16,11 @@ class InvoiceTest < ActiveSupport::TestCase
     assert @invoice.valid?
   end
 
+  def test_invalid_without_date
+    @invoice.date = nil
+    assert @invoice.invalid?
+  end
+
   def test_seller_address
     invoice = Invoice.new(seller_city: 'Anytown',
                           seller_street: 'Main Street',
@@ -61,11 +66,6 @@ class InvoiceTest < ActiveSupport::TestCase
     Invoice.cancel_overdue_invoices
 
     assert_not @invoice.cancelled?
-  end
-
-  def test_extract_date_from_created_at
-    invoice = Invoice.new(created_at: Time.zone.parse('2010-07-05 00:00'))
-    assert_equal Date.parse('2010-07-05'), invoice.date
   end
 
   def test_cancelled_when_cancelled_at_is_present

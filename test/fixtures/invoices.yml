@@ -1,5 +1,5 @@
 DEFAULTS: &DEFAULTS
-  created_at: <%= Date.parse '2010-07-05' %>
+  date: <%= Date.parse '2010-07-05' %>
   due_date: <%= Date.parse '2010-07-06' %>
   currency: EUR
   seller_name: John Doe

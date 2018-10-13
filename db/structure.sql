@@ -1055,7 +1055,8 @@ CREATE TABLE public.invoices (
     total numeric(10,2) NOT NULL,
     in_directo boolean DEFAULT false,
     buyer_vat_no character varying,
-    vat_amount numeric(10,2)
+    vat_amount numeric(10,2),
+    date date
 );
 
 
@@ -4809,4 +4810,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181010185112');
 INSERT INTO schema_migrations (version) VALUES ('20181011164727');
 
 INSERT INTO schema_migrations (version) VALUES ('20181011171808');
+
+INSERT INTO schema_migrations (version) VALUES ('20181013211814');
 

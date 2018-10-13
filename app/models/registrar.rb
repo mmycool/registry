@@ -55,6 +55,7 @@ class Registrar < ActiveRecord::Base
     invoice_item = InvoiceItem.new(description: 'prepayment', unit: 'piece', quantity: 1, price: amount)
 
     invoices.create(
+      date: Time.zone.today,
       due_date: (Time.zone.now + Setting.days_to_keep_invoices_active.days).to_date,
       payment_term: 'prepayment',
       description: description,
