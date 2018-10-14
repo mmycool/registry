@@ -5,10 +5,3 @@ one:
   unit: pc
   vat_amount: 0
   invoice: valid
-
-two:
-  description: Acme services
-  price: 5
-  quantity: 2
-  unit: pc
-  invoice: valid
