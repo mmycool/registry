@@ -3,12 +3,12 @@ namespace :data_migrations do
     processed_invoice_count = 0
 
     Invoice.transaction do
-      Invoice.where.not(vat_rate: nil).each do |invoice|
-        converted = !invoice.vat_rate_before_type_cast.start_with?('0.')
-        next if converted
+      Invoice.where.not(vat_rate: nil).find_each do |invoice|
+        already_converted = !invoice.vat_rate_before_type_cast.start_with?('0.')
+        next if already_converted
 
         new_vat_rate = VATRate.new(BigDecimal(invoice.vat_rate_before_type_cast) * 100)
-        invoice.update_columns(vat_rate: new_vat_rate)
+        invoice.update!(vat_rate: new_vat_rate)
 
         processed_invoice_count += 1
       end
