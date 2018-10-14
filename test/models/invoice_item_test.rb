@@ -9,6 +9,11 @@ class InvoiceItemTest < ActiveSupport::TestCase
     assert @invoice_item.valid?
   end
 
+  def test_invalid_without_vat_amount
+    @invoice_item.vat_amount = nil
+    assert @invoice_item.invalid?
+  end
+
   def test_calculates_amount
     invoice_item = InvoiceItem.new(price: 5, quantity: 2)
     assert_equal 10, invoice_item.amount

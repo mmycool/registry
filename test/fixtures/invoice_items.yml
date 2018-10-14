@@ -3,6 +3,7 @@ one:
   price: 5
   quantity: 1
   unit: pc
+  vat_amount: 0
   invoice: valid
 
 two:

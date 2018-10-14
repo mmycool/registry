@@ -4,7 +4,8 @@ namespace :data_migrations do
 
     InvoiceItem.transaction do
       InvoiceItem.find_each do |invoice_item|
-        invoice_item.update!(vat_amount: invoice_item.vat_rate.vat_amount(invoice_item.amount))
+        vat_amount = invoice_item.vat_rate.vat_amount(invoice_item.amount)
+        invoice_item.update!(vat_amount: vat_amount)
         processed_invoice_item_count += 1
       end
     end
