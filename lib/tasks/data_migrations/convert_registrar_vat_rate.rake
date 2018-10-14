@@ -4,8 +4,8 @@ namespace :data_migrations do
 
     Registrar.transaction do
       Registrar.where.not(vat_rate: nil).each do |registrar|
-        converted = !registrar.vat_rate_before_type_cast.start_with?('0.')
-        next if converted
+        already_converted = !registrar.vat_rate_before_type_cast.start_with?('0.')
+        next if already_converted
 
         new_vat_rate = VATRate.new(BigDecimal(registrar.vat_rate_before_type_cast) * 100)
         registrar.update_columns(vat_rate: new_vat_rate)
