@@ -32,7 +32,7 @@ class ConvertRegistrarVATRateTaskTest < ActiveSupport::TestCase
     assert_equal VATRate.new(0), @registrar.vat_rate
   end
 
-  def test_output
+  def test_outputs_results
     @registrar.update_columns(vat_rate: '0.205')
     assert_output("Registrars processed: 1\n") { run_task }
   end
