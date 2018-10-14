@@ -4,8 +4,6 @@ class InvoiceItem < ActiveRecord::Base
 
   validates :vat_amount, presence: true
 
-  attribute :vat_rate, ::Types::VATRate.new
-
   def amount
     price * quantity
   end
