@@ -3,6 +3,14 @@ require 'test_helper'
 class ConvertRegistrarVATRateTaskTest < ActiveSupport::TestCase
   setup do
     @registrar = registrars(:bestnames)
+
+    @original_registry_country = Setting.registry_country_code
+    Setting.registry_country_code = 'US'
+    @registrar.update!(country_code: 'GB')
+  end
+
+  teardown do
+    Setting.registry_country_code = @original_registry_country
   end
 
   def test_converts_registrar_vat_rate
