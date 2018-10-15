@@ -982,7 +982,8 @@ CREATE TABLE public.invoice_items (
     updated_at timestamp without time zone,
     creator_str character varying,
     updator_str character varying,
-    vat_amount numeric(10,2)
+    vat_amount numeric(10,2),
+    total numeric(10,2)
 );
 
 
@@ -4812,4 +4813,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181011171808');
 INSERT INTO schema_migrations (version) VALUES ('20181013211814');
 
 INSERT INTO schema_migrations (version) VALUES ('20181014203704');
+
+INSERT INTO schema_migrations (version) VALUES ('20181015120240');
 
