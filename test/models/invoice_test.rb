@@ -37,8 +37,24 @@ class InvoiceTest < ActiveSupport::TestCase
 
   def test_calculates_vat_amount
     invoice_item = InvoiceItem.new(price: 25, quantity: 2)
-    invoice = Invoice.new(vat_rate: VATRate.new(10), items: [invoice_item, invoice_item])
+    invoice_items = [invoice_item, invoice_item]
+    invoice = Invoice.new(vat_rate: VATRate.new(10), items: invoice_items)
+
     assert_equal 10, invoice.vat_amount
+  end
+
+  def test_persists_calculated_vat_amount
+    invoice_item = invoice_items(:one).dup
+    invoice_item.assign_attributes(price: 25, quantity: 2)
+
+    @invoice.vat_rate = nil
+    invoice = @invoice.dup
+    invoice.vat_rate = VATRate.new(10)
+    invoice.items = [invoice_item, invoice_item.dup]
+    invoice.save!
+    invoice.reload
+
+    assert_equal 10, invoice.read_attribute(:vat_amount)
   end
 
   def test_calculates_total

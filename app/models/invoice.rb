@@ -31,7 +31,7 @@ class Invoice < ActiveRecord::Base
             :seller_iban, :buyer_name, :items, :vat_rate, presence: true
 
   before_create :set_invoice_number
-  before_create :calculate_total
+  before_create :persist_calculated_vat_amount
 
   attribute :vat_rate, ::Types::VATRate.new
 
@@ -146,10 +146,6 @@ class Invoice < ActiveRecord::Base
     items.to_a.sum(&:amount)
   end
 
-  def vat_amount
-    vat_rate.vat_amount(subtotal)
-  end
-
   def total
     calculate_total
   end
@@ -158,7 +154,19 @@ class Invoice < ActiveRecord::Base
     items.each { |item| yield item }
   end
 
+  def vat_amount
+    calculate_vat_amount
+  end
+
   private
+
+  def calculate_vat_amount
+    vat_rate.vat_amount(subtotal)
+  end
+
+  def persist_calculated_vat_amount
+    self.vat_amount = calculate_vat_amount
+  end
 
   def calculate_total
     self.total = subtotal + vat_amount

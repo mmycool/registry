@@ -7,7 +7,8 @@ DEFAULTS: &DEFAULTS
   buyer: bestnames
   buyer_name: Jane Doe
   vat_rate: 10
-  total: 16.50
+  vat_amount: 0.50
+  total: 10.50
 
 valid:
   <<: *DEFAULTS
