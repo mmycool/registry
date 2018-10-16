@@ -12,7 +12,7 @@ class InvoiceTest < ActiveSupport::TestCase
       @original_days_to_keep_overdue_invoices_active_setting
   end
 
-  def test_valid
+  def test_fixture_is_valid
     assert @invoice.valid?
   end
 
