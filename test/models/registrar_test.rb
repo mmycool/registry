@@ -11,7 +11,7 @@ class RegistrarTest < ActiveSupport::TestCase
   end
 
   def test_valid
-    assert @registrar.valid?
+    assert @registrar.valid?, proc { @registrar.errors.full_messages }
   end
 
   def test_invalid_without_name
