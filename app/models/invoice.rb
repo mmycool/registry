@@ -32,6 +32,7 @@ class Invoice < ActiveRecord::Base
 
   before_create :set_invoice_number
   before_create :persist_calculated_vat_amount
+  before_create :persist_calculated_total
 
   attribute :vat_rate, ::Types::VATRate.new
 
@@ -170,5 +171,9 @@ class Invoice < ActiveRecord::Base
 
   def calculate_total
     self.total = subtotal + vat_amount
+  end
+
+  def persist_calculated_total
+    self.total = calculate_total
   end
 end
