@@ -6,7 +6,7 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   def test_fixture_is_valid
-    assert @invoice.valid?
+    assert @invoice.valid?, proc { @invoice.errors.full_messages }
   end
 
   def test_invalid_without_issue_date
