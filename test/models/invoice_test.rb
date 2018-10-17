@@ -139,30 +139,13 @@ class InvoiceTest < ActiveSupport::TestCase
     assert_equal 'Main Street, Anytown', invoice.seller_address
   end
 
-  def test_cancels_overdue_invoices
-    @original_days_to_keep_overdue_invoices_active_setting = Setting.days_to_keep_overdue_invoices_active
-    Setting.days_to_keep_overdue_invoices_active = 1
-    travel_to Time.zone.parse('2010-07-05')
-    @invoice.update_columns(due_date: '2010-07-03')
-
-    Invoice.cancel_overdue_invoices
-    @invoice.reload
-
-    assert @invoice.cancelled?
-
-    Setting.days_to_keep_overdue_invoices_active = @original_days_to_keep_overdue_invoices_active_setting
+  def test_cancelled_when_cancelled_at_is_present
+    invoice = Invoice.new(cancelled_at: '2010-07-05')
+    assert invoice.cancelled?
   end
 
-  def test_keeps_unpaid_not_overdue_invoices_intact
-    @original_days_to_keep_overdue_invoices_active_setting = Setting.days_to_keep_overdue_invoices_active
-    Setting.days_to_keep_overdue_invoices_active = 1
-    travel_to Time.zone.parse('2010-07-05')
-    @invoice.update_columns(due_date: '2010-07-04')
-
-    Invoice.cancel_overdue_invoices
-
-    assert_not @invoice.cancelled?
-
-    Setting.days_to_keep_overdue_invoices_active = @original_days_to_keep_overdue_invoices_active_setting
+  def test_cancelled_when_cancelled_at_is_absent
+    invoice = Invoice.new(cancelled_at: nil)
+    assert_not invoice.cancelled?
   end
 end
