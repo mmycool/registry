@@ -228,13 +228,13 @@
                   %th{class: 'col-xs-3'}= t(:price)
                   %th{class: 'col-xs-2'}= t(:total)
               %tbody
-                - @invoice.items.each do |x|
+                - @invoice.items.each do |invoice_item|
                   %tr
-                    %td= t(x.description)
-                    %td= x.unit
-                    %td= x.quantity
-                    %td= currency(x.price)
-                    %td= "#{currency(x.item_sum_without_vat)} #{@invoice.currency}"
+                    %td= t(invoice_item.description)
+                    %td= invoice_item.unit
+                    %td= invoice_item.quantity
+                    %td= currency(invoice_item.price)
+                    %td= "#{currency(invoice_item.item_sum_without_vat)} #{@invoice.currency}"
               %tfoot
                 %tr
                   %th{colspan: 3}

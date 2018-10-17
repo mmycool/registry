@@ -5,7 +5,7 @@ class InvoiceTest < ActiveSupport::TestCase
     @invoice = invoices(:valid)
   end
 
-  def test_valid
+  def test_fixture_is_valid
     assert @invoice.valid?
   end
 
