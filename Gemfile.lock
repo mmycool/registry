@@ -34,12 +34,11 @@ GIT
 
 GIT
   remote: https://github.com/internetee/estonian_e_invoice
-  revision: ed02dec78b98ebb08a9aa6616f27b41af71d7036
+  revision: 351899b52e80406c2ac5b00896cebc86642c27e8
   branch: master
   specs:
     estonian_e_invoice (0.1.0)
       builder (~> 3.2)
-      money
       nokogiri
       savon
 
