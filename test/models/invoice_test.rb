@@ -64,7 +64,9 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   def test_calculates_vat_amount
-    assert_equal BigDecimal('1.5'), @invoice.vat_amount
+    invoice_item = InvoiceItem.new(price: 25, quantity: 2)
+    invoice = Invoice.new(vat_rate: 10, items: [invoice_item, invoice_item.dup])
+    assert_equal 10, invoice.vat_amount
   end
 
   def test_vat_amount_is_zero_when_vat_rate_is_blank

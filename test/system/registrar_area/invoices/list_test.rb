@@ -22,7 +22,7 @@ class ListInvoicesTest < ApplicationSystemTestCase
     end
 
     visit registrar_invoices_path
-    assert_text "Unpaid", count: 5
-    assert_text "Invoice no.", count: 7
+    assert_text "Unpaid", count: 2
+    assert_text "Invoice no.", count: 2
   end
 end
