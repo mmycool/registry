@@ -35,7 +35,7 @@ class InvoiceTest < ActiveSupport::TestCase
 
   def test_serializes_and_deserializes_vat_rate
     invoice = @invoice.dup
-    invoice.invoice_items = @invoice.invoice_items
+    invoice.items = @invoice.items
     invoice.vat_rate = BigDecimal('25.5')
     invoice.save!
     invoice.reload
@@ -47,7 +47,7 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice = @invoice.dup
     invoice.vat_rate = nil
     invoice.buyer = registrar
-    invoice.invoice_items = @invoice.invoice_items
+    invoice.items = @invoice.items
 
     registrar.stub(:effective_vat_rate, BigDecimal(55)) do
       invoice.save!
@@ -74,7 +74,7 @@ class InvoiceTest < ActiveSupport::TestCase
 
   def test_calculates_subtotal
     line_item = InvoiceItem.new
-    invoice = Invoice.new(invoice_items: [line_item, line_item])
+    invoice = Invoice.new(items: [line_item, line_item])
 
     line_item.stub(:item_sum_without_vat, BigDecimal('2.5')) do
       assert_equal BigDecimal(5), invoice.subtotal
@@ -89,7 +89,7 @@ class InvoiceTest < ActiveSupport::TestCase
     line_item = InvoiceItem.new
     invoice = Invoice.new
     invoice.vat_rate = 10
-    invoice.invoice_items = [line_item, line_item]
+    invoice.items = [line_item, line_item]
 
     line_item.stub(:item_sum_without_vat, BigDecimal('2.5')) do
       assert_equal BigDecimal('5.50'), invoice.total
@@ -107,13 +107,18 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice = @invoice.dup
     invoice.buyer_vat_no = nil
     invoice.buyer = registrar
-    invoice.invoice_items = @invoice.invoice_items
+    invoice.items = @invoice.items
     invoice.save!
     assert_equal 'US1234', invoice.buyer_vat_no
   end
 
+  def test_invalid_without_invoice_items
+    @invoice.items = []
+    assert @invoice.invalid?
+  end
+
   def test_iterates_over_invoice_items
-    invoice = Invoice.new(invoice_items: [InvoiceItem.new(description: 'test')])
+    invoice = Invoice.new(items: [InvoiceItem.new(description: 'test')])
 
     iteration_count = 0
     invoice.each do |invoice_item|

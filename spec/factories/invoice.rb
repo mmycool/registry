@@ -12,7 +12,7 @@ FactoryBot.define do
     sequence(:reference_no) { |n| "1234#{n}" }
 
     after :build do |invoice|
-      invoice.invoice_items << FactoryBot.create_pair(:invoice_item)
+      invoice.items << FactoryBot.create_pair(:invoice_item)
     end
   end
 end
