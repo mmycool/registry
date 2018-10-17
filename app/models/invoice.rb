@@ -61,9 +61,10 @@ class Invoice < ActiveRecord::Base
     def cancel_overdue_invoices
       STDOUT << "#{Time.zone.now.utc} - Cancelling overdue invoices\n" unless Rails.env.test?
 
-      cr_at = Time.zone.now - Setting.days_to_keep_overdue_invoices_active.days
+      cancel_from = (Time.zone.now - Setting.days_to_keep_overdue_invoices_active.days).to_date
+
       invoices = Invoice.unbinded.where(
-        'due_date < ? AND cancelled_at IS NULL', cr_at
+        'due_date < ? AND cancelled_at IS NULL', cancel_from
       )
 
       unless Rails.env.test?

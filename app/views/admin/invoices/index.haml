@@ -23,7 +23,7 @@
               - if x.cancelled?
                 %td.text-grey= t(:cancelled)
               - else
-                %td= l(x.due_date, format: :date_long)
+                %td= l x.due_date
 
               - if x.binded?
                 %td= l(x.receipt_date, format: :date_long)

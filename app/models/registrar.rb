@@ -52,7 +52,7 @@ class Registrar < ActiveRecord::Base
   def issue_prepayment_invoice(amount, description = nil)
     invoices.create(
       issue_date: Time.zone.today,
-      due_date: (Time.zone.now.to_date + Setting.days_to_keep_invoices_active.days).end_of_day,
+      due_date: (Time.zone.now + Setting.days_to_keep_invoices_active.days).to_date,
       payment_term: 'prepayment',
       description: description,
       currency: 'EUR',

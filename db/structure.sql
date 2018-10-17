@@ -1044,7 +1044,7 @@ CREATE TABLE public.invoices (
     id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    due_date timestamp without time zone NOT NULL,
+    due_date date NOT NULL,
     payment_term character varying,
     currency character varying NOT NULL,
     description character varying,
@@ -4899,4 +4899,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181017153935');
 INSERT INTO schema_migrations (version) VALUES ('20181017154038');
 
 INSERT INTO schema_migrations (version) VALUES ('20181017154143');
+
+INSERT INTO schema_migrations (version) VALUES ('20181017205123');
 

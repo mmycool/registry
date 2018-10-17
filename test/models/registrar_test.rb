@@ -82,6 +82,9 @@ class RegistrarTest < ActiveSupport::TestCase
 
   def test_issues_new_invoice
     travel_to Time.zone.parse('2010-07-05')
+    @original_days_to_keep_invoices_active_setting = Setting.days_to_keep_invoices_active
+    Setting.days_to_keep_invoices_active = 10
+
     invoice = @registrar.issue_prepayment_invoice(100)
 
     assert_equal Date.parse('2010-07-05'), invoice.issue_date
