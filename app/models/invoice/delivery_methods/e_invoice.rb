@@ -24,10 +24,10 @@ class Invoice
               i.price = invoice_item.price
               i.quantity = invoice_item.amount
               i.unit = invoice_item.unit
-              i.subtotal = invoice_item.amount
-              i.vat_rate = invoice_item.vat_rate
-              i.vat_amount = invoice_item.vat_amount
-              i.total = invoice_item.total
+              i.subtotal = invoice_item.item_sum_without_vat
+              i.vat_rate = invoice.vat_rate
+              i.vat_amount = invoice.vat_amount
+              i.total = invoice.total
             end
             e_invoice_invoice_items << e_invoice_invoice_item
           end
@@ -37,7 +37,7 @@ class Invoice
                                                             beneficiary: beneficiary,
                                                             items: e_invoice_invoice_items).tap do |i|
             i.number = invoice.number
-            i.date = invoice.date
+            i.date = invoice.created_at
             i.recipient_id_code = invoice.buyer_reg_no
             i.reference_number = invoice.reference_no
             i.due_date = invoice.due_date
