@@ -128,4 +128,39 @@ class InvoiceTest < ActiveSupport::TestCase
 
     assert_equal 1, iteration_count
   end
+
+  def test_seller_address
+    invoice = Invoice.new(seller_city: 'Anytown',
+                          seller_street: 'Main Street',
+                          seller_state: nil,
+                          seller_zip: nil)
+    assert_equal 'Main Street, Anytown', invoice.seller_address
+  end
+
+  def test_cancels_overdue_invoices
+    @original_days_to_keep_overdue_invoices_active_setting = Setting.days_to_keep_overdue_invoices_active
+    Setting.days_to_keep_overdue_invoices_active = 1
+    travel_to Time.zone.parse('2010-07-05')
+    @invoice.update_columns(due_date: '2010-07-03')
+
+    Invoice.cancel_overdue_invoices
+    @invoice.reload
+
+    assert @invoice.cancelled?
+
+    Setting.days_to_keep_overdue_invoices_active = @original_days_to_keep_overdue_invoices_active_setting
+  end
+
+  def test_keeps_unpaid_not_overdue_invoices_intact
+    @original_days_to_keep_overdue_invoices_active_setting = Setting.days_to_keep_overdue_invoices_active
+    Setting.days_to_keep_overdue_invoices_active = 1
+    travel_to Time.zone.parse('2010-07-05')
+    @invoice.update_columns(due_date: '2010-07-04')
+
+    Invoice.cancel_overdue_invoices
+
+    assert_not @invoice.cancelled?
+
+    Setting.days_to_keep_overdue_invoices_active = @original_days_to_keep_overdue_invoices_active_setting
+  end
 end
