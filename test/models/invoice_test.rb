@@ -115,7 +115,7 @@ class InvoiceTest < ActiveSupport::TestCase
   end
 
   def test_invalid_without_invoice_items
-    @invoice.items = []
+    @invoice.items.clear
     assert @invoice.invalid?
   end
 
