@@ -87,7 +87,7 @@ class Registrar < ActiveRecord::Base
         {
           description: 'prepayment',
           unit: 'piece',
-          amount: 1,
+          quantity: 1,
           price: amount
         }
       ]
