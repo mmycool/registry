@@ -9,6 +9,11 @@ class InvoiceTest < ActiveSupport::TestCase
     assert @invoice.valid?
   end
 
+  def test_invalid_without_issue_date
+    @invoice.issue_date = nil
+    assert @invoice.invalid?
+  end
+
   def test_optional_vat_rate
     @invoice.vat_rate = nil
     assert @invoice.valid?

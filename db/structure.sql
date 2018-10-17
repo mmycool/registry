@@ -1084,7 +1084,8 @@ CREATE TABLE public.invoices (
     cancelled_at timestamp without time zone,
     total numeric(10,2) NOT NULL,
     in_directo boolean DEFAULT false,
-    buyer_vat_no character varying
+    buyer_vat_no character varying,
+    issue_date date
 );
 
 
@@ -4862,4 +4863,20 @@ INSERT INTO schema_migrations (version) VALUES ('20180826162821');
 INSERT INTO schema_migrations (version) VALUES ('20181001090536');
 
 INSERT INTO schema_migrations (version) VALUES ('20181002090319');
+
+INSERT INTO schema_migrations (version) VALUES ('20181017092829');
+
+INSERT INTO schema_migrations (version) VALUES ('20181017153658');
+
+INSERT INTO schema_migrations (version) VALUES ('20181017153812');
+
+INSERT INTO schema_migrations (version) VALUES ('20181017153935');
+
+INSERT INTO schema_migrations (version) VALUES ('20181017154038');
+
+INSERT INTO schema_migrations (version) VALUES ('20181017154143');
+
+INSERT INTO schema_migrations (version) VALUES ('20181017205123');
+
+INSERT INTO schema_migrations (version) VALUES ('20181022100114');
 
