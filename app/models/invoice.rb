@@ -165,6 +165,10 @@ class Invoice < ActiveRecord::Base
     read_attribute(:total)
   end
 
+  def each
+    invoice_items.each { |item| yield item }
+  end
+
   private
 
   def apply_default_vat_rate

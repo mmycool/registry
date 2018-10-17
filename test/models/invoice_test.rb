@@ -111,4 +111,16 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice.save!
     assert_equal 'US1234', invoice.buyer_vat_no
   end
+
+  def test_iterates_over_invoice_items
+    invoice = Invoice.new(invoice_items: [InvoiceItem.new(description: 'test')])
+
+    iteration_count = 0
+    invoice.each do |invoice_item|
+      assert_equal 'test', invoice_item.description
+      iteration_count += 1
+    end
+
+    assert_equal 1, iteration_count
+  end
 end

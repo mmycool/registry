@@ -228,7 +228,7 @@
                   %th{class: 'col-xs-3'}= t(:price)
                   %th{class: 'col-xs-2'}= t(:total)
               %tbody
-                - @invoice.items.each do |invoice_item|
+                - @invoice.each do |invoice_item|
                   %tr
                     %td= t(invoice_item.description)
                     %td= invoice_item.unit
