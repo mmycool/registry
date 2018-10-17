@@ -8,6 +8,7 @@ namespace :billing do
     end
 
     invoiced_registrar_count = 0
+    issued_invoices = []
 
     Registrar.all.each do |registrar|
       next unless registrar.auto_invoice_activated?
@@ -23,11 +24,15 @@ namespace :billing do
       next if has_unpaid_auto_generated_invoices
 
       invoice_amount = registrar.auto_invoice_top_up_amount
-      registrar.issue_prepayment_invoice(invoice_amount)
+      invoice = registrar.issue_prepayment_invoice(invoice_amount)
+      issued_invoices << invoice
 
       puts %Q(Registrar "#{registrar}" has been invoiced to #{format('%.2f', invoice_amount)})
       invoiced_registrar_count += 1
     end
+
+    delivery_method = Invoice::DeliveryMethods::EInvoice.new
+    delivery_method.deliver(issued_invoices)
 
     puts "Invoiced total: #{invoiced_registrar_count}"
   end

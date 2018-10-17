@@ -52,6 +52,8 @@ class RegistrarAutoInvoiceTest < ActiveSupport::TestCase
     @registrar.auto_invoice_top_up_amount = 4
 
     assert @registrar.invalid?
+
+    Setting.minimum_deposit = @original_minimum_deposit_setting
   end
 
   def test_valid_without_iban_when_deactivated
@@ -66,29 +68,9 @@ class RegistrarAutoInvoiceTest < ActiveSupport::TestCase
     assert @registrar.invalid?
   end
 
-  def test_ungrouped_iban_is_valid
-    @registrar.auto_invoice_iban = 'DE91100000000123456789'
-    assert @registrar.valid?
-  end
-
-  def test_grouped_iban_is_valid
-    @registrar.auto_invoice_iban = 'DE91 1000 0000 0123 4567 89'
-    assert @registrar.valid?
-  end
-
-  def test_invalid_iban_format
-    @registrar.auto_invoice_iban = 'invalid'
-    assert @registrar.invalid?
-  end
-
-  def test_normalizes_auto_invoice_iban_when_persisted
+  def test_normalizes_iban_when_persisted
     @registrar.update!(auto_invoice_iban: '  de91 1000 0000 0123 4567 89  ')
     @registrar.reload
-    assert_equal 'DE91100000000123456789', @registrar.auto_invoice_iban_before_type_cast
-  end
-
-  def test_does_not_normalize_auto_invoice_iban_unless_persisted
-    @registrar.auto_invoice_iban = 'DE91 1000 0000 0123 4567 89'
-    assert_equal 'DE91 1000 0000 0123 4567 89', @registrar.auto_invoice_iban
+    assert_equal 'DE91100000000123456789', @registrar.auto_invoice_iban
   end
 end

@@ -1,50 +1,56 @@
 require 'test_helper'
 
 class RegistrarAreaSettingsAutoInvoiceTest < ApplicationSystemTestCase
-  include ActionView::Helpers::NumberHelper
-
   setup do
     @registrar = registrars(:bestnames)
     sign_in users(:api_bestnames)
-    Application.enable_feature(:auto_invoice)
+
+    @original_auto_account_top_up_setting = ENV['auto_account_top_up']
+    ENV['auto_account_top_up'] = 'true'
   end
 
   teardown do
-    Application.disable_feature(:auto_invoice)
+    ENV['auto_account_top_up'] = @original_auto_account_top_up_setting
   end
 
   def test_feature_is_not_configurable_when_disabled
-    Application.disable_feature(:auto_invoice)
+    ENV['auto_account_top_up'] = 'false'
     visit registrar_settings_root_url
     assert_no_text 'Auto-invoicing'
   end
 
   def test_show_details
-    @registrar.update!(auto_invoice: true, low_balance_threshold: 1, top_up_amount: 10,
-                       iban: 'DE91 1000 0000 0123 4567 89')
+    @registrar.update!(auto_invoice_activated: true,
+                       auto_invoice_low_balance_threshold: 10,
+                       auto_invoice_top_up_amount: 100,
+                       auto_invoice_iban: 'DE91100000000123456789')
+
     visit registrar_settings_root_url
-    assert_text 'Active true'
-    assert_text "Low balance threshold #{Money.from_amount(1).format}"
-    assert_text "Top-up amount #{Money.from_amount(10).format}"
-    assert_text 'IBAN DE91 1000 0000 0123 4567 89'
+
+    assert_text 'Activated true'
+    assert_text "Low balance threshold 10,00"
+    assert_text "Top-up amount 100,00"
+    assert_text 'IBAN DE91100000000123456789'
   end
 
   def test_update
-    @registrar.update!(auto_invoice: false, low_balance_threshold: nil, top_up_amount: nil,
-                       iban: nil)
+    @registrar.update!(auto_invoice_activated: false,
+                       auto_invoice_low_balance_threshold: nil,
+                       auto_invoice_top_up_amount: nil,
+                       auto_invoice_iban: nil)
 
     visit registrar_settings_root_url
     click_link_or_button 'Edit'
-    check 'Active'
-    fill_in 'Low balance threshold', with: '100'
-    fill_in 'Top-up amount', with: '1000'
+    check 'Activated'
+    fill_in 'Low balance threshold', with: '10'
+    fill_in 'Top-up amount', with: '100'
     fill_in 'IBAN', with: 'DE91 1000 0000 0123 4567 89'
     click_on 'Update'
     registrars(:bestnames).reload
 
-    assert @registrar.auto_invoice
-    assert_equal Money.from_amount(100), @registrar.low_balance_threshold
-    assert_equal Money.from_amount(1000), @registrar.top_up_amount
+    assert @registrar.auto_invoice_activated
+    assert_equal 10, @registrar.auto_invoice_low_balance_threshold
+    assert_equal 100, @registrar.auto_invoice_top_up_amount
     assert_current_path registrar_settings_root_path
     assert_text 'Settings are updated'
   end

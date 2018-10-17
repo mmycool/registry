@@ -18,11 +18,11 @@ class Invoice
 
           e_invoice_invoice_items = []
 
-          invoice.each do |invoice_item|
+          invoice.invoice_items.each do |invoice_item|
             e_invoice_invoice_item = EstonianEInvoice::InvoiceItem.new.tap do |i|
               i.description = invoice_item.description
               i.price = invoice_item.price
-              i.quantity = invoice_item.quantity
+              i.quantity = invoice_item.amount
               i.unit = invoice_item.unit
               i.subtotal = invoice_item.amount
               i.vat_rate = invoice_item.vat_rate

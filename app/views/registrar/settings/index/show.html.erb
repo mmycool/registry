@@ -2,7 +2,7 @@
     <h1><%= t '.header' %></h1>
 </div>
 
-<% if Application.feature_enabled?(:auto_invoice) %>
+<% if ENV['auto_account_top_up'] == 'true' %>
     <div class="row">
         <div class="col-sm-6">
             <%= render 'registrar/settings/auto_invoice/for_settings', registrar: @registrar %>
