@@ -371,7 +371,7 @@ ALTER SEQUENCE public.accounts_id_seq OWNED BY public.accounts.id;
 
 
 --
--- Name: actions; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: actions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE public.actions (
@@ -2919,7 +2919,7 @@ ALTER TABLE ONLY public.accounts
 
 
 --
--- Name: actions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: actions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY public.actions
@@ -4855,8 +4855,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180824092855');
 INSERT INTO schema_migrations (version) VALUES ('20180824102834');
 
 INSERT INTO schema_migrations (version) VALUES ('20180824215326');
-
-INSERT INTO schema_migrations (version) VALUES ('20180825153657');
 
 INSERT INTO schema_migrations (version) VALUES ('20180825193437');
 
