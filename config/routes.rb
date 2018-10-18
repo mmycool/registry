@@ -26,9 +26,12 @@ Rails.application.routes.draw do
         resources :domains, only: %i[index show], param: :uuid do
           resource :registry_lock, only: %i[create destroy]
         end
-        resources :contacts, only: %i[index show], param: :uuid
+        resources :contacts, only: %i[index show update], param: :uuid
       end
     end
+
+    match '*all', controller: 'cors', action: 'cors_preflight_check', via: [:options],
+      as: 'cors_preflight_check'
   end
 
   # REGISTRAR ROUTES
@@ -143,7 +146,7 @@ Rails.application.routes.draw do
 
     resources :registrars, only: :show
     resources :domains, only: %i[index show] do
-      resources :contacts, only: %i[show]
+      resources :contacts, only: %i[show edit update]
 
       collection do
         get :download_list
