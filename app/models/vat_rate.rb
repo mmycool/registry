@@ -13,10 +13,6 @@ class VATRate
     amount * value / 100
   end
 
-  def no_vat?
-    false
-  end
-
   def format
     Kernel.format('%.1f%', value)
   end
@@ -36,6 +32,10 @@ class VATRate
 
   def inspect
     to_s
+  end
+
+  def included_on_invoice?
+    true
   end
 
   protected

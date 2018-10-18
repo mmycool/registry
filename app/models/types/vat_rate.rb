@@ -15,6 +15,8 @@ module Types
     end
 
     def type_cast_from_database(value)
+      return if value.nil?
+
       if value.nil?
         NoVATRate.instance
       else
@@ -23,6 +25,8 @@ module Types
     end
 
     def type_cast_for_database(value)
+      return nil if value.nil?
+
       if value.is_a?(NoVATRate)
         nil
       else

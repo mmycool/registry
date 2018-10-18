@@ -13,6 +13,10 @@ class VATRateTypeTest < ActiveSupport::TestCase
     assert_kind_of NoVATRate, @type.type_cast_from_user('')
   end
 
+  def test_skips_type_casting_nil
+    assert_nil @type.type_cast_from_user(nil)
+  end
+
   def test_skips_type_casting_vat_rate
     assert_equal VATRate.new(5), @type.type_cast_from_user(VATRate.new(5))
   end
@@ -27,6 +31,10 @@ class VATRateTypeTest < ActiveSupport::TestCase
 
   def test_serializes_null_object_to_null
     assert_nil @type.type_cast_for_database(NoVATRate.instance)
+  end
+
+  def test_skips_serializing_nil
+    assert_nil @type.type_cast_for_database(nil)
   end
 
   def test_deserializes_decimal_to_vat_rate

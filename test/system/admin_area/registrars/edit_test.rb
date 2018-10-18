@@ -4,12 +4,19 @@ class AdminAreaEditRegistrarTest < ApplicationSystemTestCase
   setup do
     sign_in users(:admin)
     @registrar = registrars(:bestnames)
+    @original_registry_country_setting = Setting.registry_country_code
+  end
+
+  teardown do
+    Setting.registry_country_code = @original_registry_country_setting
   end
 
   def test_attributes_update
+    Setting.registry_country_code = 'US'
+    @registrar.update!(country_code: 'US')
+
     visit admin_registrar_path(@registrar)
     click_link_or_button 'Edit'
-
     fill_in 'Name', with: 'new name'
     fill_in 'Reg no', with: '4727673'
     fill_in 'Contact phone', with: '2570937'
@@ -23,6 +30,7 @@ class AdminAreaEditRegistrarTest < ApplicationSystemTestCase
     select 'Germany', from: 'Country'
 
     fill_in 'VAT number', with: '2386449'
+    fill_in 'VAT rate', with: ''
     fill_in 'Accounting customer code', with: '866477'
     fill_in 'Billing email', with: 'new-billing@example.com'
 

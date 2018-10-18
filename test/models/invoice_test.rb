@@ -47,7 +47,6 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice_item = invoice_items(:one).dup
     invoice_item.assign_attributes(price: 25, quantity: 2)
 
-    @invoice.vat_rate = nil
     invoice = @invoice.dup
     invoice.vat_rate = VATRate.new(10)
     invoice.items = [invoice_item, invoice_item.dup]
@@ -68,7 +67,6 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice_item = invoice_items(:one).dup
     invoice_item.assign_attributes(price: 25, quantity: 2)
 
-    @invoice.vat_rate = nil
     invoice = @invoice.dup
     invoice.vat_rate = VATRate.new(10)
     invoice.items = [invoice_item, invoice_item.dup]
@@ -76,6 +74,16 @@ class InvoiceTest < ActiveSupport::TestCase
     invoice.reload
 
     assert_equal 110, invoice.read_attribute(:total)
+  end
+
+  def test_includes_vat
+    invoice = Invoice.new(vat_rate: VATRate.new(5))
+    assert invoice.vat?
+  end
+
+  def test_does_not_include_vat
+    invoice = Invoice.new(vat_rate: ExemptVATRate.new)
+    assert_not invoice.vat?
   end
 
   def test_cancel_overdue_cancels_overdue_invoices
@@ -124,5 +132,23 @@ class InvoiceTest < ActiveSupport::TestCase
     end
 
     assert_equal 1, iteration_count
+  end
+
+  def test_persists_vat_rate
+    @invoice.update_columns(vat_rate: nil)
+    @invoice.vat_rate = VATRate.new(5)
+    @invoice.save!
+    @invoice.reload
+
+    assert_equal VATRate.new(5), @invoice.vat_rate
+  end
+
+  def test_persists_exempt_vat_rate
+    @invoice.update_columns(vat_rate: nil)
+    @invoice.vat_rate = ExemptVATRate.new
+    @invoice.save!
+    @invoice.reload
+
+    assert_equal ExemptVATRate.new, @invoice.vat_rate
   end
 end

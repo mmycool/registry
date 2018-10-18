@@ -6,7 +6,7 @@ class RegistrarAreaInvoiceDetailsTest < ApplicationSystemTestCase
     @invoice = invoices(:valid)
   end
 
-  def test_vat_section_is_visible_when_vat_rate_defined
+  def test_show_vat_when_included
     @invoice.update!(vat_rate: VATRate.new(5))
     visit registrar_invoice_path(@invoice)
 
@@ -15,7 +15,7 @@ class RegistrarAreaInvoiceDetailsTest < ApplicationSystemTestCase
     end
   end
 
-  def test_vat_section_is_not_visible_when_no_vat_rate
+  def test_hide_vat_when_not_included
     @invoice.update!(vat_rate: NoVATRate.instance)
     visit registrar_invoice_path(@invoice)
 

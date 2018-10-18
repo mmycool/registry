@@ -17,7 +17,7 @@ class NoVATRateTest < ActiveSupport::TestCase
     assert NoVATRate.instance.to_d.zero?
   end
 
-  def test_no_vat
-    assert NoVATRate.instance.no_vat?
+  def test_hidden_on_invoice
+    assert_not NoVATRate.instance.visible_on_invoice?
   end
 end

@@ -35,7 +35,7 @@
                 </td>
             </tr>
 
-            <% unless @invoice.vat_rate.no_vat? %>
+            <% if @invoice.vat? %>
                 <tr>
                     <th class="no-border" colspan="3"></th>
                     <th><%= "VAT #{@invoice.vat_rate.format}" %></th>

@@ -28,13 +28,32 @@ class Invoice < ActiveRecord::Base
   validates :billing_email, email_format: { message: :invalid }, allow_blank: true
 
   validates :due_date, :currency, :seller_name,
-            :seller_iban, :buyer_name, :items, :vat_rate, presence: true
+            :seller_iban, :buyer_name, :items, presence: true
 
   before_create :set_invoice_number
   before_create :persist_calculated_vat_amount
   before_create :persist_calculated_total
+  before_save :persist_vat_rate_type
 
-  attribute :vat_rate, ::Types::VATRate.new
+  def vat_rate=(value)
+    if value.is_a?(String) && value.empty?
+      vat_rate = ExemptVATRate.new
+    elsif value.is_a?(String) && value.present?
+      vat_rate = VATRate.new(value.to_d)
+    else
+      vat_rate = value
+    end
+
+    write_attribute(:vat_rate, vat_rate.to_d)
+    write_attribute(:vat_rate_type, vat_rate.class.name)
+    @vat_rate = vat_rate
+  end
+
+  def vat_rate
+    return @vat_rate if @vat_rate
+    klass_name = vat_rate_type.constantize
+    klass_name.new(read_attribute(:vat_rate))
+  end
 
   def set_invoice_number
     last_no = Invoice.order(number: :desc).where('number IS NOT NULL').limit(1).pluck(:number).first
@@ -155,6 +174,10 @@ class Invoice < ActiveRecord::Base
     items.each { |item| yield item }
   end
 
+  def vat?
+    vat_rate.included_on_invoice?
+  end
+
   def vat_amount
     calculate_vat_amount
   end
@@ -175,5 +198,9 @@ class Invoice < ActiveRecord::Base
 
   def persist_calculated_total
     self.total = calculate_total
+  end
+
+  def persist_vat_rate_type
+    self.vat_rate_type = vat_rate.class.name
   end
 end

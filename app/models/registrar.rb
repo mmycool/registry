@@ -22,9 +22,11 @@ class Registrar < ActiveRecord::Base
   validates :vat_rate, presence: true, if: 'foreign_vat_payer? && vat_no.blank?'
   validates :vat_rate, absence: true, if: :home_vat_payer?
   validates :vat_rate, absence: true, if: 'foreign_vat_payer? && vat_no?'
+
   validate :forbid_special_code
 
-  attribute :vat_rate, ::Types::VATRate.new
+  alias_attribute :vat_country, :country_code
+
   after_initialize :set_defaults
   before_validation :generate_iso_11649_reference_no
 
@@ -142,6 +144,26 @@ class Registrar < ActiveRecord::Base
 
       domain_list.uniq.sort
     end
+  end
+
+  def vat_rate=(value)
+    if value.is_a?(String) && value.empty?
+      vat_rate = ExemptVATRate.new
+    elsif value.is_a?(String) && value.present?
+      vat_rate = VATRate.new(value.to_d)
+    else
+      vat_rate = value
+    end
+
+    write_attribute(:vat_rate, vat_rate.to_d)
+    write_attribute(:vat_rate_type, vat_rate.class.name)
+    @vat_rate = vat_rate
+  end
+
+  def vat_rate
+    return @vat_rate if @vat_rate
+    klass_name = vat_rate_type.constantize
+    klass_name.new(read_attribute(:vat_rate))
   end
 
   private

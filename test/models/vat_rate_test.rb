@@ -75,7 +75,7 @@ class VATRateTest < ActiveSupport::TestCase
     assert_equal '5.0', VATRate.new(5).inspect
   end
 
-  def test_no_vat
-    assert_not VATRate.new(1).no_vat?
+  def test_visible_on_invoice
+    assert VATRate.new(5).visible_on_invoice?
   end
 end

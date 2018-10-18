@@ -6,7 +6,7 @@ class AdminAreaInvoiceDetailsTest < ApplicationSystemTestCase
     @invoice = invoices(:valid)
   end
 
-  def test_vat_section_is_visible_when_vat_rate_defined
+  def test_show_vat_when_included
     @invoice.update!(vat_rate: VATRate.new(5))
     visit admin_invoice_path(@invoice)
 
@@ -15,8 +15,11 @@ class AdminAreaInvoiceDetailsTest < ApplicationSystemTestCase
     end
   end
 
-  def test_vat_section_is_not_visible_when_no_vat_rate
-    @invoice.update!(vat_rate: NoVATRate.instance)
+  def test_hide_vat_when_excluded
+    @invoice.update!(vat_rate: ExemptVATRate.instance)
+    p @invoice.vat_rate
+    p @invoice.read_attribute(:vat_rate)
+    exit
     visit admin_invoice_path(@invoice)
 
     within '.totals' do
