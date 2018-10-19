@@ -37,10 +37,10 @@ class Invoice
                                                             beneficiary: beneficiary,
                                                             items: e_invoice_invoice_items).tap do |i|
             i.number = invoice.number
-            i.date = invoice.created_at
+            i.date = invoice.created_at.to_date
             i.recipient_id_code = invoice.buyer_reg_no
             i.reference_number = invoice.reference_no
-            i.due_date = invoice.due_date
+            i.due_date = invoice.due_date.to_date
             i.payer_name = invoice.buyer_name
             i.subtotal = invoice.subtotal
             i.vat_rate = invoice.vat_rate
