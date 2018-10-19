@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: https://github.com/internetee/estonian_e_invoice
-  revision: 351899b52e80406c2ac5b00896cebc86642c27e8
+  revision: bd5a703f81415afb6c6410dbcc58bdcb480be81c
   branch: master
   specs:
     estonian_e_invoice (0.1.0)
