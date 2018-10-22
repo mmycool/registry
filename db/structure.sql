@@ -4888,17 +4888,3 @@ INSERT INTO schema_migrations (version) VALUES ('20181017205123');
 
 INSERT INTO schema_migrations (version) VALUES ('20181022100114');
 
-INSERT INTO schema_migrations (version) VALUES ('20181017092829');
-
-INSERT INTO schema_migrations (version) VALUES ('20181017153658');
-
-INSERT INTO schema_migrations (version) VALUES ('20181017153812');
-
-INSERT INTO schema_migrations (version) VALUES ('20181017153935');
-
-INSERT INTO schema_migrations (version) VALUES ('20181017154038');
-
-INSERT INTO schema_migrations (version) VALUES ('20181017154143');
-
-INSERT INTO schema_migrations (version) VALUES ('20181017205123');
-
