@@ -113,7 +113,7 @@ Rails.application.routes.draw do
     namespace :settings do
       root 'index#show'
 
-      resource :auto_invoice, controller: 'auto_invoice', only: %i[edit update]
+      resource :auto_account_top_up, controller: 'auto_account_top_up', only: %i[edit update]
     end
   end
 

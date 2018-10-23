@@ -20,10 +20,10 @@ class RegistrarAreaSettingsAutoInvoiceTest < ApplicationSystemTestCase
   end
 
   def test_show_details
-    @registrar.update!(auto_invoice_activated: true,
-                       auto_invoice_low_balance_threshold: 10,
-                       auto_invoice_top_up_amount: 100,
-                       auto_invoice_iban: 'DE91100000000123456789')
+    @registrar.update!(auto_account_top_up_activated: true,
+                       auto_account_top_up_low_balance_threshold: 10,
+                       auto_account_top_up_amount: 100,
+                       auto_account_top_up_iban: 'DE91100000000123456789')
 
     visit registrar_settings_root_url
 
@@ -34,10 +34,10 @@ class RegistrarAreaSettingsAutoInvoiceTest < ApplicationSystemTestCase
   end
 
   def test_update
-    @registrar.update!(auto_invoice_activated: false,
-                       auto_invoice_low_balance_threshold: nil,
-                       auto_invoice_top_up_amount: nil,
-                       auto_invoice_iban: nil)
+    @registrar.update!(auto_account_top_up_activated: false,
+                       auto_account_top_up_low_balance_threshold: nil,
+                       auto_account_top_up_amount: nil,
+                       auto_account_top_up_iban: nil)
 
     visit registrar_settings_root_url
     click_link_or_button 'Edit'
@@ -48,9 +48,9 @@ class RegistrarAreaSettingsAutoInvoiceTest < ApplicationSystemTestCase
     click_on 'Update'
     registrars(:bestnames).reload
 
-    assert @registrar.auto_invoice_activated
-    assert_equal 10, @registrar.auto_invoice_low_balance_threshold
-    assert_equal 100, @registrar.auto_invoice_top_up_amount
+    assert @registrar.auto_account_top_up_activated
+    assert_equal 10, @registrar.auto_account_top_up_low_balance_threshold
+    assert_equal 100, @registrar.auto_account_top_up_amount
     assert_current_path registrar_settings_root_path
     assert_text 'Settings are updated'
   end

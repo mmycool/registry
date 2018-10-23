@@ -47,7 +47,7 @@ class Invoice
             i.vat_amount = invoice.vat_amount
             i.total = invoice.total
             i.currency = invoice.currency
-            i.delivery_channel_address = invoice.buyer.auto_invoice_iban
+            i.delivery_channel_address = invoice.buyer.auto_account_top_up_iban
           end
 
           e_invoice_invoices << e_invoice_invoice

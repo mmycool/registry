@@ -1,6 +1,6 @@
 class Registrar
   module Settings
-    class AutoInvoiceController < BaseController
+    class AutoAccountTopUpController < BaseController
       skip_authorization_check
 
       def edit
@@ -19,10 +19,10 @@ class Registrar
       end
 
       def registrar_params
-        params.require(:registrar).permit(:auto_invoice_activated,
-                                          :auto_invoice_low_balance_threshold,
-                                          :auto_invoice_top_up_amount,
-                                          :auto_invoice_iban)
+        params.require(:registrar).permit(:auto_account_top_up_activated,
+                                          :auto_account_top_up_low_balance_threshold,
+                                          :auto_account_top_up_amount,
+                                          :auto_account_top_up_iban)
       end
     end
   end

@@ -1,13 +1,13 @@
 en:
   registrar:
     settings:
-      auto_invoice:
+      auto_account_top_up:
         for_settings:
-          header: Auto-invoicing
+          header: Auto account top-up
           edit_btn: Edit
 
         edit:
-          header: Auto-invoicing
+          header: Auto account top-up
 
         form:
           iban_hint: Normalized automatically

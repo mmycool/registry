@@ -11,8 +11,8 @@ namespace :billing do
     issued_invoices = []
 
     Registrar.all.each do |registrar|
-      next unless registrar.auto_invoice_activated?
-      next if registrar.balance > registrar.auto_invoice_low_balance_threshold
+      next unless registrar.auto_account_top_up_activated?
+      next if registrar.balance > registrar.auto_account_top_up_low_balance_threshold
 
       has_unpaid_auto_generated_invoices = registrar.invoices
                                              .joins("LEFT JOIN #{AccountActivity.table_name} activities" \
@@ -23,7 +23,7 @@ namespace :billing do
                                              .group('invoices.id').any?
       next if has_unpaid_auto_generated_invoices
 
-      invoice_amount = registrar.auto_invoice_top_up_amount
+      invoice_amount = registrar.auto_account_top_up_amount
       invoice = registrar.issue_prepayment_invoice(invoice_amount)
       issued_invoices << invoice
 

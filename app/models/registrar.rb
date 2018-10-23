@@ -1,6 +1,6 @@
 class Registrar < ActiveRecord::Base
   include Versions # version/registrar_version.rb
-  include Concerns::Registrar::AutoInvoice
+  include Concerns::Registrar::AutoAccountTopUp
 
   has_many :domains, dependent: :restrict_with_error
   has_many :contacts, dependent: :restrict_with_error
