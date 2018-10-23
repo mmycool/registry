@@ -1084,8 +1084,7 @@ CREATE TABLE public.invoices (
     cancelled_at timestamp without time zone,
     total numeric(10,2) NOT NULL,
     in_directo boolean DEFAULT false,
-    buyer_vat_no character varying,
-    generated_automatically boolean DEFAULT false NOT NULL
+    buyer_vat_no character varying
 );
 
 
@@ -2206,11 +2205,7 @@ CREATE TABLE public.registrars (
     reference_no character varying,
     test_registrar boolean DEFAULT false,
     language character varying NOT NULL,
-    vat_rate numeric(4,3),
-    auto_invoice_activated boolean DEFAULT false NOT NULL,
-    auto_invoice_low_balance_threshold numeric(10,2),
-    auto_invoice_top_up_amount numeric(10,2),
-    auto_invoice_iban character varying
+    vat_rate numeric(4,3)
 );
 
 
@@ -4856,31 +4851,13 @@ INSERT INTO schema_migrations (version) VALUES ('20180824102834');
 
 INSERT INTO schema_migrations (version) VALUES ('20180824215326');
 
+INSERT INTO schema_migrations (version) VALUES ('20180825153657');
+
 INSERT INTO schema_migrations (version) VALUES ('20180825193437');
 
 INSERT INTO schema_migrations (version) VALUES ('20180825232819');
 
 INSERT INTO schema_migrations (version) VALUES ('20180826162821');
-
-INSERT INTO schema_migrations (version) VALUES ('20180905125317');
-
-INSERT INTO schema_migrations (version) VALUES ('20180905152803');
-
-INSERT INTO schema_migrations (version) VALUES ('20180906131559');
-
-INSERT INTO schema_migrations (version) VALUES ('20180906203939');
-
-INSERT INTO schema_migrations (version) VALUES ('20180906204108');
-
-INSERT INTO schema_migrations (version) VALUES ('20180908210255');
-
-INSERT INTO schema_migrations (version) VALUES ('20180927131731');
-
-INSERT INTO schema_migrations (version) VALUES ('20180927153645');
-
-INSERT INTO schema_migrations (version) VALUES ('20180927154135');
-
-INSERT INTO schema_migrations (version) VALUES ('20180927190702');
 
 INSERT INTO schema_migrations (version) VALUES ('20181002090319');
 
