@@ -2205,7 +2205,11 @@ CREATE TABLE public.registrars (
     reference_no character varying,
     test_registrar boolean DEFAULT false,
     language character varying NOT NULL,
-    vat_rate numeric(4,3)
+    vat_rate numeric(4,3),
+    auto_account_top_up_activated boolean DEFAULT false NOT NULL,
+    auto_account_top_up_low_balance_threshold numeric(10,2),
+    auto_account_top_up_amount numeric(10,2),
+    auto_account_top_up_iban character varying
 );
 
 
@@ -4860,4 +4864,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180825232819');
 INSERT INTO schema_migrations (version) VALUES ('20180826162821');
 
 INSERT INTO schema_migrations (version) VALUES ('20181002090319');
+
+INSERT INTO schema_migrations (version) VALUES ('20181023115645');
 
