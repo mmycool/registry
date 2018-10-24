@@ -20,6 +20,7 @@ class TopUpAccountsWithLowBalanceTaskTest < ActiveSupport::TestCase
 
     assert_difference -> { @registrar.invoices.count } { capture_io { run_task } }
     invoice = Invoice.last
+    assert invoice.auto_generated?
     assert_equal 100, invoice.subtotal
   end
 
