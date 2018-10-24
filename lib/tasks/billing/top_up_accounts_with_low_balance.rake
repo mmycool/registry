@@ -18,7 +18,7 @@ namespace :billing do
                                              .joins("LEFT JOIN #{AccountActivity.table_name} activities" \
                                                     " ON (activities.invoice_id = #{Invoice.table_name}.id)")
                                              .where(cancelled_at: nil)
-                                             .where(generated_automatically: true)
+                                             .where(auto_generated: true)
                                              .having('COUNT(activities.id) = 0')
                                              .group('invoices.id').any?
       next if has_unpaid_auto_generated_invoices
@@ -31,8 +31,10 @@ namespace :billing do
       invoiced_registrar_count += 1
     end
 
-    delivery_method = Invoice::DeliveryMethods::EInvoice.new
-    delivery_method.deliver(issued_invoices)
+    if issued_invoices.any?
+      delivery_method = Invoice::DeliveryMethods::EInvoice.new
+      delivery_method.deliver(issued_invoices)
+    end
 
     puts "Invoiced total: #{invoiced_registrar_count}"
   end

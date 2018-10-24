@@ -39,7 +39,7 @@ class TopUpAccountsWithLowBalanceTaskTest < ActiveSupport::TestCase
 
   def test_does_not_invoice_registrars_who_has_at_least_one_automatically_generated_unpaid_invoice
     invoice = invoices(:valid)
-    invoice.update_columns(generated_automatically: true)
+    invoice.update_columns(auto_generated: true)
     @registrar.update_columns(auto_account_top_up_activated: true,
                               auto_account_top_up_low_balance_threshold: 10,
                               auto_account_top_up_amount: 100)
