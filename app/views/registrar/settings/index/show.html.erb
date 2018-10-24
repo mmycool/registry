@@ -2,10 +2,9 @@
     <h1><%= t '.header' %></h1>
 </div>
 
-<% if ENV['auto_account_top_up'] == 'true' %>
-    <div class="row">
-        <div class="col-sm-6">
-            <%= render 'registrar/settings/auto_account_top_up/for_settings', registrar: @registrar %>
-        </div>
+<div class="row">
+    <div class="col-sm-6">
+        <%= render 'registrar/settings/auto_account_top_up/for_settings',
+                   registrar: @registrar if show_auto_account_top_up? %>
     </div>
-<% end %>
+</div>

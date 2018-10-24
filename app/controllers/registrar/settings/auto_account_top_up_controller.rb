@@ -1,7 +1,7 @@
 class Registrar
   module Settings
     class AutoAccountTopUpController < BaseController
-      skip_authorization_check
+      before_action :authorize
 
       def edit
         @registrar = registrar
@@ -23,6 +23,10 @@ class Registrar
                                           :auto_account_top_up_low_balance_threshold,
                                           :auto_account_top_up_amount,
                                           :auto_account_top_up_iban)
+      end
+
+      def authorize
+        authorize!(:manage, :auto_account_top_up_settings)
       end
     end
   end
