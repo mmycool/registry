@@ -149,7 +149,7 @@ same_site_session_cookies: 'false' # false|strict|lax
 
 # Billing
 auto_account_top_up: 'false'
-e_invoice_provider_wsdl:
+e_invoice_provider_wsdl: 'https://testfinance.post.ee/finance/erp/erpServices.wsdl'
 e_invoice_provider_secret_key:
 
 # Since the keys for staging are absent from the repo, we need to supply them separate for testing.
