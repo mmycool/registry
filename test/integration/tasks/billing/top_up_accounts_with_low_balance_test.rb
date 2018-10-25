@@ -6,10 +6,16 @@ class TopUpAccountsWithLowBalanceTaskTest < ActiveSupport::TestCase
 
     @original_auto_account_top_up_setting = ENV['auto_account_top_up']
     ENV['auto_account_top_up'] = 'true'
+
+    stub_request(:get, 'https://testfinance.post.ee/finance/erp/erpServices.wsdl')
+      .to_return(status: 200, body: File.read('test/fixtures/files/omniva_wsdl.xml'))
+
+    stub_request(:post, 'https://testfinance.post.ee/finance/erp/')
   end
 
   teardown do
     ENV['auto_account_top_up'] = @original_auto_account_top_up_setting
+    WebMock.reset!
   end
 
   def test_invoices_registrars_whose_balance_has_reached_low_balance_threshold
@@ -24,11 +30,7 @@ class TopUpAccountsWithLowBalanceTaskTest < ActiveSupport::TestCase
     assert_equal 100, invoice.subtotal
   end
 
-  def test_delivers_generated_invoices
-
-  end
-
-  def test_outputs_results_when_feature_is_enabled
+  def test_outputs_results
     @registrar.update_columns(name: 'Acme',
                               auto_account_top_up_activated: true,
                               auto_account_top_up_low_balance_threshold: 10,
