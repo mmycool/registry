@@ -24,7 +24,7 @@ namespace :billing do
       next if has_unpaid_auto_generated_invoices
 
       invoice_amount = registrar.auto_account_top_up_amount
-      invoice = registrar.issue_prepayment_invoice(invoice_amount)
+      invoice = registrar.issue_prepayment_invoice(invoice_amount, nil, auto_generated: true)
       issued_invoices << invoice
 
       puts %Q(Registrar "#{registrar}" has been invoiced to #{format('%.2f', invoice_amount)})

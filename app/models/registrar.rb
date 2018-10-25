@@ -55,7 +55,7 @@ class Registrar < ActiveRecord::Base
     end
   end
 
-  def issue_prepayment_invoice(amount, description = nil)
+  def issue_prepayment_invoice(amount, description = nil, auto_generated: false)
     invoices.create!(
       due_date: (Time.zone.now.to_date + Setting.days_to_keep_invoices_active.days).end_of_day,
       payment_term: 'prepayment',
@@ -88,6 +88,7 @@ class Registrar < ActiveRecord::Base
       buyer_url: website,
       buyer_email: email,
       reference_no: reference_no,
+      auto_generated: auto_generated,
       invoice_items_attributes: [
         {
           description: 'prepayment',
