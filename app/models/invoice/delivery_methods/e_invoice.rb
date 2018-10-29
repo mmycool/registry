@@ -19,14 +19,20 @@ class Invoice
           e_invoice_invoice_items = []
 
           invoice.invoice_items.each do |invoice_item|
+            vat = if invoice.vat_rate
+                    EstonianEInvoice::VAT::VAT.new(rate: invoice.vat_rate,
+                                                   amount: invoice.vat_amount)
+                  else
+                    EstonianEInvoice::VAT::NoVAT.new
+                  end
+
             e_invoice_invoice_item = EstonianEInvoice::InvoiceItem.new.tap do |i|
               i.description = invoice_item.description
               i.price = invoice_item.price
               i.quantity = invoice_item.amount
               i.unit = invoice_item.unit
               i.subtotal = invoice_item.item_sum_without_vat
-              i.vat_rate = invoice.vat_rate
-              i.vat_amount = invoice.vat_amount
+              i.vat = vat
               i.total = invoice.total
             end
             e_invoice_invoice_items << e_invoice_invoice_item
