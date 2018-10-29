@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: https://github.com/internetee/estonian_e_invoice
-  revision: bd5a703f81415afb6c6410dbcc58bdcb480be81c
+  revision: c511700d2dc5dcc28314ba422973ea0d1047d167
   branch: master
   specs:
     estonian_e_invoice (0.1.0)
@@ -519,4 +519,4 @@ DEPENDENCIES
   whenever (= 0.9.4)
 
 BUNDLED WITH
-   1.16.6
+   1.17.0
