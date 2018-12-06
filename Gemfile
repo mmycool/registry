@@ -29,7 +29,7 @@ gem 'paper_trail',
 gem 'rails-settings-cached',     '0.4.1' # for settings
 
 # html-xml
-gem 'haml-rails', '0.9.0' # haml for views
+gem 'haml-rails'
 gem 'nokogiri'
 
 # style
