@@ -463,7 +463,7 @@ DEPENDENCIES
   epp (= 1.5.0)!
   epp-xml (= 1.1.0)!
   factory_bot_rails
-  figaro (= 1.1.1)
+  figaro
   grape
   haml-rails
   html2haml (= 2.1.0)

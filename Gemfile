@@ -14,7 +14,7 @@ gem 'rest-client'
 gem 'uglifier'
 
 # load env
-gem 'figaro', '1.1.1'
+gem 'figaro'
 
 # model related
 gem 'pg',                        '0.20'
