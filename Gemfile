@@ -19,7 +19,7 @@ gem 'uglifier'
 gem 'figaro', '1.1.1'
 
 # model related
-gem 'pg',                        '0.19.0'
+gem 'pg',                        '~> 0.20'
 gem 'ransack',                   '1.5.1' # for searching
 gem 'validates_email_format_of', '1.6.3' # validates email against RFC 2822 and RFC 3696
 
@@ -40,7 +40,7 @@ gem 'sass-rails',     '5.0.6'   # sass style
 
 # js
 
-gem 'coffee-rails',    '4.1.0'  # coffeescript support
+gem 'coffee-rails'
 gem 'jquery-rails',    '4.0.4'  # jquery
 gem 'selectize-rails', '0.12.1' # include selectize.js for select
 
