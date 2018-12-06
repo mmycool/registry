@@ -10,7 +10,7 @@ source 'https://rubygems.org'
 # core
 
 gem 'SyslogLogger', '2.0', require: 'syslog/logger'
-gem 'iso8601',      '0.8.6' # for dates and times
+gem 'iso8601'
 gem 'rails',        '4.2.11' # when update, all initializers eis_custom files needs check/update
 gem 'rest-client'
 gem 'uglifier'
@@ -40,7 +40,7 @@ gem 'sass-rails',     '5.0.6'   # sass style
 
 # js
 
-gem 'coffee-rails'
+gem 'coffee-rails',    '4.1.0'  # coffeescript support
 gem 'jquery-rails',    '4.0.4'  # jquery
 gem 'selectize-rails', '0.12.1' # include selectize.js for select
 
