@@ -50,8 +50,8 @@ gem 'select2-rails',    '3.5.9.3' # for autocomplete
 gem 'liquid',           '3.0.6'   # for email templates
 
 # rights
-gem 'cancancan', '1.11.0' # autharization
-gem 'devise',    '4.4.3'  # authenitcation
+gem 'cancancan'
+gem 'devise'
 
 gem 'grape'
 gem 'jbuilder', '2.2.16'  # json api
