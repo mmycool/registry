@@ -54,7 +54,7 @@ gem 'cancancan'
 gem 'devise'
 
 gem 'grape'
-gem 'jbuilder', '2.2.16'  # json api
+gem 'jbuilder'
 
 # registry specfic
 gem 'isikukood' # for EE-id validation
