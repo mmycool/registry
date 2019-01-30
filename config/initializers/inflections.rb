@@ -12,5 +12,6 @@
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'DNS'
+  inflect.acronym 'ID'
   inflect.irregular 'business_registry_cache', 'business_registry_caches'
 end
