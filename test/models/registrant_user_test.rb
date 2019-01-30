@@ -45,4 +45,32 @@ class RegistrantUserTest < ActiveSupport::TestCase
     user = RegistrantUser.new(username: 'John Doe')
     assert_equal 'Doe', user.last_name
   end
+
+  def test_finding_by_id_card_creates_new_user_upon_first_sign_in
+    assert_not_equal 'US-5555', @user.registrant_ident
+    id_card = IDCard.new
+    id_card.first_name = 'John'
+    id_card.last_name = 'Doe'
+    id_card.personal_code = '5555'
+    id_card.country_code = 'US'
+
+    assert_difference 'RegistrantUser.count' do
+      RegistrantUser.find_by_id_card(id_card)
+    end
+
+    user = RegistrantUser.last
+    assert_equal 'US-5555', user.registrant_ident
+    assert_equal 'John Doe', user.username
+  end
+
+  def test_finding_by_id_card_reuses_existing_user_upon_subsequent_id_card_sign_ins
+    @user.update!(registrant_ident: 'US-5555')
+    id_card = IDCard.new
+    id_card.personal_code = '5555'
+    id_card.country_code = 'US'
+
+    assert_no_difference 'RegistrantUser.count' do
+      RegistrantUser.find_by_id_card(id_card)
+    end
+  end
 end
