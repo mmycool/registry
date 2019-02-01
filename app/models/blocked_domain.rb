@@ -10,10 +10,6 @@ class BlockedDomain < ActiveRecord::Base
     def by_domain name
       where(name: name)
     end
-
-    def any_of_domains names
-      where(name: names)
-    end
   end
 
   def name= val
@@ -25,17 +21,10 @@ class BlockedDomain < ActiveRecord::Base
 
     wr = Whois::Record.find_or_initialize_by(name: name)
     wr.json = @json = generate_json # we need @json to bind to class
-    wr.body = generate_body
     wr.save
   end
 
   alias_method :update_whois_record, :generate_data
-
-
-  def generate_body
-    template = Rails.root.join("app/views/for_models/whois_other.erb".freeze)
-    ERB.new(template.read, nil, "-").result(binding)
-  end
 
   def generate_json
     h = HashWithIndifferentAccess.new

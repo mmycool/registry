@@ -671,7 +671,8 @@ CREATE TABLE public.contacts (
     ident_updated_at timestamp without time zone,
     upid integer,
     up_date timestamp without time zone,
-    uuid uuid DEFAULT public.gen_random_uuid() NOT NULL
+    uuid uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    disclosed_attributes character varying[] DEFAULT '{}'::character varying[] NOT NULL
 );
 
 
@@ -1048,7 +1049,7 @@ CREATE TABLE public.invoices (
     payment_term character varying,
     currency character varying NOT NULL,
     description character varying,
-    reference_no character varying,
+    reference_no character varying NOT NULL,
     vat_rate numeric(4,3),
     paid_at timestamp without time zone,
     seller_id integer,
@@ -2203,7 +2204,7 @@ CREATE TABLE public.registrars (
     website character varying,
     accounting_customer_code character varying NOT NULL,
     legacy_id integer,
-    reference_no character varying,
+    reference_no character varying NOT NULL,
     test_registrar boolean DEFAULT false,
     language character varying NOT NULL,
     vat_rate numeric(4,3),
@@ -2245,7 +2246,7 @@ CREATE TABLE public.reserved_domains (
     updator_str character varying,
     legacy_id integer,
     name character varying,
-    password character varying
+    password character varying NOT NULL
 );
 
 
@@ -4864,9 +4865,15 @@ INSERT INTO schema_migrations (version) VALUES ('20180825232819');
 
 INSERT INTO schema_migrations (version) VALUES ('20180826162821');
 
+INSERT INTO schema_migrations (version) VALUES ('20181001090536');
+
 INSERT INTO schema_migrations (version) VALUES ('20181002090319');
 
 INSERT INTO schema_migrations (version) VALUES ('20181023115645');
 
 INSERT INTO schema_migrations (version) VALUES ('20181023122522');
+
+INSERT INTO schema_migrations (version) VALUES ('20181108154921');
+
+INSERT INTO schema_migrations (version) VALUES ('20190102144032');
 

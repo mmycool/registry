@@ -4,6 +4,7 @@ class Contact < ActiveRecord::Base
   include UserEvents
   include Concerns::Contact::Transferable
   include Concerns::Contact::Identical
+  include Concerns::Contact::Disclosable
 
   belongs_to :original, class_name: self.name
   belongs_to :registrar, required: true
@@ -70,7 +71,11 @@ class Contact < ActiveRecord::Base
 
   ORG = 'org'
   PRIV = 'priv'
+
+  # For foreign private persons who has no national identification number
   BIRTHDAY = 'birthday'.freeze
+
+  # From old registry software ("Fred"). No new contact can be created with this status
   PASSPORT = 'passport'
 
   attr_accessor :deliver_emails

@@ -1,3 +1,5 @@
+require 'serializers/registrant_api/contact'
+
 module Api
   module V1
     module Registrant
@@ -19,7 +21,12 @@ module Api
           end
 
           @contacts = @contacts_pool.limit(limit).offset(offset)
-          render json: @contacts
+          serialized_contacts = @contacts.map do |item|
+            serializer = Serializers::RegistrantApi::Contact.new(item)
+            serializer.to_json
+          end
+
+          render json: serialized_contacts
         end
 
         def show
@@ -37,6 +44,23 @@ module Api
           contact.name = params[:name] if params[:name].present?
           contact.email = params[:email] if params[:email].present?
           contact.phone = params[:phone] if params[:phone].present?
+
+          # Needed to support passing empty array, which otherwise gets parsed to nil
+          # https://github.com/rails/rails/pull/13157
+          reparsed_request_json = ActiveSupport::JSON.decode(request.body.string)
+                                                     .with_indifferent_access
+          disclosed_attributes = reparsed_request_json[:disclosed_attributes]
+
+          if disclosed_attributes
+            if contact.org?
+              error_msg = "Legal person's data is visible by default and cannot be concealed." \
+                          ' Please remove this parameter.'
+              render json: { errors: [{ disclosed_attributes: [error_msg] }] }, status: :bad_request
+              return
+            end
+
+            contact.disclosed_attributes = disclosed_attributes
+          end
 
           if Setting.address_processing && params[:address]
             address = Contact::Address.new(params[:address][:street],
@@ -67,26 +91,8 @@ module Api
             contact.registrar.notify(action)
           end
 
-          render json: { id: contact.uuid,
-                         name: contact.name,
-                         code: contact.code,
-                         ident: {
-                           code: contact.ident,
-                           type: contact.ident_type,
-                           country_code: contact.ident_country_code,
-                         },
-                         email: contact.email,
-                         phone: contact.phone,
-                         fax: contact.fax,
-                         address: {
-                           street: contact.street,
-                           zip: contact.zip,
-                           city: contact.city,
-                           state: contact.state,
-                           country_code: contact.country_code,
-                         },
-                         auth_info: contact.auth_info,
-                         statuses: contact.statuses }
+          serializer = Serializers::RegistrantApi::Contact.new(contact)
+          render json: serializer.to_json
         end
 
         private

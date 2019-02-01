@@ -3,7 +3,7 @@ class WhoisRecord < ActiveRecord::Base
   belongs_to :domain
   belongs_to :registrar
 
-  validates :domain, :name, :body, :json, presence: true
+  validates :domain, :name, :json, presence: true
 
   before_validation :populate
   after_save :update_whois_server
@@ -33,7 +33,6 @@ class WhoisRecord < ActiveRecord::Base
 
     registrant = domain.registrant
 
-    @disclosed = []
     h[:disclaimer] = disclaimer_text if disclaimer_text.present?
     h[:name]       = domain.name
     h[:status]     = domain.statuses.map { |x| status_map[x] || x }
@@ -52,26 +51,19 @@ class WhoisRecord < ActiveRecord::Base
     end
 
     h[:email] = registrant.email
-    @disclosed << [:email, registrant.email]
     h[:registrant_changed]          = registrant.updated_at.try(:to_s, :iso8601)
+    h[:registrant_disclosed_attributes] = registrant.disclosed_attributes
 
     h[:admin_contacts] = []
-    domain.admin_contacts.each do |ac|
-      @disclosed << [:email, ac.email]
-      h[:admin_contacts] << {
-          name: ac.name,
-          email: ac.email,
-          changed: ac.updated_at.try(:to_s, :iso8601)
-      }
+
+    domain.admin_contacts.each do |contact|
+      h[:admin_contacts] << contact_json_hash(contact)
     end
+
     h[:tech_contacts] = []
-    domain.tech_contacts.each do |tc|
-      @disclosed << [:email, tc.email]
-      h[:tech_contacts] << {
-          name: tc.name,
-          email: tc.email,
-          changed: tc.updated_at.try(:to_s, :iso8601)
-      }
+
+    domain.tech_contacts.each do |contact|
+      h[:tech_contacts] << contact_json_hash(contact)
     end
 
     # update registar triggers when adding new attributes
@@ -88,27 +80,18 @@ class WhoisRecord < ActiveRecord::Base
     h[:dnssec_changed] = domain.dnskeys.pluck(:updated_at).max.try(:to_s, :iso8601) rescue nil
 
 
-    h[:disclosed] = @disclosed
     h
-  end
-
-  def generated_body
-    template_name = domain.discarded? ? 'whois_discarded.erb' : 'whois.erb'
-    template = Rails.root.join("app/views/for_models/#{template_name}".freeze)
-    ERB.new(template.read, nil, "-").result(binding)
   end
 
   def populate
     return if domain_id.blank?
     self.json = generated_json
-    self.body = generated_body
     self.name = json['name']
     self.registrar_id = domain.registrar_id if domain # for faster registrar updates
   end
 
   def update_whois_server
     wd = Whois::Record.find_or_initialize_by(name: name)
-    wd.body = body
     wd.json = json
     wd.save
   end
@@ -121,5 +104,14 @@ class WhoisRecord < ActiveRecord::Base
 
   def disclaimer_text
     Setting.registry_whois_disclaimer
+  end
+
+  def contact_json_hash(contact)
+    {
+      name: contact.name,
+      email: contact.email,
+      changed: contact.updated_at.try(:to_s, :iso8601),
+      disclosed_attributes: contact.disclosed_attributes,
+    }
   end
 end
