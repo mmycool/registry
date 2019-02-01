@@ -24,4 +24,16 @@ class DNS::DomainNameTest < ActiveSupport::TestCase
     assert domain_name.unavailable?
     assert_equal :zone_with_same_origin, domain_name.unavailability_reason
   end
+
+  def test_blocked
+    assert_equal 'blocked.test', blocked_domains(:one).name
+    assert DNS::DomainName.new('blocked.test').blocked?
+    assert_not DNS::DomainName.new('nonblocked .test').blocked?
+  end
+
+  def test_reserved
+    assert_equal 'reserved.test', reserved_domains(:one).name
+    assert DNS::DomainName.new('reserved.test').reserved?
+    assert_not DNS::DomainName.new('unreserved.test').reserved?
+  end
 end

@@ -1,21 +1,39 @@
 class Epp::DomainsController < EppController
-  before_action :find_domain, only: [:info, :renew, :update, :transfer, :delete]
-  before_action :find_password, only: [:info, :update, :transfer, :delete]
+  before_action :find_domain, only: %i[renew update transfer delete]
+  before_action :find_password, only: %i[update transfer delete]
+  skip_authorization_check only: :info
 
   def info
-    authorize! :info, @domain, @password
-    @hosts = params[:parsed_frame].css('name').first['hosts'] || 'all'
+    domain_name = DNS::DomainName.new(params[:parsed_frame].at_css('name').text.strip.downcase)
 
-    case @hosts
-    when 'del'
-      @nameservers = @domain.delegated_nameservers.sort
-    when 'sub'
-      @nameservers = @domain.subordinate_nameservers.sort
-    when 'all'
-      @nameservers = @domain.nameservers.sort
+    if domain_name.registered?
+      find_domain
+      find_password
+      authorize! :info, @domain, @password
+
+      @hosts = params[:parsed_frame].css('name').first['hosts'] || 'all'
+
+      case @hosts
+      when 'del'
+        @nameservers = @domain.delegated_nameservers.sort
+      when 'sub'
+        @nameservers = @domain.subordinate_nameservers.sort
+      when 'all'
+        @nameservers = @domain.nameservers.sort
+      end
+
+      render_epp_response '/epp/domains/info/registered_domain'
+    else
+      if domain_name.blocked?
+        @name = domain_name
+        @status = 'Blocked'
+        render_epp_response '/epp/domains/info/unregistered_domain'
+      elsif domain_name.reserved?
+        @name = domain_name
+        @status = 'Reserved'
+        render_epp_response '/epp/domains/info/unregistered_domain'
+      end
     end
-
-    render_epp_response '/epp/domains/info'
   end
 
   def create
