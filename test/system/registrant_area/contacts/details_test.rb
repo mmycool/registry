@@ -5,7 +5,6 @@ class RegistrantAreaContactDetailsTest < ApplicationSystemTestCase
     sign_in users(:registrant)
     @contact = contacts(:john)
 
-    Setting.days_to_keep_business_registry_cache = 1
     travel_to Time.zone.parse('2010-07-05')
   end
 

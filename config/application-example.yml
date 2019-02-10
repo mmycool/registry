@@ -89,6 +89,7 @@ arireg_username:
 arireg_password:
 arireg_wsdl:  'https://demo-ariregxml.rik.ee:447/testariport/?wsdl'
 arireg_host: 'http://demo-ariregxml.rik.ee:81/'
+arireg_cache_period_days: '2'
 
 # Mobile-ID and ID-card login
 # https://www.id.ee/?id=35760 General how-to

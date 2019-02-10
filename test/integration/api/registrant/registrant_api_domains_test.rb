@@ -5,8 +5,6 @@ class RegistrantApiDomainsTest < ApplicationIntegrationTest
   def setup
     super
 
-    @original_registry_time = Setting.days_to_keep_business_registry_cache
-    Setting.days_to_keep_business_registry_cache = 1
     travel_to Time.zone.parse('2010-07-05')
 
     @domain = domains(:hospital)
@@ -18,7 +16,6 @@ class RegistrantApiDomainsTest < ApplicationIntegrationTest
   def teardown
     super
 
-    Setting.days_to_keep_business_registry_cache = @original_registry_time
     travel_back
   end
 

@@ -6,18 +6,15 @@ class RegistrantApiV1ContactUpdateTest < ActionDispatch::IntegrationTest
     @contact = contacts(:john)
 
     @original_address_processing_setting = Setting.address_processing
-    @original_business_registry_cache_setting = Setting.days_to_keep_business_registry_cache
     @original_fax_enabled_setting = ENV['fax_enabled']
 
     @current_user = users(:registrant)
 
-    Setting.days_to_keep_business_registry_cache = 1
     travel_to Time.zone.parse('2010-07-05')
   end
 
   teardown do
     Setting.address_processing = @original_address_processing_setting
-    Setting.days_to_keep_business_registry_cache = @original_business_registry_cache_setting
     ENV['fax_enabled'] = @original_fax_enabled_setting
   end
 

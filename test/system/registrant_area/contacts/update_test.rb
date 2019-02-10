@@ -7,18 +7,15 @@ class RegistrantAreaContactUpdateTest < ApplicationIntegrationTest
     sign_in users(:registrant)
 
     @original_address_processing_setting = Setting.address_processing
-    @original_business_registry_cache_setting = Setting.days_to_keep_business_registry_cache
     @original_fax_enabled_setting = ENV['fax_enabled']
     @original_registrant_api_base_url_setting = ENV['registrant_api_base_url']
 
     ENV['registrant_api_base_url'] = 'https://api.test'
-    Setting.days_to_keep_business_registry_cache = 1
     travel_to Time.zone.parse('2010-07-05')
   end
 
   teardown do
     Setting.address_processing = @original_address_processing_setting
-    Setting.days_to_keep_business_registry_cache = @original_business_registry_cache_setting
     ENV['fax_enabled'] = @original_fax_enabled_setting
     ENV['registrant_api_base_url'] = @original_registrant_api_base_url_setting
   end
