@@ -205,6 +205,21 @@ class Domain < ActiveRecord::Base
     def nameserver_required?
       Setting.nameserver_required
     end
+
+    def find_by_registrant_user(registrant_user)
+      # In Rails 5, can be replaced with a much simpler `or` query method and the raw SQL parts can be
+      # removed.
+      # https://guides.rubyonrails.org/active_record_querying.html#or-conditions
+      domains_where_is_contact = joins(:domain_contacts)
+                                   .where(domain_contacts: { contact_id: registrant_user.contacts })
+
+      domains_where_is_registrant = where(registrant: registrant_user.contacts)
+
+      from(
+        "(#{domains_where_is_registrant.to_sql} UNION " \
+        "#{domains_where_is_contact.to_sql}) AS domains"
+      )
+    end
   end
 
   def name=(value)

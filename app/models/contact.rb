@@ -263,6 +263,11 @@ class Contact < ActiveRecord::Base
         state
       )
     end
+
+    def find_by_registrant_user(registrant_user)
+      where(ident_type: PRIV, ident: registrant_user.ident, ident_country_code: registrant_user
+                                                                                    .country_code)
+    end
   end
 
   def roid

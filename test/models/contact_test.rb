@@ -1,5 +1,26 @@
 require 'test_helper'
 
+class RegistrantUserDouble
+  def ident
+    '1234'
+  end
+
+  def country_code
+    'US'
+  end
+end
+
+class RegistrantUserDoubleTest < ActiveSupport::TestCase
+  def setup
+    @registrant_user = RegistrantUserDouble.new
+  end
+
+  def test_implements_registrant_user_interface
+    assert_respond_to @registrant_user, :ident
+    assert_respond_to @registrant_user, :country_code
+  end
+end
+
 class ContactTest < ActiveSupport::TestCase
   setup do
     @contact = contacts(:john)
@@ -7,6 +28,10 @@ class ContactTest < ActiveSupport::TestCase
 
   def test_valid_fixture
     assert @contact.valid?, proc { @contact.errors.full_messages }
+  end
+
+  def test_private_entity
+    assert_equal 'priv', Contact::PRIV
   end
 
   def test_invalid_without_email
@@ -47,5 +72,21 @@ class ContactTest < ActiveSupport::TestCase
     assert_equal 'new state', @contact.state
     assert_equal 'EE', @contact.country_code
     assert_equal address, @contact.address
+  end
+
+  def test_find_by_registrant_user_returns_associated_contacts
+    assert_equal Contact::PRIV, @contact.ident_type
+    assert_equal '1234', @contact.ident
+    assert_equal 'US', @contact.ident_country_code
+
+    assert_equal [@contact], Contact.find_by_registrant_user(RegistrantUserDouble.new)
+  end
+
+  def test_find_by_registrant_user_does_not_return_unassociated_contacts
+    @contact.update!(ident_type: Contact::ORG,
+                     ident: '1234',
+                     ident_country_code: 'US')
+
+    assert_empty Contact.find_by_registrant_user(RegistrantUserDouble.new)
   end
 end

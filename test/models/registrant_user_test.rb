@@ -11,24 +11,12 @@ class RegistrantUserTest < ActiveSupport::TestCase
     super
   end
 
-  def test_domains_returns_an_list_of_distinct_domains_associated_with_a_specific_id_code
-    domain_names = @user.domains.pluck(:name)
-    assert_equal(4, domain_names.length)
-
-    # User is a registrant, but not a contact for the domain. Should be included in the list.
-    assert(domain_names.include?('shop.test'))
-  end
-
   def test_administered_domains_returns_a_list_of_domains
     domain_names = @user.administered_domains.pluck(:name)
     assert_equal(3, domain_names.length)
 
     # User is a tech contact for the domain.
     refute(domain_names.include?('library.test'))
-  end
-
-  def test_contacts_returns_an_list_of_contacts_associated_with_a_specific_id_code
-    assert_equal(1, @user.contacts.count)
   end
 
   def test_ident_and_country_code_helper_methods
@@ -44,5 +32,17 @@ class RegistrantUserTest < ActiveSupport::TestCase
   def test_last_name_from_username
     user = RegistrantUser.new(username: 'John Doe')
     assert_equal 'Doe', user.last_name
+  end
+
+  def test_returns_contacts
+    Contact.stub(:find_by_registrant_user, %w(john jane)) do
+      assert_equal %w(john jane), @user.contacts
+    end
+  end
+
+  def test_returns_domains
+    Domain.stub(:find_by_registrant_user, %w(shop airport)) do
+      assert_equal %w(shop airport), @user.domains
+    end
   end
 end

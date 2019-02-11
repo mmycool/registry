@@ -17,25 +17,12 @@ class RegistrantUser < User
     registrant_ident.to_s.split('-').first
   end
 
-  # In Rails 5, can be replaced with a much simpler `or` query method and the raw SQL parts can be
-  # removed.
-  # https://guides.rubyonrails.org/active_record_querying.html#or-conditions
   def domains
-    domains_where_is_contact = begin
-      Domain.joins(:domain_contacts)
-            .where(domain_contacts: { contact_id: contacts })
-    end
-
-    domains_where_is_registrant = Domain.where(registrant_id: contacts)
-
-    Domain.from(
-      "(#{domains_where_is_registrant.to_sql} UNION " \
-      "#{domains_where_is_contact.to_sql}) AS domains"
-    )
+    Domain.find_by_registrant_user(self)
   end
 
   def contacts
-    Contact.where(ident_type: 'priv', ident: ident, ident_country_code: country_code)
+    Contact.find_by_registrant_user(self)
   end
 
   def administered_domains
