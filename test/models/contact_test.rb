@@ -21,6 +21,24 @@ class RegistrantUserDoubleTest < ActiveSupport::TestCase
   end
 end
 
+class CompanyRegisterClientDouble
+  Company = Struct.new(:registration_number)
+
+  def representation_rights(citizen_personal_code:, citizen_country_code:)
+    [Company.new(12345)]
+  end
+end
+
+class CompanyRegisterClientDoubleTest < ActiveSupport::TestCase
+  def setup
+    @client = CompanyRegister::Client.new
+  end
+
+  def test_implements_registrant_user_interface
+    assert_respond_to @client, :representation_rights
+  end
+end
+
 class ContactTest < ActiveSupport::TestCase
   setup do
     @contact = contacts(:john)
@@ -74,19 +92,33 @@ class ContactTest < ActiveSupport::TestCase
     assert_equal address, @contact.address
   end
 
-  def test_find_by_registrant_user_returns_associated_contacts
+  def test_find_by_registrant_user_returns_direct_contacts
     assert_equal Contact::PRIV, @contact.ident_type
     assert_equal '1234', @contact.ident
     assert_equal 'US', @contact.ident_country_code
 
-    assert_equal [@contact], Contact.find_by_registrant_user(RegistrantUserDouble.new)
+    CompanyRegister::Client.stub(:new, CompanyRegisterClientDouble.new) do
+      assert_equal [@contact], Contact.find_by_registrant_user(RegistrantUserDouble.new)
+    end
+  end
+
+  def test_find_by_registrant_user_returns_indirect_contacts
+    @contact.update!(ident_type: Contact::ORG,
+                     ident: '12345',
+                     ident_country_code: 'US')
+
+    CompanyRegister::Client.stub(:new, CompanyRegisterClientDouble.new) do
+      assert_equal [@contact], Contact.find_by_registrant_user(RegistrantUserDouble.new)
+    end
   end
 
   def test_find_by_registrant_user_does_not_return_unassociated_contacts
-    @contact.update!(ident_type: Contact::ORG,
-                     ident: '1234',
+    @contact.update!(ident_type: Contact::PRIV,
+                     ident: '123',
                      ident_country_code: 'US')
 
-    assert_empty Contact.find_by_registrant_user(RegistrantUserDouble.new)
+    CompanyRegister::Client.stub(:new, CompanyRegisterClientDouble.new) do
+      assert_empty Contact.find_by_registrant_user(RegistrantUserDouble.new)
+    end
   end
 end

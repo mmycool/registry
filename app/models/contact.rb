@@ -265,8 +265,24 @@ class Contact < ActiveRecord::Base
     end
 
     def find_by_registrant_user(registrant_user)
+      from("(#{direct_contacts(registrant_user).to_sql} UNION " \
+        "#{indirect_contacts(registrant_user).to_sql}) AS contacts")
+    end
+
+    private
+
+    def direct_contacts(registrant_user)
       where(ident_type: PRIV, ident: registrant_user.ident, ident_country_code: registrant_user
                                                                                     .country_code)
+    end
+
+    def indirect_contacts(registrant_user)
+      client = CompanyRegister::Client.new
+      companies = client.representation_rights(citizen_personal_code: registrant_user.ident,
+                                               citizen_country_code: registrant_user.country_code)
+      where(ident_type: ORG,
+            ident: companies.collect { |company| company.registration_number },
+            ident_country_code: registrant_user.country_code)
     end
   end
 
