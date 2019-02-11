@@ -87,8 +87,8 @@ repp_url: 'https://repp.gitlab.eu/repp/v1/'
 # https://www.rik.ee/en/e-business-registry/xml-service
 company_register_username:
 company_register_password:
-company_register_wsdl:  'https://demo-ariregxml.rik.ee:447/testariport/?wsdl'
-company_register_host: 'http://demo-ariregxml.rik.ee:81/'
+company_register_wsdl: 'https://demo-ariregxmlv6.rik.ee/?wsdl'
+company_register_host: 'https://demo-ariregxmlv6.rik.ee/'
 company_register_cache_period_days: '2'
 
 # Mobile-ID and ID-card login
