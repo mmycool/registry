@@ -18,7 +18,7 @@ module Api
                    status: :bad_request) && return
           end
 
-          @domains = associated_domains(current_registrant_user).limit(limit).offset(offset)
+          @domains = current_registrant_user.domains.limit(limit).offset(offset)
 
           serialized_domains = @domains.map do |item|
             serializer = Serializers::RegistrantApi::Domain.new(item)
@@ -29,8 +29,7 @@ module Api
         end
 
         def show
-          domain_pool = associated_domains(current_registrant_user)
-          @domain = domain_pool.find_by(uuid: params[:uuid])
+          @domain = current_registrant_user.domains.find_by(uuid: params[:uuid])
 
           if @domain
             serializer = Serializers::RegistrantApi::Domain.new(@domain)

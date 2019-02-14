@@ -98,21 +98,7 @@ module Api
         private
 
         def set_contacts_pool
-          country_code, ident = current_registrant_user.registrant_ident.to_s.split '-'
-          associated_domain_ids = begin
-            BusinessRegistryCache.fetch_by_ident_and_cc(ident, country_code).associated_domain_ids
-          end
-
-          available_contacts_ids = begin
-            DomainContact.where(domain_id: associated_domain_ids).pluck(:contact_id) |
-              Domain.where(id: associated_domain_ids).pluck(:registrant_id)
-          end
-
-          @contacts_pool = Contact.where(id: available_contacts_ids)
-        rescue Soap::Arireg::NotAvailableError => error
-          Rails.logger.fatal("[EXCEPTION] #{error}")
-          render json: { errors: [{ base: ['Business Registry not available'] }] },
-                 status: :service_unavailable and return
+          @contacts_pool = current_registrant_user.contacts
         end
       end
     end

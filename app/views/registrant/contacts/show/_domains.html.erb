@@ -1,5 +1,5 @@
 <% domains = contact.all_domains(page: params[:domain_page], per: 20, params:
-    params.merge(leave_domains: domain_ids)) %>
+    params.merge(leave_domains: current_registrant_user.domains.ids)) %>
 
 <div class="panel panel-default">
     <div class="panel-heading">
