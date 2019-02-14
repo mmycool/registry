@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/internetee/company_register.git
-  revision: 61be1000c677a939a9ef222834673fd1ba232c3d
+  revision: 0233794f6c65dacd57bb3ecfe0e9745f56740fba
   branch: master
   specs:
     company_register (0.1.0)
